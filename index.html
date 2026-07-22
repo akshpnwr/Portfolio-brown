@@ -63,6 +63,23 @@
             }
           }
 
+          /* ── reduced motion ────────────────────────────────
+             JS gates the reveal, parallax and particle systems;
+             this is the CSS safety net for every remaining
+             transition/animation (hover lifts, accordion, etc.).
+             Near-zero (not 0s) so state still settles instantly
+             without tripping transitionend-dependent logic. */
+          @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+              animation-duration: 0.001ms !important;
+              animation-iteration-count: 1 !important;
+              transition-duration: 0.001ms !important;
+              scroll-behavior: auto !important;
+            }
+          }
+
           /* ── responsive ─────────────────────────────────── */
           .nav-toggle {
             display: none;
@@ -622,6 +639,10 @@
                   onClick="{{ navClick }}"
                   onMouseOver="{{ liftIn }}"
                   onMouseOut="{{ liftOut }}"
+                  onMouseDown="{{ ctaPressIn }}"
+                  onMouseUp="{{ ctaPressOut }}"
+                  ontouchstart="{{ ctaPressIn }}"
+                  ontouchend="{{ ctaPressOut }}"
                   style="
                     display: inline-flex;
                     align-items: center;
@@ -647,6 +668,10 @@
                   onClick="{{ navClick }}"
                   onMouseOver="{{ liftIn }}"
                   onMouseOut="{{ liftOut }}"
+                  onMouseDown="{{ ctaPressIn }}"
+                  onMouseUp="{{ ctaPressOut }}"
+                  ontouchstart="{{ ctaPressIn }}"
+                  ontouchend="{{ ctaPressOut }}"
                   style="
                     display: inline-flex;
                     align-items: center;
@@ -5192,6 +5217,29 @@
             inputBlur: (e) => { e.currentTarget.style.borderColor = 'rgba(107,79,59,0.1)'; e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(74,54,40,0.08)'; },
             pressIn: (e) => { e.currentTarget.style.transform = 'translateY(2px)'; e.currentTarget.style.boxShadow = '0 3px 10px rgba(42,42,42,0.2)'; },
             pressOut: (e) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 8px 22px rgba(42,42,42,0.2)'; },
+            // Press feedback for the hero CTAs. A quick scale-down reads as
+            // "pushed in". On mouse it composes with the hover-lift
+            // (liftIn/liftOut own translateY(-2px)); on touch there is no
+            // hover, so the resting state is flat. Skipped under reduced
+            // motion. 140ms is faster than the button's default 0.3s so the
+            // tap feels immediate.
+            ctaPressIn: (e) => {
+              if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+              const el = e.currentTarget;
+              const touch = e.type === 'touchstart';
+              el.style.transition = 'transform 140ms cubic-bezier(.2,.8,.2,1), box-shadow 140ms cubic-bezier(.2,.8,.2,1)';
+              el.style.transform = (touch ? '' : 'translateY(-2px) ') + 'scale(0.97)';
+            },
+            ctaPressOut: (e) => {
+              if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+              const el = e.currentTarget;
+              const touch = e.type === 'touchend' || e.type === 'touchcancel';
+              // Touch has no hover to hold a lift → return flat. Mouse-up while
+              // still hovered → restore the hover-lifted resting state.
+              el.style.transform = touch ? '' : 'translateY(-2px)';
+              // Let the element's own longer transition resume for hover lift/out.
+              el.style.transition = '';
+            },
             submitForm: async (e) => {
               e.preventDefault();
               const form = e.currentTarget;
@@ -5230,6 +5278,8 @@
         componentDidMount() {
           this._raf = null;
           this._observers = [];
+          const rmq = window.matchMedia('(prefers-reduced-motion: reduce)');
+          this._reduce = rmq.matches;
           this.setupReveal();
           this.setupParticles();
           this.setupNav();
@@ -5247,18 +5297,24 @@
 
         setupReveal() {
           const els = Array.from(document.querySelectorAll('[data-reveal]'));
+          const reduce = this._reduce;
           els.forEach((el, i) => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1)';
+            // Reduced motion: fade only, no vertical slide or stagger.
+            if (!reduce) el.style.transform = 'translateY(30px)';
+            el.style.transition = reduce
+              ? 'opacity .4s ease'
+              : 'opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1)';
           });
           const io = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
               if (entry.isIntersecting) {
                 const el = entry.target;
-                const sibs = Array.from(el.parentElement ? el.parentElement.querySelectorAll(':scope > [data-reveal]') : [el]);
-                const idx = Math.max(0, sibs.indexOf(el));
-                el.style.transitionDelay = (idx * 0.08) + 's';
+                if (!reduce) {
+                  const sibs = Array.from(el.parentElement ? el.parentElement.querySelectorAll(':scope > [data-reveal]') : [el]);
+                  const idx = Math.max(0, sibs.indexOf(el));
+                  el.style.transitionDelay = (idx * 0.08) + 's';
+                }
                 el.style.opacity = '1';
                 el.style.transform = 'none';
                 io.unobserve(el);
@@ -5292,23 +5348,31 @@
           const header = document.getElementById('siteHeader');
           const portrait = document.getElementById('heroPortrait');
           const grain = document.getElementById('heroGrain');
+          const reduce = this._reduce;
           let ticking = false;
           this._onScroll = () => {
             if (ticking) return;
             ticking = true;
             this._raf = requestAnimationFrame(() => {
               const y = window.scrollY;
+              // Header condense is a legibility change, not decorative motion —
+              // keep it even under reduced motion.
               if (header) {
                 if (y > 24) { header.style.padding = '11px 0'; header.style.background = 'rgba(250,249,246,0.9)'; header.style.borderColor = 'rgba(107,79,59,0.14)'; }
                 else { header.style.padding = '18px 0'; header.style.background = 'rgba(250,249,246,0.72)'; header.style.borderColor = 'rgba(107,79,59,0.08)'; }
               }
-              if (portrait && y < window.innerHeight) portrait.style.transform = 'translateY(' + (y * -0.05) + 'px)';
-              if (grain && y < window.innerHeight) grain.style.transform = 'translateY(' + (y * 0.12) + 'px)';
+              // Parallax drift is decorative — skip under reduced motion.
+              if (!reduce) {
+                if (portrait && y < window.innerHeight) portrait.style.transform = 'translateY(' + (y * -0.05) + 'px)';
+                if (grain && y < window.innerHeight) grain.style.transform = 'translateY(' + (y * 0.12) + 'px)';
+              }
               ticking = false;
             });
           };
           window.addEventListener('scroll', this._onScroll, { passive: true });
 
+          // Cursor-tracking glow is decorative motion — skip under reduced motion.
+          if (reduce) return;
           const hero = document.getElementById('top');
           const glow = document.getElementById('heroGlow');
           if (hero && glow) {
@@ -5324,6 +5388,8 @@
         }
 
         setupParticles() {
+          // Continuous ambient motion — skip entirely under reduced motion.
+          if (this._reduce) return;
           const canvas = document.getElementById('dust');
           if (!canvas) return;
           const ctx = canvas.getContext('2d');
