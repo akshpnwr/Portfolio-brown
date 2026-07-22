@@ -18,8 +18,11 @@
   <rect x="1" y="1" width="62" height="62" rx="13" fill="none"
         stroke="#B08D57" stroke-opacity="0.28" stroke-width="1.4" />
 
-  <!-- gold serif monogram -->
-  <text x="32" y="46" text-anchor="middle"
-        font-family="'Instrument Serif', Georgia, 'Times New Roman', serif"
-        font-size="42" fill="#B08D57">A</text>
+  <!-- </> code mark, matching the site's line-icon style -->
+  <g fill="none" stroke="#C79A5E" stroke-width="4"
+     stroke-linecap="round" stroke-linejoin="round">
+    <path d="M24 21 L14 32 L24 43" />
+    <path d="M40 21 L50 32 L40 43" />
+    <path d="M35 18 L29 46" />
+  </g>
 </svg>
