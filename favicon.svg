@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="tile" x1="0.12" y1="0" x2="0.88" y2="1">
+      <stop offset="0" stop-color="#6B4F3B" />
+      <stop offset="1" stop-color="#4a3628" />
+    </linearGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.16" />
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- brown-gradient tile, matching the header logo -->
+  <rect width="64" height="64" rx="14" fill="url(#tile)" />
+  <!-- soft top sheen (echoes the logo's inset highlight) -->
+  <rect width="64" height="64" rx="14" fill="url(#sheen)" />
+  <!-- faint gold inner hairline for definition on light tabs -->
+  <rect x="1" y="1" width="62" height="62" rx="13" fill="none"
+        stroke="#B08D57" stroke-opacity="0.28" stroke-width="1.4" />
+
+  <!-- gold serif monogram -->
+  <text x="32" y="46" text-anchor="middle"
+        font-family="'Instrument Serif', Georgia, 'Times New Roman', serif"
+        font-size="42" fill="#B08D57">A</text>
+</svg>

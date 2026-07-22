@@ -1,0 +1,4944 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap"
+          rel="stylesheet"
+        />
+        <style>
+          * {
+            box-sizing: border-box;
+          }
+          html,
+          body {
+            margin: 0;
+            padding: 0;
+          }
+          body {
+            font-family: 'IBM Plex Sans', system-ui, sans-serif;
+            background: #faf9f6;
+            color: #2a2a2a;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+          }
+          ::selection {
+            background: rgba(107, 79, 59, 0.18);
+            color: #2a2a2a;
+          }
+          a {
+            color: #6b4f3b;
+            text-decoration: none;
+          }
+          a:hover {
+            color: #5f6f52;
+          }
+          input,
+          textarea,
+          button {
+            font-family: inherit;
+          }
+          @keyframes floatDot {
+            from {
+              transform: translateY(0);
+            }
+            to {
+              transform: translateY(-14px);
+            }
+          }
+        </style>
+        <script src="./image-slot.js"></script>
+      </helmet>
+
+      <div style="position: relative; overflow-x: hidden; background: #faf9f6">
+        <header
+          id="siteHeader"
+          style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px clamp(24px, 5vw, 64px);
+            background: rgba(250, 249, 246, 0.72);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(107, 79, 59, 0.08);
+            transition:
+              padding 0.4s ease,
+              background 0.4s ease,
+              border-color 0.4s ease;
+          "
+        >
+          <a
+            href="#top"
+            data-target="top"
+            onClick="{{ navClick }}"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              font-family: 'Instrument Serif', serif;
+              font-size: 23px;
+              color: #2a2a2a;
+              letter-spacing: 0.01em;
+            "
+          >
+            <span
+              style="
+                width: 26px;
+                height: 26px;
+                border-radius: 8px;
+                background: linear-gradient(140deg, #6b4f3b, #4a3628);
+                box-shadow:
+                  inset 0 1px 1px rgba(255, 255, 255, 0.25),
+                  0 2px 6px rgba(74, 54, 40, 0.25);
+                display: inline-block;
+              "
+            ></span>
+            Akash Panwar
+          </a>
+          <nav
+            style="
+              display: flex;
+              align-items: center;
+              gap: clamp(14px, 2.4vw, 34px);
+            "
+          >
+            <a
+              href="#work"
+              data-target="work"
+              data-nav
+              onClick="{{ navClick }}"
+              style="
+                font-size: 14px;
+                letter-spacing: 0.02em;
+                color: #5a544c;
+                text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+                transition:
+                  color 0.3s ease,
+                  opacity 0.3s ease;
+              "
+              >Work</a
+            >
+            <a
+              href="#about"
+              data-target="about"
+              data-nav
+              onClick="{{ navClick }}"
+              style="
+                font-size: 14px;
+                letter-spacing: 0.02em;
+                color: #5a544c;
+                text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+                transition:
+                  color 0.3s ease,
+                  opacity 0.3s ease;
+              "
+              >About</a
+            >
+            <a
+              href="#skills"
+              data-target="skills"
+              data-nav
+              onClick="{{ navClick }}"
+              style="
+                font-size: 14px;
+                letter-spacing: 0.02em;
+                color: #5a544c;
+                text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+                transition:
+                  color 0.3s ease,
+                  opacity 0.3s ease;
+              "
+              >Skills</a
+            >
+            <a
+              href="#process"
+              data-target="process"
+              data-nav
+              onClick="{{ navClick }}"
+              style="
+                font-size: 14px;
+                letter-spacing: 0.02em;
+                color: #5a544c;
+                text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+                transition:
+                  color 0.3s ease,
+                  opacity 0.3s ease;
+              "
+              >Process</a
+            >
+            <a
+              href="#experience"
+              data-target="experience"
+              data-nav
+              onClick="{{ navClick }}"
+              style="
+                font-size: 14px;
+                letter-spacing: 0.02em;
+                color: #5a544c;
+                text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+                transition:
+                  color 0.3s ease,
+                  opacity 0.3s ease;
+              "
+              >Journey</a
+            >
+            <a
+              href="#contact"
+              data-target="contact"
+              onClick="{{ navClick }}"
+              style="
+                font-size: 14px;
+                letter-spacing: 0.02em;
+                color: #faf9f6;
+                background: #2a2a2a;
+                padding: 9px 18px;
+                border-radius: 12px;
+                box-shadow: 0 4px 14px rgba(42, 42, 42, 0.16);
+                transition:
+                  transform 0.3s ease,
+                  box-shadow 0.3s ease;
+              "
+              onMouseOver="{{ liftIn }}"
+              onMouseOut="{{ liftOut }}"
+              >Contact</a
+            >
+          </nav>
+        </header>
+
+        <!-- HERO -->
+        <section
+          id="top"
+          style="
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 140px clamp(24px, 5vw, 64px) 90px;
+            overflow: hidden;
+          "
+        >
+          <div
+            id="heroGrain"
+            style="
+              position: absolute;
+              inset: 0;
+              background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E&quot;);
+              opacity: 0.05;
+              mix-blend-mode: multiply;
+              pointer-events: none;
+            "
+          ></div>
+          <div
+            style="
+              position: absolute;
+              top: -10%;
+              left: -5%;
+              width: 60%;
+              height: 70%;
+              background: radial-gradient(
+                closest-side,
+                rgba(176, 141, 87, 0.16),
+                rgba(176, 141, 87, 0)
+              );
+              pointer-events: none;
+            "
+          ></div>
+          <div
+            id="heroGlow"
+            style="
+              position: absolute;
+              width: 520px;
+              height: 520px;
+              left: 0;
+              top: 0;
+              transform: translate(-50%, -50%);
+              background: radial-gradient(
+                closest-side,
+                rgba(176, 141, 87, 0.14),
+                rgba(176, 141, 87, 0)
+              );
+              pointer-events: none;
+              opacity: 0;
+              transition: opacity 0.6s ease;
+            "
+          ></div>
+          <canvas
+            id="dust"
+            style="
+              position: absolute;
+              inset: 0;
+              width: 100%;
+              height: 100%;
+              pointer-events: none;
+            "
+          ></canvas>
+
+          <div
+            style="
+              position: relative;
+              width: 100%;
+              max-width: 1240px;
+              margin: 0 auto;
+              display: grid;
+              grid-template-columns: 1.15fr 0.85fr;
+              gap: clamp(32px, 6vw, 88px);
+              align-items: center;
+            "
+          >
+            <div>
+              <div
+                data-reveal
+                style="
+                  display: inline-flex;
+                  align-items: center;
+                  gap: 10px;
+                  padding: 7px 14px;
+                  border: 1px solid rgba(107, 79, 59, 0.18);
+                  border-radius: 100px;
+                  background: rgba(250, 249, 246, 0.6);
+                  margin-bottom: 30px;
+                "
+              >
+                <span
+                  style="
+                    width: 7px;
+                    height: 7px;
+                    border-radius: 50%;
+                    background: #5f6f52;
+                    box-shadow: 0 0 0 3px rgba(95, 111, 82, 0.15);
+                  "
+                ></span>
+                <span
+                  style="
+                    font-size: 12.5px;
+                    letter-spacing: 0.16em;
+                    text-transform: uppercase;
+                    color: #6b4f3b;
+                  "
+                  >Fullstack Developer · Founding Engineer</span
+                >
+              </div>
+              <h1
+                data-reveal
+                style="
+                  font-family: 'Instrument Serif', serif;
+                  font-weight: 400;
+                  font-size: clamp(52px, 8vw, 104px);
+                  line-height: 0.98;
+                  letter-spacing: -0.01em;
+                  margin: 0 0 26px;
+                  color: #2a2a2a;
+                "
+              >
+                I build thoughtful<br />digital products,<br /><span
+                  style="font-style: italic; color: #6b4f3b"
+                  >end&nbsp;to&nbsp;end.</span
+                >
+              </h1>
+              <p
+                data-reveal
+                style="
+                  font-size: clamp(17px, 1.5vw, 20px);
+                  line-height: 1.7;
+                  color: #544e46;
+                  max-width: 520px;
+                  margin: 0 0 20px;
+                  font-weight: 300;
+                "
+              >
+                Hi, I'm Akash Panwar — a fullstack developer and founding
+                engineer building end-to-end web applications: multi-tenant
+                SaaS, commerce storefronts, and the quiet tooling in between.
+                React, Node, TypeScript and MongoDB, thoughtfully assembled.
+              </p>
+              <p
+                data-reveal
+                style="
+                  font-size: 15px;
+                  line-height: 1.7;
+                  color: #7a7268;
+                  max-width: 480px;
+                  margin: 0 0 40px;
+                  font-weight: 300;
+                "
+              >
+                Data models, APIs, and the interfaces that sit on top — built
+                for founders and small teams who care about the details most
+                people meet three months in.
+              </p>
+              <div
+                data-reveal
+                style="display: flex; flex-wrap: wrap; gap: 14px"
+              >
+                <a
+                  href="#work"
+                  data-target="work"
+                  onClick="{{ navClick }}"
+                  onMouseOver="{{ liftIn }}"
+                  onMouseOut="{{ liftOut }}"
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+                    background: #2a2a2a;
+                    color: #faf9f6;
+                    padding: 15px 26px;
+                    border-radius: 14px;
+                    font-size: 15px;
+                    letter-spacing: 0.01em;
+                    box-shadow: 0 8px 22px rgba(42, 42, 42, 0.18);
+                    transition:
+                      transform 0.3s ease,
+                      box-shadow 0.3s ease;
+                  "
+                >
+                  View selected work
+                  <span style="font-size: 17px">→</span>
+                </a>
+                <a
+                  href="#contact"
+                  data-target="contact"
+                  onClick="{{ navClick }}"
+                  onMouseOver="{{ liftIn }}"
+                  onMouseOut="{{ liftOut }}"
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+                    background: transparent;
+                    color: #2a2a2a;
+                    padding: 15px 26px;
+                    border-radius: 14px;
+                    font-size: 15px;
+                    letter-spacing: 0.01em;
+                    border: 1px solid rgba(107, 79, 59, 0.28);
+                    transition:
+                      transform 0.3s ease,
+                      box-shadow 0.3s ease,
+                      background 0.3s ease;
+                  "
+                >
+                  Get in touch
+                </a>
+              </div>
+            </div>
+
+            <div data-reveal style="position: relative">
+              <div
+                id="heroPortrait"
+                style="
+                  position: relative;
+                  padding: 14px;
+                  border-radius: 26px;
+                  background: linear-gradient(150deg, #7a5c44, #4a3628);
+                  box-shadow:
+                    0 30px 70px rgba(74, 54, 40, 0.32),
+                    inset 0 1px 2px rgba(255, 255, 255, 0.22);
+                  will-change: transform;
+                "
+              >
+                <div
+                  style="
+                    border-radius: 16px;
+                    overflow: hidden;
+                    aspect-ratio: 4/5;
+                    background: #e8e1d8;
+                  "
+                >
+                  <image-slot
+                    id="portrait"
+                    src="uploads/akash-avatar.png"
+                    shape="rounded"
+                    radius="16"
+                    placeholder="Akash Panwar"
+                  ></image-slot>
+                </div>
+                <div
+                  style="
+                    position: absolute;
+                    left: 50%;
+                    bottom: -1px;
+                    transform: translateX(-50%);
+                    width: 44%;
+                    height: 5px;
+                    border-radius: 0 0 6px 6px;
+                    background: linear-gradient(
+                      90deg,
+                      rgba(176, 141, 87, 0),
+                      rgba(176, 141, 87, 0.7),
+                      rgba(176, 141, 87, 0)
+                    );
+                  "
+                ></div>
+              </div>
+              <div
+                style="
+                  position: absolute;
+                  -bottom: 22px;
+                  bottom: -22px;
+                  left: -22px;
+                  background: #faf9f6;
+                  border: 1px solid rgba(107, 79, 59, 0.14);
+                  border-radius: 16px;
+                  padding: 14px 18px;
+                  box-shadow: 0 14px 30px rgba(74, 54, 40, 0.12);
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-size: 30px;
+                    line-height: 1;
+                    color: #2a2a2a;
+                  "
+                >
+                  2+ yrs
+                </div>
+                <div
+                  style="
+                    font-size: 12px;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                    color: #8a8177;
+                    margin-top: 4px;
+                  "
+                >
+                  building products
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            style="
+              position: absolute;
+              bottom: 30px;
+              left: 50%;
+              transform: translateX(-50%);
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              gap: 8px;
+              color: #a59c8f;
+            "
+          >
+            <span
+              style="
+                font-size: 11px;
+                letter-spacing: 0.22em;
+                text-transform: uppercase;
+              "
+              >Scroll</span
+            >
+            <span
+              style="
+                width: 1px;
+                height: 34px;
+                background: linear-gradient(#a59c8f, rgba(165, 156, 143, 0));
+              "
+            ></span>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section
+          id="about"
+          style="
+            position: relative;
+            padding: clamp(90px, 12vw, 160px) clamp(24px, 5vw, 64px);
+          "
+        >
+          <div
+            style="
+              max-width: 1160px;
+              margin: 0 auto;
+              display: grid;
+              grid-template-columns: 0.9fr 1.1fr;
+              gap: clamp(40px, 7vw, 96px);
+              align-items: start;
+            "
+          >
+            <div data-reveal style="position: sticky; top: 120px">
+              <div
+                style="
+                  font-size: 12.5px;
+                  letter-spacing: 0.18em;
+                  text-transform: uppercase;
+                  color: #5f6f52;
+                  margin-bottom: 18px;
+                "
+              >
+                01 — About
+              </div>
+              <h2
+                style="
+                  font-family: 'Instrument Serif', serif;
+                  font-weight: 400;
+                  font-size: clamp(38px, 5vw, 60px);
+                  line-height: 1.04;
+                  letter-spacing: -0.01em;
+                  margin: 0;
+                  color: #2a2a2a;
+                "
+              >
+                A quiet obsession with getting the details right.
+              </h2>
+            </div>
+            <div data-reveal>
+              <p
+                style="
+                  font-size: 19px;
+                  line-height: 1.75;
+                  color: #3f3a33;
+                  margin: 0 0 24px;
+                  font-weight: 300;
+                "
+              >
+                I treat a codebase like a garden — pruned with intention,
+                planted for the season after this one, never crowded with
+                shrubbery I won't tend to. As founding engineer at TalentGPT I
+                own a multi-tenant hiring platform end to end, from the MongoDB
+                schema up to the React interface recruiters live in.
+              </p>
+              <p
+                style="
+                  font-size: 17px;
+                  line-height: 1.8;
+                  color: #544e46;
+                  margin: 0 0 24px;
+                  font-weight: 300;
+                "
+              >
+                My path runs from a frontend internship at Closetnerds, through
+                an IBM-mentored machine-learning project at Phemesoft, to
+                building production SaaS today. I picked up a Master of Computer
+                Applications from UPES Dehradun (CGPA 8.7) along the way.
+              </p>
+              <p
+                style="
+                  font-size: 17px;
+                  line-height: 1.8;
+                  color: #544e46;
+                  margin: 0 0 40px;
+                  font-weight: 300;
+                "
+              >
+                I write in JavaScript and TypeScript by default, reach for Node,
+                Express, and MongoDB on the backend, and have shipped a fair few
+                Shopify storefronts in Liquid when the brief called for
+                commerce.
+              </p>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(3, 1fr);
+                  gap: 22px;
+                  padding-top: 34px;
+                  border-top: 1px solid rgba(107, 79, 59, 0.14);
+                "
+              >
+                <div>
+                  <div
+                    style="
+                      font-family: 'Instrument Serif', serif;
+                      font-size: 40px;
+                      color: #6b4f3b;
+                      line-height: 1;
+                    "
+                  >
+                    12+
+                  </div>
+                  <div
+                    style="
+                      font-size: 13px;
+                      color: #8a8177;
+                      margin-top: 8px;
+                      line-height: 1.5;
+                    "
+                  >
+                    projects shipped
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-family: 'Instrument Serif', serif;
+                      font-size: 40px;
+                      color: #6b4f3b;
+                      line-height: 1;
+                    "
+                  >
+                    8.7
+                  </div>
+                  <div
+                    style="
+                      font-size: 13px;
+                      color: #8a8177;
+                      margin-top: 8px;
+                      line-height: 1.5;
+                    "
+                  >
+                    MCA CGPA
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-family: 'Instrument Serif', serif;
+                      font-size: 40px;
+                      color: #6b4f3b;
+                      line-height: 1;
+                    "
+                  >
+                    100%
+                  </div>
+                  <div
+                    style="
+                      font-size: 13px;
+                      color: #8a8177;
+                      margin-top: 8px;
+                      line-height: 1.5;
+                    "
+                  >
+                    end-to-end ownership
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- WORK / PROJECTS -->
+        <section
+          id="work"
+          style="
+            position: relative;
+            padding: clamp(70px, 9vw, 120px) clamp(24px, 5vw, 64px);
+            background: #f2eee8;
+          "
+        >
+          <div style="max-width: 1200px; margin: 0 auto">
+            <div
+              data-reveal
+              style="
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                gap: 24px;
+                flex-wrap: wrap;
+                margin-bottom: clamp(48px, 6vw, 80px);
+              "
+            >
+              <div>
+                <div
+                  style="
+                    font-size: 12.5px;
+                    letter-spacing: 0.18em;
+                    text-transform: uppercase;
+                    color: #5f6f52;
+                    margin-bottom: 18px;
+                  "
+                >
+                  02 — Selected Work
+                </div>
+                <h2
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-weight: 400;
+                    font-size: clamp(38px, 5.5vw, 68px);
+                    line-height: 1.02;
+                    letter-spacing: -0.01em;
+                    margin: 0;
+                    color: #2a2a2a;
+                  "
+                >
+                  Things I've built<br />and kept alive.
+                </h2>
+              </div>
+              <p
+                style="
+                  font-size: 16px;
+                  line-height: 1.7;
+                  color: #6f685e;
+                  max-width: 340px;
+                  font-weight: 300;
+                  margin: 0;
+                "
+              >
+                A handful of recent partnerships. Each one designed, built,
+                deployed, and maintained by me.
+              </p>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: clamp(40px, 6vw, 88px);
+              "
+            >
+              <!-- Project 1: TalentGPT (image left) -->
+              <article
+                data-project
+                data-reveal
+                onMouseOver="{{ cardIn }}"
+                onMouseOut="{{ cardOut }}"
+                style="
+                  display: grid;
+                  grid-template-columns: 1.05fr 0.95fr;
+                  gap: clamp(28px, 4vw, 56px);
+                  align-items: center;
+                  background: #faf9f6;
+                  border: 1px solid rgba(107, 79, 59, 0.1);
+                  border-radius: 24px;
+                  padding: clamp(18px, 2vw, 26px);
+                  box-shadow: 0 10px 30px rgba(74, 54, 40, 0.06);
+                  transition:
+                    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    box-shadow 0.5s ease;
+                "
+              >
+                <div
+                  style="
+                    border-radius: 18px;
+                    overflow: hidden;
+                    aspect-ratio: 16/9;
+                    background: #e8e1d8;
+                    box-shadow:
+                      0 0 0 1px rgba(107, 79, 59, 0.12),
+                      0 0 20px rgba(176, 141, 87, 0.1),
+                      0 12px 26px -12px rgba(74, 54, 40, 0.1);
+                  "
+                >
+                  <image-slot
+                    id="proj1"
+                    src="assets/talentgpt.png"
+                    fit="cover"
+                    shape="rounded"
+                    radius="18"
+                    placeholder="TalentGPT — cover image"
+                  ></image-slot>
+                </div>
+                <div
+                  style="
+                    padding: clamp(6px, 1.5vw, 26px) clamp(6px, 1.5vw, 20px);
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 12px;
+                      margin-bottom: 16px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: 'Instrument Serif', serif;
+                        font-size: 15px;
+                        color: #b08d57;
+                      "
+                      >01</span
+                    ><span
+                      style="
+                        height: 1px;
+                        width: 34px;
+                        background: rgba(176, 141, 87, 0.4);
+                      "
+                    ></span
+                    ><span
+                      style="
+                        font-size: 12px;
+                        letter-spacing: 0.14em;
+                        text-transform: uppercase;
+                        color: #8a8177;
+                      "
+                      >SaaS · Founding Engineer · 2025</span
+                    >
+                  </div>
+                  <h3
+                    style="
+                      font-family: 'Instrument Serif', serif;
+                      font-weight: 400;
+                      font-size: clamp(30px, 3.4vw, 42px);
+                      line-height: 1.05;
+                      margin: 0 0 14px;
+                      color: #2a2a2a;
+                    "
+                  >
+                    TalentGPT
+                  </h3>
+                  <p
+                    style="
+                      font-size: 16.5px;
+                      line-height: 1.7;
+                      color: #544e46;
+                      margin: 0 0 20px;
+                      font-weight: 300;
+                    "
+                  >
+                    A job-portal SaaS where recruiters run hiring end to end —
+                    postings, candidates, and workflows in one place, on a true
+                    multi-tenant architecture.
+                  </p>
+                  <div
+                    style="
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 8px;
+                      margin-bottom: 24px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Node.js</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Express</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >MongoDB</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >React</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >TanStack Query</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >RBAC</span
+                    >
+                  </div>
+                  <div
+                    data-detail
+                    style="
+                      max-height: 0;
+                      overflow: hidden;
+                      transition: max-height 0.55s
+                        cubic-bezier(0.2, 0.8, 0.2, 1);
+                    "
+                  >
+                    <div style="display: grid; gap: 16px; padding: 4px 0 22px">
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Challenge
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          Let many organizations run their own hiring on one
+                          platform, with candidate scoring and search that stay
+                          fast as data grows.
+                        </p>
+                      </div>
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Architecture
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          Scalable Node, Express and MongoDB services with an
+                          ATS-style scoring and search system on server-side
+                          pagination, and a React front end on TanStack Router
+                          &amp; Query with organization-level, role-based
+                          access.
+                        </p>
+                      </div>
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Role
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          Founding engineer, owning the platform end to end from
+                          the MongoDB schema up to the recruiter interface.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 22px;
+                      flex-wrap: wrap;
+                    "
+                  >
+                    <button
+                      onClick="{{ toggleDetail }}"
+                      style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        background: none;
+                        border: none;
+                        padding: 0;
+                        cursor: pointer;
+                        font-size: 14px;
+                        color: #2a2a2a;
+                        letter-spacing: 0.01em;
+                      "
+                    >
+                      <span
+                        data-chev
+                        style="
+                          display: inline-block;
+                          transition: transform 0.4s ease;
+                        "
+                        >↓</span
+                      >
+                      View case details
+                    </button>
+                    <a
+                      href="https://talentgpt.world/"
+                      rel="noopener"
+                      style="font-size: 14px; color: #6b4f3b"
+                      >Live ↗</a
+                    >
+                  </div>
+                </div>
+              </article>
+
+              <!-- Project 2: iReportify (image right) -->
+              <article
+                data-project
+                data-reveal
+                onMouseOver="{{ cardIn }}"
+                onMouseOut="{{ cardOut }}"
+                style="
+                  display: grid;
+                  grid-template-columns: 0.95fr 1.05fr;
+                  gap: clamp(28px, 4vw, 56px);
+                  align-items: center;
+                  background: #faf9f6;
+                  border: 1px solid rgba(107, 79, 59, 0.1);
+                  border-radius: 24px;
+                  padding: clamp(18px, 2vw, 26px);
+                  box-shadow: 0 10px 30px rgba(74, 54, 40, 0.06);
+                  transition:
+                    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    box-shadow 0.5s ease;
+                "
+              >
+                <div
+                  style="
+                    padding: clamp(6px, 1.5vw, 26px) clamp(6px, 1.5vw, 20px);
+                    order: 1;
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 12px;
+                      margin-bottom: 16px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: 'Instrument Serif', serif;
+                        font-size: 15px;
+                        color: #b08d57;
+                      "
+                      >02</span
+                    ><span
+                      style="
+                        height: 1px;
+                        width: 34px;
+                        background: rgba(176, 141, 87, 0.4);
+                      "
+                    ></span
+                    ><span
+                      style="
+                        font-size: 12px;
+                        letter-spacing: 0.14em;
+                        text-transform: uppercase;
+                        color: #8a8177;
+                      "
+                      >SaaS Platform · Marine Reporting · 2025</span
+                    >
+                  </div>
+                  <h3
+                    style="
+                      font-family: 'Instrument Serif', serif;
+                      font-weight: 400;
+                      font-size: clamp(30px, 3.4vw, 42px);
+                      line-height: 1.05;
+                      margin: 0 0 14px;
+                      color: #2a2a2a;
+                    "
+                  >
+                    iReportify
+                  </h3>
+                  <p
+                    style="
+                      font-size: 16.5px;
+                      line-height: 1.7;
+                      color: #544e46;
+                      margin: 0 0 20px;
+                      font-weight: 300;
+                    "
+                  >
+                    A smart, image-based reporting platform for marine
+                    engineers, supervisors, and shipping professionals —
+                    capture, upload, and share inspection reports instantly from
+                    anywhere in the world.
+                  </p>
+                  <div
+                    style="
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 8px;
+                      margin-bottom: 24px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >React</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Node.js</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Express</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >MongoDB</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >AWS S3</span
+                    >
+                  </div>
+                  <div
+                    data-detail
+                    style="
+                      max-height: 0;
+                      overflow: hidden;
+                      transition: max-height 0.55s
+                        cubic-bezier(0.2, 0.8, 0.2, 1);
+                    "
+                  >
+                    <div style="display: grid; gap: 16px; padding: 4px 0 22px">
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Challenge
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          Give teams on board a way to produce and share
+                          inspection reports instantly, from anywhere, without
+                          the usual paperwork drag.
+                        </p>
+                      </div>
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Architecture
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          A React front end over a Node, Express and MongoDB
+                          backend with AWS S3 for image storage, driving report
+                          generation, folder organization, and custom cover
+                          pages.
+                        </p>
+                      </div>
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Outcome
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          Simplifies reporting and amplifies on-board efficiency
+                          for marine and industrial teams.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 22px;
+                      flex-wrap: wrap;
+                    "
+                  >
+                    <button
+                      onClick="{{ toggleDetail }}"
+                      style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        background: none;
+                        border: none;
+                        padding: 0;
+                        cursor: pointer;
+                        font-size: 14px;
+                        color: #2a2a2a;
+                        letter-spacing: 0.01em;
+                      "
+                    >
+                      <span
+                        data-chev
+                        style="
+                          display: inline-block;
+                          transition: transform 0.4s ease;
+                        "
+                        >↓</span
+                      >
+                      View case details
+                    </button>
+                    <a
+                      href="https://ireportify.com/"
+                      rel="noopener"
+                      style="font-size: 14px; color: #6b4f3b"
+                      >Live ↗</a
+                    >
+                  </div>
+                </div>
+                <div
+                  style="
+                    border-radius: 18px;
+                    overflow: hidden;
+                    aspect-ratio: 16/9;
+                    background: #e8e1d8;
+                    box-shadow:
+                      0 0 0 1px rgba(107, 79, 59, 0.12),
+                      0 0 20px rgba(176, 141, 87, 0.1),
+                      0 12px 26px -12px rgba(74, 54, 40, 0.1);
+                    order: 2;
+                  "
+                >
+                  <image-slot
+                    id="proj2"
+                    src="assets/ireportify.png"
+                    fit="cover"
+                    shape="rounded"
+                    radius="18"
+                    placeholder="iReportify — cover image"
+                  ></image-slot>
+                </div>
+              </article>
+
+              <!-- Project 3: realestateverifiedleads.ai (image left) -->
+              <article
+                data-project
+                data-reveal
+                onMouseOver="{{ cardIn }}"
+                onMouseOut="{{ cardOut }}"
+                style="
+                  display: grid;
+                  grid-template-columns: 1.05fr 0.95fr;
+                  gap: clamp(28px, 4vw, 56px);
+                  align-items: center;
+                  background: #faf9f6;
+                  border: 1px solid rgba(107, 79, 59, 0.1);
+                  border-radius: 24px;
+                  padding: clamp(18px, 2vw, 26px);
+                  box-shadow: 0 10px 30px rgba(74, 54, 40, 0.06);
+                  transition:
+                    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    box-shadow 0.5s ease;
+                "
+              >
+                <div
+                  style="
+                    border-radius: 18px;
+                    overflow: hidden;
+                    aspect-ratio: 16/9;
+                    background: #e8e1d8;
+                    box-shadow:
+                      0 0 0 1px rgba(107, 79, 59, 0.12),
+                      0 0 20px rgba(176, 141, 87, 0.1),
+                      0 12px 26px -12px rgba(74, 54, 40, 0.1);
+                  "
+                >
+                  <image-slot
+                    id="proj3"
+                    src="assets/realestateverifiedleads.png"
+                    fit="cover"
+                    shape="rounded"
+                    radius="18"
+                    placeholder="realestateverifiedleads.ai — cover image"
+                  ></image-slot>
+                </div>
+                <div
+                  style="
+                    padding: clamp(6px, 1.5vw, 26px) clamp(6px, 1.5vw, 20px);
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 12px;
+                      margin-bottom: 16px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: 'Instrument Serif', serif;
+                        font-size: 15px;
+                        color: #b08d57;
+                      "
+                      >03</span
+                    ><span
+                      style="
+                        height: 1px;
+                        width: 34px;
+                        background: rgba(176, 141, 87, 0.4);
+                      "
+                    ></span
+                    ><span
+                      style="
+                        font-size: 12px;
+                        letter-spacing: 0.14em;
+                        text-transform: uppercase;
+                        color: #8a8177;
+                      "
+                      >SaaS Landing · Lead-Gen AI · 2025</span
+                    >
+                  </div>
+                  <h3
+                    style="
+                      font-family: 'Instrument Serif', serif;
+                      font-weight: 400;
+                      font-size: clamp(30px, 3.4vw, 42px);
+                      line-height: 1.05;
+                      margin: 0 0 14px;
+                      color: #2a2a2a;
+                    "
+                  >
+                    realestateverifiedleads.ai
+                  </h3>
+                  <p
+                    style="
+                      font-size: 16.5px;
+                      line-height: 1.7;
+                      color: #544e46;
+                      margin: 0 0 20px;
+                      font-weight: 300;
+                    "
+                  >
+                    A conversion-focused SaaS landing site for an AI
+                    lead-generation platform that connects real-estate teams
+                    with voice-verified property buyers.
+                  </p>
+                  <div
+                    style="
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 8px;
+                      margin-bottom: 24px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >React</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Tailwind</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Framer Motion</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Vite</span
+                    >
+                  </div>
+                  <div
+                    data-detail
+                    style="
+                      max-height: 0;
+                      overflow: hidden;
+                      transition: max-height 0.55s
+                        cubic-bezier(0.2, 0.8, 0.2, 1);
+                    "
+                  >
+                    <div style="display: grid; gap: 16px; padding: 4px 0 22px">
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Challenge
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          Bridge mass digital outreach and precision sales
+                          conversions while insulating the sales floor from
+                          unverified noise.
+                        </p>
+                      </div>
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Architecture
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          A React + Tailwind marketing site built on Vite with
+                          Framer Motion, communicating a 5-tier qualification
+                          flow so closers spend their time on genuine buyers.
+                        </p>
+                      </div>
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Outcome
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          A clear conversion narrative that filters unverified
+                          leads before they reach the sales team.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 22px;
+                      flex-wrap: wrap;
+                    "
+                  >
+                    <button
+                      onClick="{{ toggleDetail }}"
+                      style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        background: none;
+                        border: none;
+                        padding: 0;
+                        cursor: pointer;
+                        font-size: 14px;
+                        color: #2a2a2a;
+                        letter-spacing: 0.01em;
+                      "
+                    >
+                      <span
+                        data-chev
+                        style="
+                          display: inline-block;
+                          transition: transform 0.4s ease;
+                        "
+                        >↓</span
+                      >
+                      View case details
+                    </button>
+                    <a
+                      href="https://realestateverifiedleads.ai/"
+                      rel="noopener"
+                      style="font-size: 14px; color: #6b4f3b"
+                      >Live ↗</a
+                    >
+                  </div>
+                </div>
+              </article>
+
+              <!-- Project 4: Easy Prime Holidays (image right) -->
+              <article
+                data-project
+                data-reveal
+                onMouseOver="{{ cardIn }}"
+                onMouseOut="{{ cardOut }}"
+                style="
+                  display: grid;
+                  grid-template-columns: 0.95fr 1.05fr;
+                  gap: clamp(28px, 4vw, 56px);
+                  align-items: center;
+                  background: #faf9f6;
+                  border: 1px solid rgba(107, 79, 59, 0.1);
+                  border-radius: 24px;
+                  padding: clamp(18px, 2vw, 26px);
+                  box-shadow: 0 10px 30px rgba(74, 54, 40, 0.06);
+                  transition:
+                    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    box-shadow 0.5s ease;
+                "
+              >
+                <div
+                  style="
+                    padding: clamp(6px, 1.5vw, 26px) clamp(6px, 1.5vw, 20px);
+                    order: 1;
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 12px;
+                      margin-bottom: 16px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: 'Instrument Serif', serif;
+                        font-size: 15px;
+                        color: #b08d57;
+                      "
+                      >04</span
+                    ><span
+                      style="
+                        height: 1px;
+                        width: 34px;
+                        background: rgba(176, 141, 87, 0.4);
+                      "
+                    ></span
+                    ><span
+                      style="
+                        font-size: 12px;
+                        letter-spacing: 0.14em;
+                        text-transform: uppercase;
+                        color: #8a8177;
+                      "
+                      >Travel Platform · Himalayan Tourism · 2025</span
+                    >
+                  </div>
+                  <h3
+                    style="
+                      font-family: 'Instrument Serif', serif;
+                      font-weight: 400;
+                      font-size: clamp(30px, 3.4vw, 42px);
+                      line-height: 1.05;
+                      margin: 0 0 14px;
+                      color: #2a2a2a;
+                    "
+                  >
+                    Easy Prime Holidays
+                  </h3>
+                  <p
+                    style="
+                      font-size: 16.5px;
+                      line-height: 1.7;
+                      color: #544e46;
+                      margin: 0 0 20px;
+                      font-weight: 300;
+                    "
+                  >
+                    A travel-discovery and booking platform built as a
+                    TripAdvisor for Himalayan journeys — search by destination,
+                    dates, and party size to plan trips across the region.
+                  </p>
+                  <div
+                    style="
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 8px;
+                      margin-bottom: 24px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >React</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Node.js</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Express</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >MongoDB</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Tailwind</span
+                    >
+                  </div>
+                  <div
+                    data-detail
+                    style="
+                      max-height: 0;
+                      overflow: hidden;
+                      transition: max-height 0.55s
+                        cubic-bezier(0.2, 0.8, 0.2, 1);
+                    "
+                  >
+                    <div style="display: grid; gap: 16px; padding: 4px 0 22px">
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Challenge
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          Make exploring and booking Himalayan travel
+                          effortless, from first idea to planned trip.
+                        </p>
+                      </div>
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Architecture
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          A React + Tailwind front end over a Node, Express and
+                          MongoDB backend, with search across destinations,
+                          dates and party size plus curated destinations, blogs,
+                          and services.
+                        </p>
+                      </div>
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Outcome
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          A calm, mountain-inspired interface that guides
+                          travelers through every step of the journey.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 22px;
+                      flex-wrap: wrap;
+                    "
+                  >
+                    <button
+                      onClick="{{ toggleDetail }}"
+                      style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        background: none;
+                        border: none;
+                        padding: 0;
+                        cursor: pointer;
+                        font-size: 14px;
+                        color: #2a2a2a;
+                        letter-spacing: 0.01em;
+                      "
+                    >
+                      <span
+                        data-chev
+                        style="
+                          display: inline-block;
+                          transition: transform 0.4s ease;
+                        "
+                        >↓</span
+                      >
+                      View case details
+                    </button>
+                    <a
+                      href="https://www.easyprimeholidays.com/"
+                      rel="noopener"
+                      style="font-size: 14px; color: #6b4f3b"
+                      >Live ↗</a
+                    >
+                  </div>
+                </div>
+                <div
+                  style="
+                    border-radius: 18px;
+                    overflow: hidden;
+                    aspect-ratio: 16/9;
+                    background: #e8e1d8;
+                    box-shadow:
+                      0 0 0 1px rgba(107, 79, 59, 0.12),
+                      0 0 20px rgba(176, 141, 87, 0.1),
+                      0 12px 26px -12px rgba(74, 54, 40, 0.1);
+                    order: 2;
+                  "
+                >
+                  <image-slot
+                    id="proj4"
+                    src="assets/easyprimeholidays.png"
+                    fit="cover"
+                    shape="rounded"
+                    radius="18"
+                    placeholder="Easy Prime Holidays — cover image"
+                  ></image-slot>
+                </div>
+              </article>
+
+              <!-- Project 5: James Aston (image left) -->
+              <article
+                data-project
+                data-reveal
+                onMouseOver="{{ cardIn }}"
+                onMouseOut="{{ cardOut }}"
+                style="
+                  display: grid;
+                  grid-template-columns: 1.05fr 0.95fr;
+                  gap: clamp(28px, 4vw, 56px);
+                  align-items: center;
+                  background: #faf9f6;
+                  border: 1px solid rgba(107, 79, 59, 0.1);
+                  border-radius: 24px;
+                  padding: clamp(18px, 2vw, 26px);
+                  box-shadow: 0 10px 30px rgba(74, 54, 40, 0.06);
+                  transition:
+                    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    box-shadow 0.5s ease;
+                "
+              >
+                <div
+                  style="
+                    border-radius: 18px;
+                    overflow: hidden;
+                    aspect-ratio: 16/9;
+                    background: #e8e1d8;
+                    box-shadow:
+                      0 0 0 1px rgba(107, 79, 59, 0.12),
+                      0 0 20px rgba(176, 141, 87, 0.1),
+                      0 12px 26px -12px rgba(74, 54, 40, 0.1);
+                  "
+                >
+                  <image-slot
+                    id="proj5"
+                    src="assets/jamesaston.png"
+                    fit="cover"
+                    shape="rounded"
+                    radius="18"
+                    placeholder="James Aston — cover image"
+                  ></image-slot>
+                </div>
+                <div
+                  style="
+                    padding: clamp(6px, 1.5vw, 26px) clamp(6px, 1.5vw, 20px);
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 12px;
+                      margin-bottom: 16px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: 'Instrument Serif', serif;
+                        font-size: 15px;
+                        color: #b08d57;
+                      "
+                      >05</span
+                    ><span
+                      style="
+                        height: 1px;
+                        width: 34px;
+                        background: rgba(176, 141, 87, 0.4);
+                      "
+                    ></span
+                    ><span
+                      style="
+                        font-size: 12px;
+                        letter-spacing: 0.14em;
+                        text-transform: uppercase;
+                        color: #8a8177;
+                      "
+                      >Shopify Storefront · Leather Brand · 2024</span
+                    >
+                  </div>
+                  <h3
+                    style="
+                      font-family: 'Instrument Serif', serif;
+                      font-weight: 400;
+                      font-size: clamp(30px, 3.4vw, 42px);
+                      line-height: 1.05;
+                      margin: 0 0 14px;
+                      color: #2a2a2a;
+                    "
+                  >
+                    James Aston
+                  </h3>
+                  <p
+                    style="
+                      font-size: 16.5px;
+                      line-height: 1.7;
+                      color: #544e46;
+                      margin: 0 0 20px;
+                      font-weight: 300;
+                    "
+                  >
+                    A custom Shopify storefront for a premium leather house
+                    working in vegetable-tanned, full-grain hides — belts, bags,
+                    wallets and clutches.
+                  </p>
+                  <div
+                    style="
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 8px;
+                      margin-bottom: 24px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Shopify</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Liquid</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >JavaScript</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >HTML</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >CSS</span
+                    >
+                  </div>
+                  <div
+                    data-detail
+                    style="
+                      max-height: 0;
+                      overflow: hidden;
+                      transition: max-height 0.55s
+                        cubic-bezier(0.2, 0.8, 0.2, 1);
+                    "
+                  >
+                    <div style="display: grid; gap: 16px; padding: 4px 0 22px">
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Challenge
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          Sell a high-consideration luxury product across men's,
+                          women's and corporate-gifting lines without cheapening
+                          the brand.
+                        </p>
+                      </div>
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Architecture
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          Bespoke Liquid sections for editorial collection
+                          stories and a layered product catalogue, with a
+                          checkout tuned for a luxury purchase.
+                        </p>
+                      </div>
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Outcome
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          An editorial storefront that carries the feel of the
+                          brand from collection story through to checkout.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 22px;
+                      flex-wrap: wrap;
+                    "
+                  >
+                    <button
+                      onClick="{{ toggleDetail }}"
+                      style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        background: none;
+                        border: none;
+                        padding: 0;
+                        cursor: pointer;
+                        font-size: 14px;
+                        color: #2a2a2a;
+                        letter-spacing: 0.01em;
+                      "
+                    >
+                      <span
+                        data-chev
+                        style="
+                          display: inline-block;
+                          transition: transform 0.4s ease;
+                        "
+                        >↓</span
+                      >
+                      View case details
+                    </button>
+                    <a
+                      href="https://jamesaston.in/"
+                      rel="noopener"
+                      style="font-size: 14px; color: #6b4f3b"
+                      >Live ↗</a
+                    >
+                  </div>
+                </div>
+              </article>
+
+              <!-- Project 6: Baluni Public School (image right) -->
+              <article
+                data-project
+                data-reveal
+                onMouseOver="{{ cardIn }}"
+                onMouseOut="{{ cardOut }}"
+                style="
+                  display: grid;
+                  grid-template-columns: 0.95fr 1.05fr;
+                  gap: clamp(28px, 4vw, 56px);
+                  align-items: center;
+                  background: #faf9f6;
+                  border: 1px solid rgba(107, 79, 59, 0.1);
+                  border-radius: 24px;
+                  padding: clamp(18px, 2vw, 26px);
+                  box-shadow: 0 10px 30px rgba(74, 54, 40, 0.06);
+                  transition:
+                    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    box-shadow 0.5s ease;
+                "
+              >
+                <div
+                  style="
+                    padding: clamp(6px, 1.5vw, 26px) clamp(6px, 1.5vw, 20px);
+                    order: 1;
+                  "
+                >
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 12px;
+                      margin-bottom: 16px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-family: 'Instrument Serif', serif;
+                        font-size: 15px;
+                        color: #b08d57;
+                      "
+                      >06</span
+                    ><span
+                      style="
+                        height: 1px;
+                        width: 34px;
+                        background: rgba(176, 141, 87, 0.4);
+                      "
+                    ></span
+                    ><span
+                      style="
+                        font-size: 12px;
+                        letter-spacing: 0.14em;
+                        text-transform: uppercase;
+                        color: #8a8177;
+                      "
+                      >School Website · Wix · Dehradun · 2024</span
+                    >
+                  </div>
+                  <h3
+                    style="
+                      font-family: 'Instrument Serif', serif;
+                      font-weight: 400;
+                      font-size: clamp(30px, 3.4vw, 42px);
+                      line-height: 1.05;
+                      margin: 0 0 14px;
+                      color: #2a2a2a;
+                    "
+                  >
+                    Baluni Public School
+                  </h3>
+                  <p
+                    style="
+                      font-size: 16.5px;
+                      line-height: 1.7;
+                      color: #544e46;
+                      margin: 0 0 20px;
+                      font-weight: 300;
+                    "
+                  >
+                    A full institutional website for Baluni Public School — a
+                    CBSE-affiliated school in Tilwari, Bhauwala, Dehradun —
+                    covering the complete school experience.
+                  </p>
+                  <div
+                    style="
+                      display: flex;
+                      flex-wrap: wrap;
+                      gap: 8px;
+                      margin-bottom: 24px;
+                    "
+                  >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Wix</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >CMS</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >HTML</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >CSS</span
+                    >
+                    <span
+                      style="
+                        font-size: 13px;
+                        padding: 6px 13px;
+                        border-radius: 9px;
+                        background: #f2eee8;
+                        border: 1px solid rgba(107, 79, 59, 0.14);
+                        color: #5a4230;
+                      "
+                      >Responsive Design</span
+                    >
+                  </div>
+                  <div
+                    data-detail
+                    style="
+                      max-height: 0;
+                      overflow: hidden;
+                      transition: max-height 0.55s
+                        cubic-bezier(0.2, 0.8, 0.2, 1);
+                    "
+                  >
+                    <div style="display: grid; gap: 16px; padding: 4px 0 22px">
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Challenge
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          Serve students, parents and staff from one site
+                          covering academics, admissions, student life, gallery,
+                          and contact.
+                        </p>
+                      </div>
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Architecture
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          A responsive Wix + CMS build covering the full school
+                          experience, from academics and admissions to campus
+                          gallery and contact.
+                        </p>
+                      </div>
+                      <div>
+                        <div
+                          style="
+                            font-size: 11.5px;
+                            letter-spacing: 0.14em;
+                            text-transform: uppercase;
+                            color: #5f6f52;
+                            margin-bottom: 5px;
+                          "
+                        >
+                          Outcome
+                        </div>
+                        <p
+                          style="
+                            margin: 0;
+                            font-size: 14.5px;
+                            line-height: 1.65;
+                            color: #6f685e;
+                            font-weight: 300;
+                          "
+                        >
+                          Smart learning values and a vibrant community voice
+                          come through in every section.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 22px;
+                      flex-wrap: wrap;
+                    "
+                  >
+                    <button
+                      onClick="{{ toggleDetail }}"
+                      style="
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 8px;
+                        background: none;
+                        border: none;
+                        padding: 0;
+                        cursor: pointer;
+                        font-size: 14px;
+                        color: #2a2a2a;
+                        letter-spacing: 0.01em;
+                      "
+                    >
+                      <span
+                        data-chev
+                        style="
+                          display: inline-block;
+                          transition: transform 0.4s ease;
+                        "
+                        >↓</span
+                      >
+                      View case details
+                    </button>
+                    <a
+                      href="https://www.bpstilwari.in/"
+                      rel="noopener"
+                      style="font-size: 14px; color: #6b4f3b"
+                      >Live ↗</a
+                    >
+                  </div>
+                </div>
+                <div
+                  style="
+                    border-radius: 18px;
+                    overflow: hidden;
+                    aspect-ratio: 16/9;
+                    background: #e8e1d8;
+                    box-shadow:
+                      0 0 0 1px rgba(107, 79, 59, 0.12),
+                      0 0 20px rgba(176, 141, 87, 0.1),
+                      0 12px 26px -12px rgba(74, 54, 40, 0.1);
+                    order: 2;
+                  "
+                >
+                  <image-slot
+                    id="proj6"
+                    src="assets/bpstilwari.png"
+                    fit="cover"
+                    shape="rounded"
+                    radius="18"
+                    placeholder="Baluni Public School — cover image"
+                  ></image-slot>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section
+          id="skills"
+          style="
+            position: relative;
+            padding: clamp(90px, 12vw, 160px) clamp(24px, 5vw, 64px);
+          "
+        >
+          <div style="max-width: 1160px; margin: 0 auto">
+            <div
+              data-reveal
+              style="max-width: 600px; margin-bottom: clamp(48px, 6vw, 80px)"
+            >
+              <div
+                style="
+                  font-size: 12.5px;
+                  letter-spacing: 0.18em;
+                  text-transform: uppercase;
+                  color: #5f6f52;
+                  margin-bottom: 18px;
+                "
+              >
+                03 — Toolkit
+              </div>
+              <h2
+                style="
+                  font-family: 'Instrument Serif', serif;
+                  font-weight: 400;
+                  font-size: clamp(38px, 5vw, 60px);
+                  line-height: 1.04;
+                  letter-spacing: -0.01em;
+                  margin: 0 0 18px;
+                  color: #2a2a2a;
+                "
+              >
+                The tools I reach for.
+              </h2>
+              <p
+                style="
+                  font-size: 17px;
+                  line-height: 1.7;
+                  color: #6f685e;
+                  font-weight: 300;
+                  margin: 0;
+                "
+              >
+                A stack I've refined over years of shipping — chosen for
+                reliability, not novelty.
+              </p>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: clamp(20px, 3vw, 36px);
+              "
+            >
+              <div
+                data-reveal
+                style="
+                  border-top: 1px solid rgba(107, 79, 59, 0.16);
+                  padding-top: 24px;
+                "
+              >
+                <h4
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-weight: 400;
+                    font-size: 24px;
+                    margin: 0 0 20px;
+                    color: #6b4f3b;
+                  "
+                >
+                  Languages
+                </h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 9px">
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >JavaScript</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >TypeScript</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Python</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >C++</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >SQL</span
+                  >
+                </div>
+              </div>
+              <div
+                data-reveal
+                style="
+                  border-top: 1px solid rgba(107, 79, 59, 0.16);
+                  padding-top: 24px;
+                "
+              >
+                <h4
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-weight: 400;
+                    font-size: 24px;
+                    margin: 0 0 20px;
+                    color: #6b4f3b;
+                  "
+                >
+                  Frontend
+                </h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 9px">
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >React</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Remix</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Tailwind CSS</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >TanStack Query</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Zustand</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Redux</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Shadcn UI</span
+                  >
+                </div>
+              </div>
+              <div
+                data-reveal
+                style="
+                  border-top: 1px solid rgba(107, 79, 59, 0.16);
+                  padding-top: 24px;
+                "
+              >
+                <h4
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-weight: 400;
+                    font-size: 24px;
+                    margin: 0 0 20px;
+                    color: #6b4f3b;
+                  "
+                >
+                  Backend & Data
+                </h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 9px">
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Node.js</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Express</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >MongoDB</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >SQL</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >WebSockets</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Firebase</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >REST APIs</span
+                  >
+                </div>
+              </div>
+              <div
+                data-reveal
+                style="
+                  border-top: 1px solid rgba(107, 79, 59, 0.16);
+                  padding-top: 24px;
+                "
+              >
+                <h4
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-weight: 400;
+                    font-size: 24px;
+                    margin: 0 0 20px;
+                    color: #6b4f3b;
+                  "
+                >
+                  Tools & Platforms
+                </h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 9px">
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Git</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Shopify</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Liquid</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Postman</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >VS Code</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >Monaco</span
+                  >
+                  <span
+                    onMouseOver="{{ chipIn }}"
+                    onMouseOut="{{ chipOut }}"
+                    style="
+                      font-size: 14px;
+                      padding: 9px 15px;
+                      border-radius: 11px;
+                      background: #faf9f6;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      color: #3f3a33;
+                      box-shadow: 0 2px 6px rgba(74, 54, 40, 0.05);
+                      transition:
+                        transform 0.3s ease,
+                        box-shadow 0.3s ease;
+                    "
+                    >esbuild</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROCESS -->
+        <section
+          id="process"
+          style="
+            position: relative;
+            padding: clamp(70px, 9vw, 120px) clamp(24px, 5vw, 64px);
+            background: #2a2a2a;
+            color: #faf9f6;
+          "
+        >
+          <div style="max-width: 1160px; margin: 0 auto">
+            <div
+              data-reveal
+              style="max-width: 640px; margin-bottom: clamp(48px, 6vw, 80px)"
+            >
+              <div
+                style="
+                  font-size: 12.5px;
+                  letter-spacing: 0.18em;
+                  text-transform: uppercase;
+                  color: #b08d57;
+                  margin-bottom: 18px;
+                "
+              >
+                04 — How I work
+              </div>
+              <h2
+                style="
+                  font-family: 'Instrument Serif', serif;
+                  font-weight: 400;
+                  font-size: clamp(38px, 5vw, 60px);
+                  line-height: 1.04;
+                  letter-spacing: -0.01em;
+                  margin: 0 0 18px;
+                  color: #faf9f6;
+                "
+              >
+                A steady bench, seven stations.
+              </h2>
+              <p
+                style="
+                  font-size: 17px;
+                  line-height: 1.7;
+                  color: #b9b2a7;
+                  font-weight: 300;
+                  margin: 0;
+                "
+              >
+                Every project moves through the same considered rhythm — no step
+                skipped, nothing rushed.
+              </p>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+                gap: 1px;
+                background: rgba(176, 141, 87, 0.18);
+                border: 1px solid rgba(176, 141, 87, 0.18);
+                border-radius: 20px;
+                overflow: hidden;
+              "
+            >
+              <div
+                data-reveal
+                style="
+                  background: #2a2a2a;
+                  padding: 30px 24px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 16px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-size: 15px;
+                    color: #b08d57;
+                  "
+                >
+                  01
+                </div>
+                <svg
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B08D57"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2h6c0-.8.4-1.5 1-2A7 7 0 0 0 12 2Z"
+                  />
+                </svg>
+                <div>
+                  <div
+                    style="font-size: 16px; color: #faf9f6; margin-bottom: 6px"
+                  >
+                    Concept
+                  </div>
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 13.5px;
+                      line-height: 1.6;
+                      color: #a59c8f;
+                      font-weight: 300;
+                    "
+                  >
+                    Understand the problem worth solving.
+                  </p>
+                </div>
+              </div>
+              <div
+                data-reveal
+                style="
+                  background: #2a2a2a;
+                  padding: 30px 24px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 16px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-size: 15px;
+                    color: #b08d57;
+                  "
+                >
+                  02
+                </div>
+                <svg
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B08D57"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3ZM9 3v15M15 6v15"
+                  />
+                </svg>
+                <div>
+                  <div
+                    style="font-size: 16px; color: #faf9f6; margin-bottom: 6px"
+                  >
+                    Planning
+                  </div>
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 13.5px;
+                      line-height: 1.6;
+                      color: #a59c8f;
+                      font-weight: 300;
+                    "
+                  >
+                    Map scope, milestones, and risk.
+                  </p>
+                </div>
+              </div>
+              <div
+                data-reveal
+                style="
+                  background: #2a2a2a;
+                  padding: 30px 24px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 16px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-size: 15px;
+                    color: #b08d57;
+                  "
+                >
+                  03
+                </div>
+                <svg
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B08D57"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M12 19l7-7 3 3-7 7-3-3ZM18 13l-1.5-7.5L2 2l3.5 14.5L13 18ZM2 2l7.6 7.6M11 13a2 2 0 1 0-2-2"
+                  />
+                </svg>
+                <div>
+                  <div
+                    style="font-size: 16px; color: #faf9f6; margin-bottom: 6px"
+                  >
+                    Design
+                  </div>
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 13.5px;
+                      line-height: 1.6;
+                      color: #a59c8f;
+                      font-weight: 300;
+                    "
+                  >
+                    Shape the interface and the feel.
+                  </p>
+                </div>
+              </div>
+              <div
+                data-reveal
+                style="
+                  background: #2a2a2a;
+                  padding: 30px 24px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 16px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-size: 15px;
+                    color: #b08d57;
+                  "
+                >
+                  04
+                </div>
+                <svg
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B08D57"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m8 6-6 6 6 6M16 6l6 6-6 6" />
+                </svg>
+                <div>
+                  <div
+                    style="font-size: 16px; color: #faf9f6; margin-bottom: 6px"
+                  >
+                    Development
+                  </div>
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 13.5px;
+                      line-height: 1.6;
+                      color: #a59c8f;
+                      font-weight: 300;
+                    "
+                  >
+                    Build it honestly, piece by piece.
+                  </p>
+                </div>
+              </div>
+              <div
+                data-reveal
+                style="
+                  background: #2a2a2a;
+                  padding: 30px 24px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 16px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-size: 15px;
+                    color: #b08d57;
+                  "
+                >
+                  05
+                </div>
+                <svg
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B08D57"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"
+                  />
+                </svg>
+                <div>
+                  <div
+                    style="font-size: 16px; color: #faf9f6; margin-bottom: 6px"
+                  >
+                    Testing
+                  </div>
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 13.5px;
+                      line-height: 1.6;
+                      color: #a59c8f;
+                      font-weight: 300;
+                    "
+                  >
+                    Prove it works before anyone else does.
+                  </p>
+                </div>
+              </div>
+              <div
+                data-reveal
+                style="
+                  background: #2a2a2a;
+                  padding: 30px 24px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 16px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-size: 15px;
+                    color: #b08d57;
+                  "
+                >
+                  06
+                </div>
+                <svg
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B08D57"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.9.7-2.2-.1-3a2.1 2.1 0 0 0-2.9 0ZM12 15l-3-3a11 11 0 0 1 6-8c4-1 5 0 5 0s1 1 0 5a11 11 0 0 1-8 6ZM9 12H4s.5-2.8 2-4c1.3-1 3-1 3-1M12 15v5s2.8-.5 4-2c1-1.3 1-3 1-3"
+                  />
+                </svg>
+                <div>
+                  <div
+                    style="font-size: 16px; color: #faf9f6; margin-bottom: 6px"
+                  >
+                    Deployment
+                  </div>
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 13.5px;
+                      line-height: 1.6;
+                      color: #a59c8f;
+                      font-weight: 300;
+                    "
+                  >
+                    Ship to production, calmly.
+                  </p>
+                </div>
+              </div>
+              <div
+                data-reveal
+                style="
+                  background: #2a2a2a;
+                  padding: 30px 24px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 16px;
+                "
+              >
+                <div
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-size: 15px;
+                    color: #b08d57;
+                  "
+                >
+                  07
+                </div>
+                <svg
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#B08D57"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M14.7 6.3a4 4 0 0 0-5.6 5.6l-6.4 6.4 2 2 6.4-6.4a4 4 0 0 0 5.6-5.6l-2.5 2.5-2-2 2.5-2.5Z"
+                  />
+                </svg>
+                <div>
+                  <div
+                    style="font-size: 16px; color: #faf9f6; margin-bottom: 6px"
+                  >
+                    Maintenance
+                  </div>
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 13.5px;
+                      line-height: 1.6;
+                      color: #a59c8f;
+                      font-weight: 300;
+                    "
+                  >
+                    Stay on, keep it running well.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section
+          id="experience"
+          style="
+            position: relative;
+            padding: clamp(90px, 12vw, 160px) clamp(24px, 5vw, 64px);
+          "
+        >
+          <div style="max-width: 900px; margin: 0 auto">
+            <div data-reveal style="margin-bottom: clamp(48px, 6vw, 80px)">
+              <div
+                style="
+                  font-size: 12.5px;
+                  letter-spacing: 0.18em;
+                  text-transform: uppercase;
+                  color: #5f6f52;
+                  margin-bottom: 18px;
+                "
+              >
+                05 — The Journey
+              </div>
+              <h2
+                style="
+                  font-family: 'Instrument Serif', serif;
+                  font-weight: 400;
+                  font-size: clamp(38px, 5vw, 60px);
+                  line-height: 1.04;
+                  letter-spacing: -0.01em;
+                  margin: 0;
+                  color: #2a2a2a;
+                "
+              >
+                A path built one project at a time.
+              </h2>
+            </div>
+            <div style="position: relative; padding-left: 36px">
+              <div
+                style="
+                  position: absolute;
+                  left: 7px;
+                  top: 6px;
+                  bottom: 6px;
+                  width: 1px;
+                  background: linear-gradient(
+                    rgba(107, 79, 59, 0.35),
+                    rgba(107, 79, 59, 0.08)
+                  );
+                "
+              ></div>
+              <div data-reveal style="position: relative; padding-bottom: 48px">
+                <span
+                  style="
+                    position: absolute;
+                    left: -36px;
+                    top: 6px;
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 50%;
+                    background: #faf9f6;
+                    border: 2px solid #b08d57;
+                    box-shadow: 0 0 0 4px rgba(176, 141, 87, 0.14);
+                  "
+                ></span>
+                <div
+                  style="
+                    font-size: 13px;
+                    letter-spacing: 0.12em;
+                    color: #b08d57;
+                    margin-bottom: 8px;
+                  "
+                >
+                  Oct 2025 — Present
+                </div>
+                <h3
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-weight: 400;
+                    font-size: 26px;
+                    margin: 0 0 6px;
+                    color: #2a2a2a;
+                  "
+                >
+                  Founding Engineer
+                </h3>
+                <div
+                  style="font-size: 14px; color: #8a8177; margin-bottom: 12px"
+                >
+                  TalentGPT · Remote
+                </div>
+                <p
+                  style="
+                    font-size: 16px;
+                    line-height: 1.7;
+                    color: #544e46;
+                    font-weight: 300;
+                    margin: 0;
+                  "
+                >
+                  Building a job-portal SaaS from the ground up — scalable Node,
+                  Express and MongoDB services for listings, applications and
+                  users, ATS-style candidate filtering and search, and a React +
+                  TanStack front end with multi-tenant, role-based access.
+                  Server-side pagination and query tuning keep it fast as it
+                  grows.
+                </p>
+              </div>
+              <div data-reveal style="position: relative; padding-bottom: 48px">
+                <span
+                  style="
+                    position: absolute;
+                    left: -36px;
+                    top: 6px;
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 50%;
+                    background: #faf9f6;
+                    border: 2px solid #b08d57;
+                    box-shadow: 0 0 0 4px rgba(176, 141, 87, 0.14);
+                  "
+                ></span>
+                <div
+                  style="
+                    font-size: 13px;
+                    letter-spacing: 0.12em;
+                    color: #b08d57;
+                    margin-bottom: 8px;
+                  "
+                >
+                  Jan — Apr 2024
+                </div>
+                <h3
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-weight: 400;
+                    font-size: 26px;
+                    margin: 0 0 6px;
+                    color: #2a2a2a;
+                  "
+                >
+                  Project Intern
+                </h3>
+                <div
+                  style="font-size: 14px; color: #8a8177; margin-bottom: 12px"
+                >
+                  Phemesoft · IBM Mentorship
+                </div>
+                <p
+                  style="
+                    font-size: 16px;
+                    line-height: 1.7;
+                    color: #544e46;
+                    font-weight: 300;
+                    margin: 0;
+                  "
+                >
+                  Built a machine-learning project under IBM mentorship,
+                  implementing k-means clustering to personalize song
+                  recommendations and lifting recommendation accuracy by 25%.
+                  Worked in Python with scikit-learn and TensorFlow.
+                </p>
+              </div>
+              <div data-reveal style="position: relative; padding-bottom: 48px">
+                <span
+                  style="
+                    position: absolute;
+                    left: -36px;
+                    top: 6px;
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 50%;
+                    background: #faf9f6;
+                    border: 2px solid #b08d57;
+                    box-shadow: 0 0 0 4px rgba(176, 141, 87, 0.14);
+                  "
+                ></span>
+                <div
+                  style="
+                    font-size: 13px;
+                    letter-spacing: 0.12em;
+                    color: #b08d57;
+                    margin-bottom: 8px;
+                  "
+                >
+                  Feb — May 2023
+                </div>
+                <h3
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-weight: 400;
+                    font-size: 26px;
+                    margin: 0 0 6px;
+                    color: #2a2a2a;
+                  "
+                >
+                  Frontend Developer Intern
+                </h3>
+                <div
+                  style="font-size: 14px; color: #8a8177; margin-bottom: 12px"
+                >
+                  Closetnerds · Remote
+                </div>
+                <p
+                  style="
+                    font-size: 16px;
+                    line-height: 1.7;
+                    color: #544e46;
+                    font-weight: 300;
+                    margin: 0;
+                  "
+                >
+                  Crafted responsive pages in React that cut load times and
+                  lifted engagement, partnered with the design team on UI/UX
+                  improvements, and drove debugging work that brought site
+                  downtime down by 15%.
+                </p>
+              </div>
+              <div data-reveal style="position: relative">
+                <span
+                  style="
+                    position: absolute;
+                    left: -36px;
+                    top: 6px;
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 50%;
+                    background: #faf9f6;
+                    border: 2px solid #b08d57;
+                    box-shadow: 0 0 0 4px rgba(176, 141, 87, 0.14);
+                  "
+                ></span>
+                <div
+                  style="
+                    font-size: 13px;
+                    letter-spacing: 0.12em;
+                    color: #b08d57;
+                    margin-bottom: 8px;
+                  "
+                >
+                  Mar — Jun 2023
+                </div>
+                <h3
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-weight: 400;
+                    font-size: 26px;
+                    margin: 0 0 6px;
+                    color: #2a2a2a;
+                  "
+                >
+                  Content Writer Intern
+                </h3>
+                <div
+                  style="font-size: 14px; color: #8a8177; margin-bottom: 12px"
+                >
+                  OPPO · Remote
+                </div>
+                <p
+                  style="
+                    font-size: 16px;
+                    line-height: 1.7;
+                    color: #544e46;
+                    font-weight: 300;
+                    margin: 0;
+                  "
+                >
+                  Produced gaming-community and mobile-games content for the
+                  Indian market — a 15% lift in audience engagement — backed by
+                  research and analysis that improved content relevance by 20%.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RECOGNITION -->
+        <section
+          id="recognition"
+          style="
+            position: relative;
+            padding: clamp(90px, 12vw, 160px) clamp(24px, 5vw, 64px);
+          "
+        >
+          <div style="max-width: 1160px; margin: 0 auto">
+            <div
+              data-reveal
+              style="max-width: 600px; margin-bottom: clamp(48px, 6vw, 80px)"
+            >
+              <div
+                style="
+                  font-size: 12.5px;
+                  letter-spacing: 0.18em;
+                  text-transform: uppercase;
+                  color: #5f6f52;
+                  margin-bottom: 18px;
+                "
+              >
+                06 — Recognition
+              </div>
+              <h2
+                style="
+                  font-family: 'Instrument Serif', serif;
+                  font-weight: 400;
+                  font-size: clamp(38px, 5vw, 60px);
+                  line-height: 1.04;
+                  letter-spacing: -0.01em;
+                  margin: 0 0 18px;
+                  color: #2a2a2a;
+                "
+              >
+                Marks along the way.
+              </h2>
+              <p
+                style="
+                  font-size: 17px;
+                  line-height: 1.7;
+                  color: #6f685e;
+                  font-weight: 300;
+                  margin: 0;
+                "
+              >
+                The degrees, badges, and certificates picked up between builds —
+                a meticulous, quick-learning habit kept up one course at a time.
+              </p>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: clamp(20px, 3vw, 36px);
+              "
+            >
+              <div
+                data-reveal
+                style="
+                  border-top: 1px solid rgba(107, 79, 59, 0.16);
+                  padding-top: 24px;
+                "
+              >
+                <h4
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-weight: 400;
+                    font-size: 24px;
+                    margin: 0 0 20px;
+                    color: #6b4f3b;
+                  "
+                >
+                  Education
+                </h4>
+                <div style="display: flex; flex-direction: column; gap: 20px">
+                  <div>
+                    <div
+                      style="
+                        font-size: 16px;
+                        color: #2a2a2a;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      Master of Computer Applications
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.5;
+                        color: #8a8177;
+                        font-weight: 300;
+                      "
+                    >
+                      UPES Dehradun · CGPA 8.7 · 2022–2024
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="
+                        font-size: 16px;
+                        color: #2a2a2a;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      Bachelor of Computer Applications
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.5;
+                        color: #8a8177;
+                        font-weight: 300;
+                      "
+                    >
+                      Uttaranchal University · CGPA 8.6 · 2018–2021
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                data-reveal
+                style="
+                  border-top: 1px solid rgba(107, 79, 59, 0.16);
+                  padding-top: 24px;
+                "
+              >
+                <h4
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-weight: 400;
+                    font-size: 24px;
+                    margin: 0 0 20px;
+                    color: #6b4f3b;
+                  "
+                >
+                  Badges
+                </h4>
+                <div style="display: flex; flex-direction: column; gap: 20px">
+                  <div>
+                    <div
+                      style="
+                        font-size: 16px;
+                        color: #2a2a2a;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      HackerRank Gold — SQL
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.5;
+                        color: #8a8177;
+                        font-weight: 300;
+                      "
+                    >
+                      Strong database query &amp; data manipulation
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="
+                        font-size: 16px;
+                        color: #2a2a2a;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      Hacktoberfest 2022
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.5;
+                        color: #8a8177;
+                        font-weight: 300;
+                      "
+                    >
+                      Awarded contributor badge
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="
+                        font-size: 16px;
+                        color: #2a2a2a;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      Best Performer — Web Team
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.5;
+                        color: #8a8177;
+                        font-weight: 300;
+                      "
+                    >
+                      OPEN Community, UPES · 2022–23
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                data-reveal
+                style="
+                  border-top: 1px solid rgba(107, 79, 59, 0.16);
+                  padding-top: 24px;
+                "
+              >
+                <h4
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-weight: 400;
+                    font-size: 24px;
+                    margin: 0 0 20px;
+                    color: #6b4f3b;
+                  "
+                >
+                  Certifications
+                </h4>
+                <div style="display: flex; flex-direction: column; gap: 20px">
+                  <div>
+                    <div
+                      style="
+                        font-size: 16px;
+                        color: #2a2a2a;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      React &amp; TypeScript
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.5;
+                        color: #8a8177;
+                        font-weight: 300;
+                      "
+                    >
+                      Stephen Grider · Udemy · 2024
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="
+                        font-size: 16px;
+                        color: #2a2a2a;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      React — The Complete Guide
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.5;
+                        color: #8a8177;
+                        font-weight: 300;
+                      "
+                    >
+                      Academind · Udemy · 2023
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      style="
+                        font-size: 16px;
+                        color: #2a2a2a;
+                        margin-bottom: 5px;
+                      "
+                    >
+                      The Complete JavaScript Course
+                    </div>
+                    <div
+                      style="
+                        font-size: 13.5px;
+                        line-height: 1.5;
+                        color: #8a8177;
+                        font-weight: 300;
+                      "
+                    >
+                      ~70 hours · Udemy · 2021
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- TESTIMONIALS -->
+        <section
+          style="
+            position: relative;
+            padding: clamp(70px, 9vw, 120px) clamp(24px, 5vw, 64px);
+            background: #f2eee8;
+          "
+        >
+          <div style="max-width: 1160px; margin: 0 auto">
+            <div
+              data-reveal
+              style="
+                text-align: center;
+                max-width: 560px;
+                margin: 0 auto clamp(48px, 6vw, 72px);
+              "
+            >
+              <div
+                style="
+                  font-size: 12.5px;
+                  letter-spacing: 0.18em;
+                  text-transform: uppercase;
+                  color: #5f6f52;
+                  margin-bottom: 18px;
+                "
+              >
+                07 — Kind words
+              </div>
+              <h2
+                style="
+                  font-family: 'Instrument Serif', serif;
+                  font-weight: 400;
+                  font-size: clamp(36px, 4.5vw, 56px);
+                  line-height: 1.05;
+                  margin: 0;
+                  color: #2a2a2a;
+                "
+              >
+                Notes from people I've built with.
+              </h2>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: clamp(20px, 3vw, 32px);
+              "
+            >
+              <figure
+                data-reveal
+                style="
+                  transform: rotate(-1.2deg);
+                  background: #faf9f6;
+                  border-radius: 16px;
+                  padding: 32px 30px;
+                  box-shadow: 0 16px 34px rgba(74, 54, 40, 0.1);
+                  position: relative;
+                  margin: 0;
+                "
+              >
+                <div
+                  style="
+                    position: absolute;
+                    top: -9px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 50%;
+                    background: radial-gradient(
+                      circle at 35% 30%,
+                      #c9a56a,
+                      #8a6a3c
+                    );
+                    box-shadow: 0 3px 6px rgba(74, 54, 40, 0.35);
+                  "
+                ></div>
+                <p
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-size: 21px;
+                    line-height: 1.5;
+                    color: #2a2a2a;
+                    margin: 0 0 22px;
+                  "
+                >
+                  "Elias treats our product like it's his own. He shipped fast,
+                  then stayed to make everything genuinely solid. Rare."
+                </p>
+                <figcaption style="font-size: 14px; color: #6f685e">
+                  <strong style="color: #3f3a33; font-weight: 500"
+                    >Marina Voss</strong
+                  >
+                  · Founder, Harbor
+                </figcaption>
+              </figure>
+              <figure
+                data-reveal
+                style="
+                  transform: rotate(0.9deg);
+                  background: #faf9f6;
+                  border-radius: 16px;
+                  padding: 32px 30px;
+                  box-shadow: 0 16px 34px rgba(74, 54, 40, 0.1);
+                  position: relative;
+                  margin: 0;
+                "
+              >
+                <div
+                  style="
+                    position: absolute;
+                    top: -9px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 50%;
+                    background: radial-gradient(
+                      circle at 35% 30%,
+                      #c9a56a,
+                      #8a6a3c
+                    );
+                    box-shadow: 0 3px 6px rgba(74, 54, 40, 0.35);
+                  "
+                ></div>
+                <p
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-size: 21px;
+                    line-height: 1.5;
+                    color: #2a2a2a;
+                    margin: 0 0 22px;
+                  "
+                >
+                  "The most thoughtful engineer we've worked with. Every
+                  decision had a reason, and the codebase is a joy to maintain."
+                </p>
+                <figcaption style="font-size: 14px; color: #6f685e">
+                  <strong style="color: #3f3a33; font-weight: 500"
+                    >Daniel Okafor</strong
+                  >
+                  · CTO, Kiln
+                </figcaption>
+              </figure>
+              <figure
+                data-reveal
+                style="
+                  transform: rotate(-0.6deg);
+                  background: #faf9f6;
+                  border-radius: 16px;
+                  padding: 32px 30px;
+                  box-shadow: 0 16px 34px rgba(74, 54, 40, 0.1);
+                  position: relative;
+                  margin: 0;
+                "
+              >
+                <div
+                  style="
+                    position: absolute;
+                    top: -9px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 15px;
+                    height: 15px;
+                    border-radius: 50%;
+                    background: radial-gradient(
+                      circle at 35% 30%,
+                      #c9a56a,
+                      #8a6a3c
+                    );
+                    box-shadow: 0 3px 6px rgba(74, 54, 40, 0.35);
+                  "
+                ></div>
+                <p
+                  style="
+                    font-family: 'Instrument Serif', serif;
+                    font-size: 21px;
+                    line-height: 1.5;
+                    color: #2a2a2a;
+                    margin: 0 0 22px;
+                  "
+                >
+                  "Calm, precise, and completely reliable. He made a complex
+                  migration feel effortless and never dropped the ball."
+                </p>
+                <figcaption style="font-size: 14px; color: #6f685e">
+                  <strong style="color: #3f3a33; font-weight: 500"
+                    >Priya Nair</strong
+                  >
+                  · PM, Cadence
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section
+          id="contact"
+          style="
+            position: relative;
+            padding: clamp(90px, 12vw, 160px) clamp(24px, 5vw, 64px);
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              bottom: -10%;
+              right: -5%;
+              width: 55%;
+              height: 70%;
+              background: radial-gradient(
+                closest-side,
+                rgba(176, 141, 87, 0.12),
+                rgba(176, 141, 87, 0)
+              );
+              pointer-events: none;
+            "
+          ></div>
+          <div
+            style="
+              position: relative;
+              max-width: 1080px;
+              margin: 0 auto;
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: clamp(40px, 6vw, 80px);
+              align-items: start;
+            "
+          >
+            <div data-reveal>
+              <div
+                style="
+                  font-size: 12.5px;
+                  letter-spacing: 0.18em;
+                  text-transform: uppercase;
+                  color: #5f6f52;
+                  margin-bottom: 18px;
+                "
+              >
+                08 — Contact
+              </div>
+              <h2
+                style="
+                  font-family: 'Instrument Serif', serif;
+                  font-weight: 400;
+                  font-size: clamp(40px, 5.5vw, 66px);
+                  line-height: 1.02;
+                  letter-spacing: -0.01em;
+                  margin: 0 0 22px;
+                  color: #2a2a2a;
+                "
+              >
+                Let's build<br />something lasting.
+              </h2>
+              <p
+                style="
+                  font-size: 17px;
+                  line-height: 1.75;
+                  color: #544e46;
+                  font-weight: 300;
+                  margin: 0 0 36px;
+                  max-width: 400px;
+                "
+              >
+                I take on a small number of projects at a time so each one gets
+                my full attention. Tell me what you're working on.
+              </p>
+              <div style="display: flex; flex-direction: column; gap: 16px">
+                <a
+                  href="mailto:akashpanwar9976@gmail.com"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 14px;
+                    font-size: 16px;
+                    color: #3f3a33;
+                  "
+                  ><span
+                    style="
+                      width: 38px;
+                      height: 38px;
+                      border-radius: 11px;
+                      background: #f2eee8;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="#6B4F3B"
+                      stroke-width="1.5"
+                    >
+                      <rect x="2" y="4" width="20" height="16" rx="3" />
+                      <path d="m3 6 9 7 9-7" /></svg></span
+                  >akashpanwar9976@gmail.com</a
+                >
+                <a
+                  href="https://linkedin.com/in/akash-panwar-27b0141bb"
+                  rel="noopener"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 14px;
+                    font-size: 16px;
+                    color: #3f3a33;
+                  "
+                  ><span
+                    style="
+                      width: 38px;
+                      height: 38px;
+                      border-radius: 11px;
+                      background: #f2eee8;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="#6B4F3B"
+                    >
+                      <path
+                        d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0ZM.2 8h4.56v13H.2V8Zm7.5 0h4.37v1.78h.06c.61-1.15 2.1-2.36 4.32-2.36 4.62 0 5.47 3.04 5.47 6.99V21h-4.56v-6.19c0-1.48-.03-3.37-2.05-3.37-2.06 0-2.37 1.6-2.37 3.26V21H7.7V8Z"
+                      /></svg></span
+                  >linkedin.com/in/akash-panwar</a
+                >
+                <a
+                  href="https://github.com/akshpnwr"
+                  rel="noopener"
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 14px;
+                    font-size: 16px;
+                    color: #3f3a33;
+                  "
+                  ><span
+                    style="
+                      width: 38px;
+                      height: 38px;
+                      border-radius: 11px;
+                      background: #f2eee8;
+                      border: 1px solid rgba(107, 79, 59, 0.14);
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                    ><svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="#6B4F3B"
+                    >
+                      <path
+                        d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.7 0-.7 0-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 5 18.3 5.3 18.3 5.3c.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"
+                      /></svg></span
+                  >github.com/akshpnwr</a
+                >
+              </div>
+            </div>
+            <form
+              data-reveal
+              onSubmit="{{ submitForm }}"
+              style="
+                background: #faf9f6;
+                border: 1px solid rgba(107, 79, 59, 0.12);
+                border-radius: 22px;
+                padding: clamp(24px, 3vw, 38px);
+                box-shadow: 0 18px 44px rgba(74, 54, 40, 0.08);
+              "
+            >
+              <div style="display: flex; flex-direction: column; gap: 18px">
+                <label style="display: flex; flex-direction: column; gap: 8px"
+                  ><span
+                    style="
+                      font-size: 13px;
+                      letter-spacing: 0.06em;
+                      color: #6f685e;
+                    "
+                    >Name</span
+                  ><input
+                    required
+                    type="text"
+                    placeholder="Your name"
+                    style="
+                      background: #f2eee8;
+                      border: 1px solid rgba(107, 79, 59, 0.1);
+                      border-radius: 13px;
+                      padding: 14px 16px;
+                      font-size: 15px;
+                      color: #2a2a2a;
+                      box-shadow: inset 0 2px 4px rgba(74, 54, 40, 0.08);
+                      outline: none;
+                    "
+                    onFocus="{{ inputFocus }}"
+                    onBlur="{{ inputBlur }}"
+                /></label>
+                <label style="display: flex; flex-direction: column; gap: 8px"
+                  ><span
+                    style="
+                      font-size: 13px;
+                      letter-spacing: 0.06em;
+                      color: #6f685e;
+                    "
+                    >Email</span
+                  ><input
+                    required
+                    type="email"
+                    placeholder="you@company.com"
+                    style="
+                      background: #f2eee8;
+                      border: 1px solid rgba(107, 79, 59, 0.1);
+                      border-radius: 13px;
+                      padding: 14px 16px;
+                      font-size: 15px;
+                      color: #2a2a2a;
+                      box-shadow: inset 0 2px 4px rgba(74, 54, 40, 0.08);
+                      outline: none;
+                    "
+                    onFocus="{{ inputFocus }}"
+                    onBlur="{{ inputBlur }}"
+                /></label>
+                <label style="display: flex; flex-direction: column; gap: 8px"
+                  ><span
+                    style="
+                      font-size: 13px;
+                      letter-spacing: 0.06em;
+                      color: #6f685e;
+                    "
+                    >Project</span
+                  ><textarea
+                    required
+                    rows="4"
+                    placeholder="A few words about what you're building…"
+                    style="
+                      background: #f2eee8;
+                      border: 1px solid rgba(107, 79, 59, 0.1);
+                      border-radius: 13px;
+                      padding: 14px 16px;
+                      font-size: 15px;
+                      color: #2a2a2a;
+                      box-shadow: inset 0 2px 4px rgba(74, 54, 40, 0.08);
+                      outline: none;
+                      resize: vertical;
+                      font-family: inherit;
+                    "
+                    onFocus="{{ inputFocus }}"
+                    onBlur="{{ inputBlur }}"
+                  ></textarea>
+                </label>
+                <button
+                  type="submit"
+                  onMouseDown="{{ pressIn }}"
+                  onMouseUp="{{ pressOut }}"
+                  onMouseOut="{{ pressOut }}"
+                  style="
+                    margin-top: 4px;
+                    background: #2a2a2a;
+                    color: #faf9f6;
+                    border: none;
+                    border-radius: 14px;
+                    padding: 16px;
+                    font-size: 15px;
+                    letter-spacing: 0.02em;
+                    cursor: pointer;
+                    box-shadow: 0 8px 22px rgba(42, 42, 42, 0.2);
+                    transition:
+                      transform 0.12s ease,
+                      box-shadow 0.12s ease;
+                  "
+                >
+                  Send message
+                </button>
+                <p
+                  data-status
+                  style="
+                    margin: 0;
+                    font-size: 14px;
+                    color: #5f6f52;
+                    opacity: 0;
+                    transition: opacity 0.5s ease;
+                    text-align: center;
+                  "
+                ></p>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer
+          style="
+            position: relative;
+            padding: clamp(48px, 6vw, 72px) clamp(24px, 5vw, 64px) 40px;
+            background: #f2eee8;
+            border-top: 1px solid rgba(107, 79, 59, 0.12);
+          "
+        >
+          <div
+            style="
+              max-width: 1160px;
+              margin: 0 auto;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              gap: 24px;
+              flex-wrap: wrap;
+            "
+          >
+            <div
+              style="
+                font-family: 'Instrument Serif', serif;
+                font-size: 22px;
+                color: #6b4f3b;
+                text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+              "
+            >
+              Crafted with precision, coffee, and countless iterations.
+            </div>
+            <div style="display: flex; gap: 24px; align-items: center">
+              <a
+                href="https://github.com/akshpnwr"
+                rel="noopener"
+                style="font-size: 14px; color: #6f685e"
+                >GitHub</a
+              >
+              <a
+                href="https://linkedin.com/in/akash-panwar-27b0141bb"
+                rel="noopener"
+                style="font-size: 14px; color: #6f685e"
+                >LinkedIn</a
+              >
+              <a
+                href="mailto:akashpanwar9976@gmail.com"
+                style="font-size: 14px; color: #6f685e"
+                >Email</a
+              >
+            </div>
+          </div>
+          <div
+            style="
+              max-width: 1160px;
+              margin: 32px auto 0;
+              padding-top: 24px;
+              border-top: 1px solid rgba(107, 79, 59, 0.1);
+              display: flex;
+              justify-content: space-between;
+              gap: 12px;
+              flex-wrap: wrap;
+              font-size: 13px;
+              color: #a59c8f;
+            "
+          >
+            <span>© {{ year }} Akash Panwar. All rights reserved.</span>
+            <span>Designed &amp; built end-to-end.</span>
+          </div>
+        </footer>
+      </div>
+    </x-dc>
+    <script type="text/x-dc" data-dc-script>
+      class Component extends DCLogic {
+        renderVals() {
+          const lift = (e, y, sh) => { e.currentTarget.style.transform = 'translateY(' + y + 'px)'; if (sh) e.currentTarget.style.boxShadow = sh; };
+          return {
+            year: new Date().getFullYear(),
+            navClick: (e) => {
+              e.preventDefault();
+              const id = e.currentTarget.dataset.target;
+              const el = document.getElementById(id);
+              if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 68, behavior: 'smooth' });
+            },
+            liftIn: (e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 28px rgba(42,42,42,0.24)'; },
+            liftOut: (e) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; },
+            chipIn: (e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 8px 18px rgba(74,54,40,0.14)'; e.currentTarget.style.borderColor = 'rgba(176,141,87,0.5)'; },
+            chipOut: (e) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 2px 6px rgba(74,54,40,0.05)'; e.currentTarget.style.borderColor = 'rgba(107,79,59,0.14)'; },
+            cardIn: (e) => { e.currentTarget.style.transform = 'translateY(-8px)'; e.currentTarget.style.boxShadow = '0 28px 60px rgba(74,54,40,0.15)'; },
+            cardOut: (e) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 30px rgba(74,54,40,0.06)'; },
+            toggleDetail: (e) => {
+              const btn = e.currentTarget;
+              const card = btn.closest('[data-project]');
+              const panel = card.querySelector('[data-detail]');
+              const chev = btn.querySelector('[data-chev]');
+              const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+              if (open) { panel.style.maxHeight = '0px'; if (chev) chev.style.transform = ''; btn.childNodes[1].textContent = ' View case details'; }
+              else { panel.style.maxHeight = panel.scrollHeight + 'px'; if (chev) chev.style.transform = 'rotate(180deg)'; btn.childNodes[1].textContent = ' Hide details'; }
+            },
+            inputFocus: (e) => { e.currentTarget.style.borderColor = 'rgba(176,141,87,0.55)'; e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(74,54,40,0.08), 0 0 0 3px rgba(176,141,87,0.1)'; },
+            inputBlur: (e) => { e.currentTarget.style.borderColor = 'rgba(107,79,59,0.1)'; e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(74,54,40,0.08)'; },
+            pressIn: (e) => { e.currentTarget.style.transform = 'translateY(2px)'; e.currentTarget.style.boxShadow = '0 3px 10px rgba(42,42,42,0.2)'; },
+            pressOut: (e) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 8px 22px rgba(42,42,42,0.2)'; },
+            submitForm: (e) => {
+              e.preventDefault();
+              const form = e.currentTarget;
+              const status = form.querySelector('[data-status]');
+              status.textContent = "Thank you — your message is on its way. I'll reply within a day.";
+              status.style.opacity = '1';
+              form.querySelectorAll('input, textarea').forEach(el => { el.value = ''; });
+            }
+          };
+        }
+
+        componentDidMount() {
+          this._raf = null;
+          this._observers = [];
+          this.setupReveal();
+          this.setupParticles();
+          this.setupNav();
+          this.setupParallax();
+        }
+
+        componentWillUnmount() {
+          if (this._raf) cancelAnimationFrame(this._raf);
+          if (this._dustRaf) cancelAnimationFrame(this._dustRaf);
+          (this._observers || []).forEach(o => o.disconnect());
+          if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+          if (this._onResize) window.removeEventListener('resize', this._onResize);
+          if (this._onMove) { const h = document.getElementById('top'); if (h) h.removeEventListener('mousemove', this._onMove); }
+        }
+
+        setupReveal() {
+          const els = Array.from(document.querySelectorAll('[data-reveal]'));
+          els.forEach((el, i) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1)';
+          });
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const el = entry.target;
+                const sibs = Array.from(el.parentElement ? el.parentElement.querySelectorAll(':scope > [data-reveal]') : [el]);
+                const idx = Math.max(0, sibs.indexOf(el));
+                el.style.transitionDelay = (idx * 0.08) + 's';
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+                io.unobserve(el);
+              }
+            });
+          }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+          els.forEach(el => io.observe(el));
+          this._observers.push(io);
+        }
+
+        setupNav() {
+          const links = Array.from(document.querySelectorAll('[data-nav]'));
+          const map = {};
+          links.forEach(l => { map[l.dataset.target] = l; });
+          const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              const l = map[entry.target.id];
+              if (!l) return;
+              if (entry.isIntersecting) {
+                links.forEach(x => { x.style.color = '#5a544c'; x.style.opacity = '0.7'; });
+                l.style.color = '#2A2A2A';
+                l.style.opacity = '1';
+              }
+            });
+          }, { threshold: 0.4, rootMargin: '-20% 0px -50% 0px' });
+          ['work', 'about', 'skills', 'process', 'experience'].forEach(id => { const s = document.getElementById(id); if (s) io.observe(s); });
+          this._observers.push(io);
+        }
+
+        setupParallax() {
+          const header = document.getElementById('siteHeader');
+          const portrait = document.getElementById('heroPortrait');
+          const grain = document.getElementById('heroGrain');
+          let ticking = false;
+          this._onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            this._raf = requestAnimationFrame(() => {
+              const y = window.scrollY;
+              if (header) {
+                if (y > 24) { header.style.padding = '11px clamp(24px,5vw,64px)'; header.style.background = 'rgba(250,249,246,0.9)'; header.style.borderColor = 'rgba(107,79,59,0.14)'; }
+                else { header.style.padding = '18px clamp(24px,5vw,64px)'; header.style.background = 'rgba(250,249,246,0.72)'; header.style.borderColor = 'rgba(107,79,59,0.08)'; }
+              }
+              if (portrait && y < window.innerHeight) portrait.style.transform = 'translateY(' + (y * -0.05) + 'px)';
+              if (grain && y < window.innerHeight) grain.style.transform = 'translateY(' + (y * 0.12) + 'px)';
+              ticking = false;
+            });
+          };
+          window.addEventListener('scroll', this._onScroll, { passive: true });
+
+          const hero = document.getElementById('top');
+          const glow = document.getElementById('heroGlow');
+          if (hero && glow) {
+            this._onMove = (e) => {
+              const r = hero.getBoundingClientRect();
+              glow.style.left = (e.clientX - r.left) + 'px';
+              glow.style.top = (e.clientY - r.top) + 'px';
+              glow.style.opacity = '1';
+            };
+            hero.addEventListener('mousemove', this._onMove);
+            hero.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
+          }
+        }
+
+        setupParticles() {
+          const canvas = document.getElementById('dust');
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          let W, H, parts;
+          const resize = () => {
+            const r = canvas.getBoundingClientRect();
+            W = r.width; H = r.height;
+            canvas.width = W * dpr; canvas.height = H * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          };
+          const init = () => {
+            const n = Math.max(24, Math.floor(W / 26));
+            parts = [];
+            for (let i = 0; i < n; i++) {
+              parts.push({
+                x: Math.random() * W, y: Math.random() * H,
+                r: Math.random() * 1.6 + 0.4,
+                vy: -(Math.random() * 0.28 + 0.06),
+                vx: (Math.random() - 0.5) * 0.14,
+                a: Math.random() * 0.4 + 0.12,
+                ph: Math.random() * Math.PI * 2,
+                bright: Math.random() > 0.8
+              });
+            }
+          };
+          resize(); init();
+          this._onResize = () => { resize(); init(); };
+          window.addEventListener('resize', this._onResize);
+          const draw = () => {
+            ctx.clearRect(0, 0, W, H);
+            for (const p of parts) {
+              p.y += p.vy; p.ph += 0.01;
+              p.x += p.vx + Math.sin(p.ph) * 0.12;
+              if (p.y < -6) { p.y = H + 6; p.x = Math.random() * W; }
+              if (p.x < -6) p.x = W + 6; if (p.x > W + 6) p.x = -6;
+              const tw = p.a * (0.7 + 0.3 * Math.sin(p.ph * 2));
+              ctx.beginPath();
+              ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+              ctx.fillStyle = p.bright ? 'rgba(226,205,168,' + tw + ')' : 'rgba(176,141,87,' + tw + ')';
+              ctx.fill();
+            }
+            this._dustRaf = requestAnimationFrame(draw);
+          };
+          draw();
+        }
+      }
+    </script>
+  </body>
+</html>
