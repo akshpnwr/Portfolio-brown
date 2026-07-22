@@ -1308,6 +1308,7 @@
                     <a
                       href="https://talentgpt.world/"
                       rel="noopener"
+                      target="_blank"
                       style="font-size: 14px; color: #6b4f3b"
                       >Live ↗</a
                     >
@@ -1590,6 +1591,7 @@
                     <a
                       href="https://ireportify.com/"
                       rel="noopener"
+                      target="_blank"
                       style="font-size: 14px; color: #6b4f3b"
                       >Live ↗</a
                     >
@@ -1901,6 +1903,7 @@
                     <a
                       href="https://realestateverifiedleads.ai/"
                       rel="noopener"
+                      target="_blank"
                       style="font-size: 14px; color: #6b4f3b"
                       >Live ↗</a
                     >
@@ -2181,6 +2184,7 @@
                     <a
                       href="https://www.easyprimeholidays.com/"
                       rel="noopener"
+                      target="_blank"
                       style="font-size: 14px; color: #6b4f3b"
                       >Live ↗</a
                     >
@@ -2503,6 +2507,7 @@
                     <a
                       href="https://jamesaston.in/"
                       rel="noopener"
+                      target="_blank"
                       style="font-size: 14px; color: #6b4f3b"
                       >Live ↗</a
                     >
@@ -2783,6 +2788,7 @@
                     <a
                       href="https://www.bpstilwari.in/"
                       rel="noopener"
+                      target="_blank"
                       style="font-size: 14px; color: #6b4f3b"
                       >Live ↗</a
                     >
@@ -4815,8 +4821,9 @@
               const panel = card.querySelector('[data-detail]');
               const chev = btn.querySelector('[data-chev]');
               const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
-              if (open) { panel.style.maxHeight = '0px'; if (chev) chev.style.transform = ''; btn.childNodes[1].textContent = ' View case details'; }
-              else { panel.style.maxHeight = panel.scrollHeight + 'px'; if (chev) chev.style.transform = 'rotate(180deg)'; btn.childNodes[1].textContent = ' Hide details'; }
+              const label = btn.lastChild;
+              if (open) { panel.style.maxHeight = '0px'; if (chev) chev.style.transform = ''; label.textContent = ' View case details'; }
+              else { panel.style.maxHeight = panel.scrollHeight + 'px'; if (chev) chev.style.transform = 'rotate(180deg)'; label.textContent = ' Hide details'; }
             },
             inputFocus: (e) => { e.currentTarget.style.borderColor = 'rgba(176,141,87,0.55)'; e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(74,54,40,0.08), 0 0 0 3px rgba(176,141,87,0.1)'; },
             inputBlur: (e) => { e.currentTarget.style.borderColor = 'rgba(107,79,59,0.1)'; e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(74,54,40,0.08)'; },
