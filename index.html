@@ -64,14 +64,20 @@
           }
 
           /* ── responsive ─────────────────────────────────── */
-          .nav-toggle { display: none; }
+          .nav-toggle {
+            display: none;
+          }
 
           @media (max-width: 900px) {
             /* collapse two-column layouts to a single column */
             .stack-mobile,
-            [data-project] { grid-template-columns: 1fr !important; }
+            [data-project] {
+              grid-template-columns: 1fr !important;
+            }
             /* reversed project cards: keep image below text when stacked */
-            [data-project] > div[style*="order: 2"] { order: 0 !important; }
+            [data-project] > div[style*='order: 2'] {
+              order: 0 !important;
+            }
           }
 
           @media (max-width: 820px) {
@@ -110,7 +116,9 @@
               padding: 12px 14px !important;
               border-radius: 10px;
             }
-            #siteHeader.menu-open .nav-links { display: flex !important; }
+            #siteHeader.menu-open .nav-links {
+              display: flex !important;
+            }
           }
 
           /* ── process: workbench rail stepper ─────────────── */
@@ -191,8 +199,12 @@
               padding-bottom: 12px;
               scroll-snap-type: x proximity;
             }
-            .station { scroll-snap-align: center; }
-            .bench-rail { display: none; }
+            .station {
+              scroll-snap-align: center;
+            }
+            .bench-rail {
+              display: none;
+            }
           }
           @media (max-width: 600px) {
             /* mobile: vertical connected timeline */
@@ -241,7 +253,9 @@
               grid-column: 2;
               grid-row: 2;
             }
-            .st-desc { max-width: none; }
+            .st-desc {
+              max-width: none;
+            }
           }
         </style>
         <script src="./image-slot.js"></script>
@@ -421,7 +435,15 @@
               aria-expanded="false"
               onClick="{{ toggleMenu }}"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              >
                 <path d="M3 6h18M3 12h18M3 18h18" />
               </svg>
             </button>
@@ -3463,9 +3485,7 @@
             <div class="bench">
               <div class="bench-rail" aria-hidden="true"></div>
               <div class="station" data-reveal>
-                <div class="node">
-                  01
-                </div>
+                <div class="node">01</div>
                 <svg
                   width="26"
                   height="26"
@@ -3481,18 +3501,12 @@
                   />
                 </svg>
                 <div>
-                  <div class="st-title">
-                    Concept
-                  </div>
-                  <p class="st-desc">
-                    Understand the problem worth solving.
-                  </p>
+                  <div class="st-title">Concept</div>
+                  <p class="st-desc">Understand the problem worth solving.</p>
                 </div>
               </div>
               <div class="station" data-reveal>
-                <div class="node">
-                  02
-                </div>
+                <div class="node">02</div>
                 <svg
                   width="26"
                   height="26"
@@ -3508,18 +3522,12 @@
                   />
                 </svg>
                 <div>
-                  <div class="st-title">
-                    Planning
-                  </div>
-                  <p class="st-desc">
-                    Map scope, milestones, and risk.
-                  </p>
+                  <div class="st-title">Planning</div>
+                  <p class="st-desc">Map scope, milestones, and risk.</p>
                 </div>
               </div>
               <div class="station" data-reveal>
-                <div class="node">
-                  03
-                </div>
+                <div class="node">03</div>
                 <svg
                   width="26"
                   height="26"
@@ -3535,18 +3543,12 @@
                   />
                 </svg>
                 <div>
-                  <div class="st-title">
-                    Design
-                  </div>
-                  <p class="st-desc">
-                    Shape the interface and the feel.
-                  </p>
+                  <div class="st-title">Design</div>
+                  <p class="st-desc">Shape the interface and the feel.</p>
                 </div>
               </div>
               <div class="station" data-reveal>
-                <div class="node">
-                  04
-                </div>
+                <div class="node">04</div>
                 <svg
                   width="26"
                   height="26"
@@ -3560,18 +3562,12 @@
                   <path d="m8 6-6 6 6 6M16 6l6 6-6 6" />
                 </svg>
                 <div>
-                  <div class="st-title">
-                    Development
-                  </div>
-                  <p class="st-desc">
-                    Build it honestly, piece by piece.
-                  </p>
+                  <div class="st-title">Development</div>
+                  <p class="st-desc">Build it honestly, piece by piece.</p>
                 </div>
               </div>
               <div class="station" data-reveal>
-                <div class="node">
-                  05
-                </div>
+                <div class="node">05</div>
                 <svg
                   width="26"
                   height="26"
@@ -3587,18 +3583,12 @@
                   />
                 </svg>
                 <div>
-                  <div class="st-title">
-                    Testing
-                  </div>
-                  <p class="st-desc">
-                    Prove it works before anyone else does.
-                  </p>
+                  <div class="st-title">Testing</div>
+                  <p class="st-desc">Prove it works before anyone else does.</p>
                 </div>
               </div>
               <div class="station" data-reveal>
-                <div class="node">
-                  06
-                </div>
+                <div class="node">06</div>
                 <svg
                   width="26"
                   height="26"
@@ -3614,18 +3604,12 @@
                   />
                 </svg>
                 <div>
-                  <div class="st-title">
-                    Deployment
-                  </div>
-                  <p class="st-desc">
-                    Ship to production, calmly.
-                  </p>
+                  <div class="st-title">Deployment</div>
+                  <p class="st-desc">Ship to production, calmly.</p>
                 </div>
               </div>
               <div class="station" data-reveal>
-                <div class="node">
-                  07
-                </div>
+                <div class="node">07</div>
                 <svg
                   width="26"
                   height="26"
@@ -3641,12 +3625,8 @@
                   />
                 </svg>
                 <div>
-                  <div class="st-title">
-                    Maintenance
-                  </div>
-                  <p class="st-desc">
-                    Stay on, keep it running well.
-                  </p>
+                  <div class="st-title">Maintenance</div>
+                  <p class="st-desc">Stay on, keep it running well.</p>
                 </div>
               </div>
             </div>
@@ -4590,6 +4570,8 @@
             </div>
             <form
               data-reveal
+              action="https://formspree.io/f/mgogzgdk"
+              method="POST"
               onSubmit="{{ submitForm }}"
               style="
                 background: #faf9f6;
@@ -4611,6 +4593,7 @@
                   ><input
                     required
                     type="text"
+                    name="name"
                     placeholder="Your name"
                     style="
                       background: #f2eee8;
@@ -4636,6 +4619,7 @@
                   ><input
                     required
                     type="email"
+                    name="email"
                     placeholder="you@company.com"
                     style="
                       background: #f2eee8;
@@ -4661,6 +4645,7 @@
                   ><textarea
                     required
                     rows="4"
+                    name="message"
                     placeholder="A few words about what you're building…"
                     style="
                       background: #f2eee8;
@@ -4829,13 +4814,37 @@
             inputBlur: (e) => { e.currentTarget.style.borderColor = 'rgba(107,79,59,0.1)'; e.currentTarget.style.boxShadow = 'inset 0 2px 4px rgba(74,54,40,0.08)'; },
             pressIn: (e) => { e.currentTarget.style.transform = 'translateY(2px)'; e.currentTarget.style.boxShadow = '0 3px 10px rgba(42,42,42,0.2)'; },
             pressOut: (e) => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 8px 22px rgba(42,42,42,0.2)'; },
-            submitForm: (e) => {
+            submitForm: async (e) => {
               e.preventDefault();
               const form = e.currentTarget;
               const status = form.querySelector('[data-status]');
-              status.textContent = "Thank you — your message is on its way. I'll reply within a day.";
+              const btn = form.querySelector('button[type="submit"]');
+              status.style.color = '#5f6f52';
+              status.textContent = 'Sending…';
               status.style.opacity = '1';
-              form.querySelectorAll('input, textarea').forEach(el => { el.value = ''; });
+              if (btn) btn.disabled = true;
+              try {
+                const res = await fetch(form.action, {
+                  method: 'POST',
+                  body: new FormData(form),
+                  headers: { Accept: 'application/json' },
+                });
+                if (res.ok) {
+                  status.style.color = '#5f6f52';
+                  status.textContent = "Thank you — your message is on its way. I'll reply within a day.";
+                  form.querySelectorAll('input, textarea').forEach(el => { el.value = ''; });
+                } else {
+                  const data = await res.json().catch(() => ({}));
+                  const msg = data.errors ? data.errors.map(x => x.message).join(', ') : 'Something went wrong.';
+                  status.style.color = '#a5544c';
+                  status.textContent = msg + ' Please email me directly instead.';
+                }
+              } catch (err) {
+                status.style.color = '#a5544c';
+                status.textContent = 'Network error. Please email me directly instead.';
+              } finally {
+                if (btn) btn.disabled = false;
+              }
             }
           };
         }
