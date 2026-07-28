@@ -30,6 +30,14 @@
   var MOBILE = '(max-width: 768px)';
   var REDUCE = '(prefers-reduced-motion: reduce)';
 
+  /* The work section's sticky stack turns on at 901px, not at DESKTOP.
+     It must match the `@media (max-width: 900px)` rule in styles.css that
+     unstacks the panels: if the two disagree, the 769–900px band gets panels
+     that CSS has made ordinary cards while JS has already excluded them from
+     the reveal system, so they sit un-animated among neighbours that animate.
+     Keep this in sync with that breakpoint. */
+  var STICKY_WORK = '(min-width: 901px)';
+
   /* Where a section starts revealing, as a share of viewport height measured
      from the top. 0.80 means the element's top edge must climb to 80% down
      the screen — i.e. it is a fifth of the way in — before it animates.
@@ -300,31 +308,95 @@
     }, 3000);
   }
 
-  /* Per-card image drift. Each frame is keyed to its own position, so cards
-     drift as they pass rather than one element tracking absolute page
-     scroll (which is what the old `y * -0.05` portrait hack did). */
-  function cardParallax(gsap, reduce) {
-    if (reduce) return;
-    gsap.utils.toArray('.project .frame').forEach(function (frame) {
-      var inner = frame.querySelector('image-slot') || frame.firstElementChild;
-      if (!inner) return;
-      // Overscale so the drift never exposes an edge inside the frame.
-      gsap.set(inner, { scale: 1.12 });
-      gsap.fromTo(inner,
-        { yPercent: -6 },
-        {
-          yPercent: 6,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: frame,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-            markers: DEBUG
-          }
-        });
+  /* The work section's stacked panels.
+
+     Each project is a viewport-sized panel that holds at the top of the screen
+     while the next one scrolls up and covers it — the panels deal over each
+     other like cards, alternating bone and ink.
+
+     This is done with a ScrollTrigger pin per panel, deliberately, after
+     `position: sticky` was tried and could not work: ScrollSmoother makes
+     `#smooth-wrapper` a `position: fixed; overflow: hidden` box and translates
+     the content inside it, so a sticky element has no scrolling ancestor to
+     resolve against and simply scrolls away. (Verified: panel tops went to
+     -227, -827 … holding nothing.) The pin is measured against the smoothed
+     scroller, so it works where sticky cannot.
+
+     Every panel except the last is pinned from the moment its top reaches the
+     header to the moment the *next* panel's top does. `pinSpacing: false` is
+     what produces the covering: without it ScrollTrigger inserts spacer height
+     for the pinned duration and each panel gets its own stretch of empty
+     scroll, which reads as a gap rather than a stack. With it the panels
+     occupy the same scroll space and overlap, and the z-index ladder in
+     styles.css decides who paints on top.
+
+     The last panel is left unpinned so the section releases into the page
+     instead of holding the reader at the bottom of the stack.
+
+     Panels also opt out of reveals(). A reveal would set `opacity: 0; y: 44`
+     on a pinned element — the panel would sit 44px low and, if its trigger
+     never fired, stay invisible while still filling the screen. */
+  function stickyWork(gsap) {
+    var panels = gsap.utils.toArray('.project');
+    if (panels.length < 2) return;
+
+    panels.forEach(function (p) { p.setAttribute('data-reveal-done', '1'); });
+    gsap.set(panels, { opacity: 1, y: 0, clearProps: 'transform' });
+
+    // Alternating surface and stacking order both have to be set here, not in
+    // CSS. ScrollTrigger wraps every pinned element in its own `.pin-spacer`,
+    // so each panel ends up the *only* child of its wrapper — a
+    // `:nth-of-type` ladder then matches (1) for all of them, which rendered
+    // every panel bone and left the stacking order to chance. Setting both in
+    // DOM order here, before the pins exist, survives the wrapping.
+    panels.forEach(function (p, i) {
+      p.classList.toggle('project--ink', i % 2 === 1);
+      // Later panels must paint over the ones they cover.
+      p.style.zIndex = String(i + 1);
+    });
+
+    panels.forEach(function (panel, i) {
+      // The last panel has nothing to hand off to; pinning it would hold the
+      // reader at the end of the section with no incoming panel to reward it.
+      if (i === panels.length - 1) return;
+      global.ScrollTrigger.create({
+        trigger: panel,
+        // Pinned at the very top of the viewport, not at the header offset —
+        // the panels are full-height and deliberately run behind the
+        // translucent header, so that the incoming colour reaches the top
+        // edge of the screen with no seam. Their internal padding keeps the
+        // content itself clear of the header.
+        start: 'top top',
+        // Hold until the panel that covers this one is itself in position.
+        endTrigger: panels[i + 1],
+        end: 'top top',
+        pin: true,
+        pinSpacing: false,
+        // Positions depend on viewport height, which changes on resize and on
+        // mobile address-bar show/hide.
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
+        markers: DEBUG
+      });
     });
   }
+
+  /* NOTE: the project images deliberately have no parallax.
+
+     There was a per-card drift here (`scale: 1.12`, `yPercent: ±6`). Parallax
+     inside a fixed frame always costs a crop — the image must be oversized so
+     its edges never swing into view, which means the overscale is a permanent
+     zoom whether or not anything is moving. At 1.12 that hid 11% of every
+     image, and these are screenshots of real products: the cropped edges were
+     nav bars, buttons and page chrome, i.e. the evidence the section exists
+     to show.
+
+     The drift also earned much less than it used to. It was tuned for cards
+     scrolling the full height of the viewport; the panels are pinned now, so
+     a held frame barely moves relative to the screen. The stacking is the
+     section's motion. If any image drift is ever wanted back here, it has to
+     be paired with an overscale of at least 2x its travel, and that crop is
+     the price. */
 
   /* The signature moment: pin the process section and draw the brass rail
      left-to-right while each station lights in turn. The seven stations are
@@ -428,7 +500,12 @@
       'pinned (process section)': pinned.length,
       'hero lines (SplitText)': document.querySelectorAll('.hero-line').length,
       'reveal targets': document.querySelectorAll('[data-reveal]').length,
-      'parallax frames': document.querySelectorAll('.project .frame').length,
+      'work frames (no parallax by design)':
+        document.querySelectorAll('.project .frame').length,
+      // Sticky, not pinned — so it never appears in the pinned count above.
+      'sticky work panels': global.matchMedia(STICKY_WORK).matches
+        ? document.querySelectorAll('.project').length
+        : 0,
       'reveal fires at': REVEAL_START
     });
     if (global.matchMedia(REDUCE).matches) {
@@ -485,7 +562,12 @@
     var mm = gsap.matchMedia();
     state.mm = mm;
 
-    mm.add({ isDesktop: DESKTOP, isMobile: MOBILE, reduce: REDUCE }, function (ctx) {
+    mm.add({
+      isDesktop: DESKTOP,
+      isMobile: MOBILE,
+      reduce: REDUCE,
+      canStack: STICKY_WORK
+    }, function (ctx) {
       var isDesktop = ctx.conditions.isDesktop;
       var reduce = ctx.conditions.reduce;
       // ORDER MATTERS. Everything that owns specific elements must claim them
@@ -511,9 +593,14 @@
       if (isDesktop && !reduce) benchScrub(gsap);
       else benchStatic(gsap, reduce);
 
+      // Claims the project panels (marks them data-reveal-done). Gated on the
+      // same 901px breakpoint the CSS unstacks at: below it, and under reduced
+      // motion, the panels are `position: static` again — ordinary cards that
+      // the reveal system should own as before.
+      if (ctx.conditions.canStack && !reduce) stickyWork(gsap);
+
       // Now the general case, over whatever is left.
       reveals(gsap, reduce);
-      cardParallax(gsap, reduce);
     });
   }
 

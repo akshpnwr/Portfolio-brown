@@ -356,7 +356,9 @@ html.has-smooth-scroll #smooth-wrapper {
 
 .display--hero {
   font-size: var(--text-hero);
-  line-height: 0.98;
+  /* Serif descenders (the "g" in "digital") overrun a sub-1 line box and get
+     clipped by the following line, so keep this at/above 1. */
+  line-height: 1.06;
   margin-bottom: 26px;
 }
 
@@ -975,25 +977,132 @@ html.has-smooth-scroll #smooth-wrapper {
 
 /* ── Work / project cards ──────────────────────────────────── */
 
+/* Stacked panels. Each project is a full-viewport panel that holds at the top
+   of the screen while the next scrolls up and covers it — panels dealing over
+   each other like cards, with the alternating bone/ink surfaces making every
+   arrival read as a new screen.
+
+   The holding is done by ScrollTrigger pins in animations.js (stickyWork()),
+   NOT by `position: sticky`. That is not a preference — CSS sticky cannot work
+   on this page. ScrollSmoother makes `#smooth-wrapper` a `position: fixed;
+   overflow: hidden` box and translates `#smooth-content` inside it, so there
+   is no scrolling ancestor for a sticky element to resolve against: the panels
+   simply scrolled away, tops going negative, holding nothing. Same root cause
+   as the note on `.page` about scroll containers and pinning.
+
+   What must hold here in CSS:
+     - `display: block`, not flex. ScrollTrigger's pin wraps each panel in a
+       `.pin-spacer`; a flex column would stretch and reorder those spacers.
+     - no `gap`. A gap shows the page background in the seam between a held
+       panel and the one covering it.
+     - the panels stay in normal flow so the pin-spacers stack naturally. */
 .project-list {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(40px, 6vw, 88px);
+  display: block;
+}
+
+/* Break out of the .shell measure so each surface reaches the viewport edges
+   while the content inside stays on the shared column. Without this the band
+   colour shows down both sides and the panel reads as a wide card. */
+.project-list {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  /* Cancel the section's bottom padding beneath the stack. `#work` is a linen
+     band, and once the panels became full-bleed opaque surfaces that padding
+     was the only linen still visible — a stray grey strip between the last
+     panel and the next section, reading as an unfinished edge rather than a
+     deliberate band. The panels supply their own vertical rhythm now. */
+  margin-bottom: calc(var(--section-y-tight) * -1);
 }
 
 .project {
+  position: relative;
+  /* The full viewport, and pinned at top 0 (not at the header offset) so the
+     surface runs *behind* the translucent header. Held back to
+     `100vh - header` it stopped short, and the panel underneath showed as a
+     pale seam along the top edge of every dark panel — small, but it broke
+     the illusion of one colour replacing another edge to edge.
+     Fixed height, not min-height: every panel must be identical for the pin
+     hand-off to be seamless; the body takes any overflow instead. */
+  height: 100vh;
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: clamp(28px, 4vw, 56px);
   align-items: center;
   background: var(--color-bone);
-  border: 1px solid var(--line-faint);
-  border-radius: var(--radius-card);
-  padding: clamp(18px, 2vw, 26px);
-  box-shadow: var(--shadow-card);
-  transition:
-    transform var(--duration-card) var(--ease-out-soft),
-    box-shadow var(--duration-card) ease;
+  /* Horizontal: hold the content on the shared shell measure even though the
+     surface is full-bleed. Vertical: clear the header so the top line of copy
+     is never tucked under it. */
+  padding: calc(var(--header-offset) + clamp(20px, 3vw, 44px))
+    max(var(--gutter), calc(50vw - var(--shell) / 2))
+    clamp(28px, 4vw, 64px);
+  /* No border, radius or shadow. These are full-bleed surfaces now, not cards
+     on a band: the effect is one colour replacing another edge to edge, and a
+     rounded corner or drop shadow announces "panel sliding over panel"
+     instead. The card treatment comes back below the stacking breakpoint,
+     where they are cards again. */
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Stacking order is set in JS (stickyWork), not here. It has to be: a
+   `:nth-of-type` ladder cannot work once ScrollTrigger wraps each pinned
+   panel in its own `.pin-spacer`, because every panel then becomes the only
+   child of its wrapper and all of them match `:nth-of-type(1)`. That is the
+   same reason the alternating surface below is a class rather than
+   `:nth-of-type(even)` — the first version of this was, and every panel
+   silently rendered bone. */
+
+/* Alternating surface. Odd panels stay on bone; even panels invert to ink and
+   carry their own on-dark text treatment, since none of the project child
+   elements inherit colour from the panel. The `--ink` class is applied in JS,
+   in DOM order, before the pins are created. */
+.project--ink {
+  background: var(--color-ink);
+  border-color: rgba(250, 249, 246, 0.12);
+}
+
+.project--ink .project__title {
+  color: var(--color-on-dark);
+}
+
+.project--ink .project__summary {
+  color: var(--color-on-dark-muted);
+}
+
+.project--ink .project__kicker {
+  color: var(--color-on-dark-faint);
+}
+
+.project--ink .project__index {
+  color: var(--color-brass-light);
+}
+
+/* The 34px divider between index and kicker. Brass at 40% reads as almost
+   nothing against ink, so it steps up to the light brass the numerals use. */
+.project--ink .project__rule {
+  background: var(--color-brass-light);
+}
+
+.project--ink .detail__text {
+  color: var(--color-on-dark-muted);
+}
+
+.project--ink .detail__label {
+  color: var(--color-brass-light);
+}
+
+.project--ink .tag,
+.project--ink .chip {
+  background: rgba(250, 249, 246, 0.06);
+  border-color: rgba(250, 249, 246, 0.16);
+  color: var(--color-on-dark-muted);
+  box-shadow: none;
+}
+
+.project--ink .btn-plain,
+.project--ink .link-external {
+  color: var(--color-on-dark);
 }
 
 /* Alternating layout: text first in source, image pulled to the right. */
@@ -1011,6 +1120,27 @@ html.has-smooth-scroll #smooth-wrapper {
 
 .project__body {
   padding: clamp(6px, 1.5vw, 26px) clamp(6px, 1.5vw, 20px);
+  /* The panel is a fixed viewport height, so the text column takes any
+     overflow rather than pushing the panel taller (which would break sticky —
+     see the height note on `.project`). `min-height: 0` is the grid-item
+     escape hatch: without it a grid child refuses to shrink below its content
+     and `overflow-y` never engages.
+     Only bites when a case-detail accordion is open on a short viewport; at
+     rest there is nothing to scroll. */
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* The image keeps the shared `.frame` 16/9 ratio. An earlier version forced
+   `height: 100%; aspect-ratio: auto` here to guard against overflowing the
+   fixed-height panel — but the panel has room to spare (a 731px frame in a
+   900px panel), so all that did was stretch every cover image to the panel's
+   full height and distort it. `min-height: 0` stays: it is the grid-item
+   escape hatch that lets the frame shrink on short viewports rather than
+   pushing the panel taller. */
+.project .frame {
+  min-height: 0;
+  align-self: center;
 }
 
 /* "01 —— SaaS · Founding Engineer · 2025" */
@@ -1547,6 +1677,43 @@ html.has-smooth-scroll #smooth-wrapper {
   .project--reversed .frame {
     order: 0;
   }
+
+  /* Drop the sticky stack below the two-column breakpoint. Stacked to one
+     column, a project's image + prose + tags already exceed a phone
+     viewport, so a 100vh panel would scroll internally *and* stick — the
+     content would sit half-read while the panel refused to move. Back to a
+     plain scrolling list, with the gap restored so the panels read as
+     separate cards again. The alternating bone/ink stays: it survives
+     without the stacking.
+
+     Flex again here, not block: `gap` has no effect on a block container, so
+     restoring the spacing means restoring the flex column with it. */
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 6vw, 88px);
+    /* Back inside the shell: the full-bleed break-out and the cancelled
+       section padding only make sense for edge-to-edge stacked surfaces. */
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
+  /* Cards again, not surfaces — the border, radius and shadow come back with
+     the normal card padding. */
+  .project {
+    position: static;
+    height: auto;
+    padding: clamp(18px, 2vw, 26px);
+    border: 1px solid var(--line-faint);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Undo the fixed-height companion: the text column scrolls with the page. */
+  .project__body {
+    overflow-y: visible;
+  }
 }
 
 @media (max-width: 820px) {
@@ -1692,10 +1859,11 @@ html.has-smooth-scroll #smooth-wrapper {
   border-color: var(--brass-a50);
 }
 
-.project:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-card-hover);
-}
+/* No hover lift on the project panels. They are full-viewport sticky surfaces
+   now rather than cards in a list, so "lift the card under the cursor" has
+   nothing to point at — the pointer is always over one of them. A transform
+   here would also create a containing block for the panel's own descendants
+   and shift the stacking the sticky stack depends on. */
 
 /* Hover lift for the primary/ghost/nav/submit buttons. */
 .btn:hover,
@@ -1755,5 +1923,35 @@ html.has-smooth-scroll #smooth-wrapper {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Unstack the work section. The sticky stack is motion the reader did not
+     ask for and cannot opt out of mid-scroll — panels holding still while
+     others slide over them is the same vestibular problem the pinned process
+     section is gated on. Reverts to a plain scrolling list; the alternating
+     bone/ink surfaces still carry the section's rhythm.
+
+     Flex again, since `gap` does nothing on the block container the stacked
+     layout uses. */
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(40px, 6vw, 88px);
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+  }
+
+  .project {
+    position: static;
+    height: auto;
+    padding: clamp(18px, 2vw, 26px);
+    border: 1px solid var(--line-faint);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .project__body {
+    overflow-y: visible;
   }
 }
