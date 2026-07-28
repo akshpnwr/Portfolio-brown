@@ -82,6 +82,8 @@
   --brass-a55: rgba(176, 141, 87, 0.55);
   --brass-a90: rgba(176, 141, 87, 0.9);
   --brass-a00: rgba(176, 141, 87, 0);
+  /* lit process node: brass warmed into --color-ink, not laid over it */
+  --node-lit-fill: #4a3d2b;
 
   /* header at rest */
   --glass: rgba(250, 249, 246, 0.72);
@@ -269,6 +271,18 @@ html.has-smooth-scroll #smooth-wrapper {
   padding: var(--section-y-tight) var(--gutter);
   background: var(--color-ink);
   color: var(--color-on-dark);
+}
+
+/* When ScrollTrigger pins the process section it wraps it in a .pin-spacer
+   and adds padding-bottom equal to the pin distance — here 900px against a
+   635px section. The spacer is transparent by default, so that padding
+   showed the page's cream background through the dark band for the whole
+   pinned sequence: the section looked like it ended halfway down.
+   Painting the spacer the same ink keeps the band continuous. ScrollTrigger
+   puts the spacer immediately around the section, so this targets it without
+   affecting the pin-spacer of any other trigger. */
+.pin-spacer:has(> .section--dark) {
+  background: var(--color-ink);
 }
 
 .section--clip {
@@ -1117,28 +1131,70 @@ html.has-smooth-scroll #smooth-wrapper {
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg,
-      var(--brass-a45) 0%,
+      var(--color-brass) 0%,
       var(--color-brass-light) 50%,
-      var(--brass-a45) 100%);
+      var(--color-brass) 100%);
   transform-origin: left center;
-  box-shadow: 0 0 8px var(--brass-a55);
+  /* Doubled halo: the tight pass gives the line an edge, the wide one spills
+     onto the dark ground so the draw is visible in peripheral vision. */
+  box-shadow:
+    0 0 6px var(--brass-a90),
+    0 0 16px var(--brass-a55);
 }
 
 /* Stations dim until the rail draw reaches them, then settle to full
    strength. Only the JS path ever sets .is-lit; without GSAP the station
    keeps its normal appearance and nothing looks unfinished. */
-.station__text,
-.station svg {
+.station__text {
   transition:
     opacity var(--duration-card) var(--ease-out-soft),
     transform var(--duration-card) var(--ease-out-soft);
 }
 
+/* GSAP owns the icon's opacity during the sweep; stroke and glow are left to
+   CSS so they ride the .is-lit toggle. The inline stroke on each <svg> is the
+   base brass — override it here rather than editing seven markup blocks. */
+.station svg {
+  transition:
+    opacity var(--duration-card) var(--ease-out-soft),
+    transform var(--duration-card) var(--ease-out-soft),
+    stroke var(--duration-card) var(--ease-out-soft),
+    filter var(--duration-card) var(--ease-out-soft);
+}
+
+.station.is-lit svg {
+  stroke: var(--color-brass-light);
+  filter: drop-shadow(0 0 6px var(--brass-a55));
+}
+
+/* Lit copy steps up from muted to full-strength on-dark. */
+.station.is-lit .st-title {
+  color: var(--color-on-dark);
+}
+
+.station.is-lit .st-desc {
+  color: var(--color-on-dark-muted);
+}
+
+.st-title,
+.st-desc {
+  transition: color var(--duration-card) var(--ease-out-soft);
+}
+
+/* The lit node has to read as a lamp coming on, not a slightly warmer ring.
+   Three things carry that: a brass-tinted fill so the disc itself glows, a
+   two-stop halo (tight + wide) since a single 18px shadow disappears against
+   --color-ink, and a brighter numeral. The 6px --color-ink ring stays first
+   in the stack so the halo still starts outside the rail. */
 .station.is-lit .node {
-  border-color: var(--brass-a90);
+  border-color: var(--color-brass-light);
+  background: var(--node-lit-fill);
+  color: var(--color-on-dark);
   box-shadow:
     0 0 0 6px var(--color-ink),
-    0 0 18px var(--brass-a55),
+    0 0 0 7px var(--brass-a45),
+    0 0 14px var(--brass-a90),
+    0 0 34px var(--brass-a55),
     0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
@@ -1170,7 +1226,10 @@ html.has-smooth-scroll #smooth-wrapper {
   color: var(--color-brass-light);
   transition:
     transform var(--duration-slow) ease,
-    border-color var(--duration-slow) ease;
+    border-color var(--duration-slow) ease,
+    background-color var(--duration-slow) ease,
+    color var(--duration-slow) ease,
+    box-shadow var(--duration-slow) ease;
 }
 
 .station:hover .node {

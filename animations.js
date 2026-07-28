@@ -40,7 +40,7 @@
      animating, visibly nothing. Lower values reveal later and more visibly;
      going much below 0.70 starts to feel like the page is lagging behind
      the scroll. */
-  var REVEAL_AT = 0.70;
+  var REVEAL_AT = 0.90;
   var REVEAL_START = 'top ' + (REVEAL_AT * 100) + '%';
 
   /* Add ?debug to the URL to draw ScrollTrigger's start/end markers for every
@@ -80,7 +80,7 @@
   function teardown() {
     if (state.poll) { clearTimeout(state.poll); state.poll = null; }
     if (state.smoother) {
-      try { state.smoother.kill(); } catch (e) {}
+      try { state.smoother.kill(); } catch (e) { }
       state.smoother = null;
       document.documentElement.classList.remove('has-smooth-scroll');
     }
@@ -340,11 +340,21 @@
     var texts = stations.map(function (s) { return s.querySelector('.station__text'); });
     var icons = stations.map(function (s) { return s.querySelector('svg'); });
 
-    // Stations carry [data-reveal] too; the sweep owns them here.
-    gsap.set(stations, { opacity: 1, y: 0 });
+    // Stations carry [data-reveal] too. Marking them done is not cosmetic:
+    // reveals() runs before this and arms a trigger per station at
+    // REVEAL_START. Those triggers fire *inside* the pinned scrub and
+    // re-animate opacity/y on nodes the sweep is already driving, so the
+    // stations flicker or stick. Raising REVEAL_AT moves the reveal trigger
+    // deeper into the pin and makes the collision certain, which is why the
+    // section appeared to break when the value went up.
+    // data-reveal-done makes reveals() skip them entirely (see its filter).
+    stations.forEach(function (s) { s.setAttribute('data-reveal-done', '1'); });
+    gsap.set(stations, { opacity: 1, y: 0, clearProps: 'transform' });
     gsap.set(draw, { scaleX: 0 });
-    gsap.set(texts, { opacity: 0.25, y: 8 });
-    gsap.set(icons, { opacity: 0.3 });
+    // Floors sit low so the lift reads as a light coming on. Above ~0.25 the
+    // unlit and lit states are too close to tell apart mid-sweep.
+    gsap.set(texts, { opacity: 0.14, y: 8 });
+    gsap.set(icons, { opacity: 0.16 });
 
     var span = stations.length;
     var tl = gsap.timeline({
@@ -478,23 +488,32 @@
     mm.add({ isDesktop: DESKTOP, isMobile: MOBILE, reduce: REDUCE }, function (ctx) {
       var isDesktop = ctx.conditions.isDesktop;
       var reduce = ctx.conditions.reduce;
-      // hero() FIRST. It claims the <h1> by stripping data-reveal, so the
-      // reveal system never sees it. With the old order both systems animated
-      // the same node — the reveal tween drove the parent's opacity while
-      // SplitText drove each character's, and the two multiply. Land the
-      // timings badly (slower font load, slower machine) and the headline
-      // settles part-way: visibly faded, permanently.
+      // ORDER MATTERS. Everything that owns specific elements must claim them
+      // before reveals() runs, because reveals() takes every [data-reveal]
+      // node it has not been told to skip and arms a scroll trigger on it.
+      // Two systems animating one element's opacity is the bug that produced
+      // both the permanently faded hero and the broken process section.
+
       // Smoother first: it owns the scroller, and every ScrollTrigger created
       // afterwards measures against it.
       smoothScroll(gsap, reduce);
+
+      // Claims the <h1> (strips data-reveal). Without this the reveal tween
+      // drives the parent's opacity while SplitText drives each character's,
+      // and the two multiply — land the timings badly and the headline
+      // settles part-way, permanently faded.
       hero(gsap, SplitText, reduce);
-      reveals(gsap, reduce);
-      cardParallax(gsap, reduce);
-      // Pinning is desktop-only and motion-sensitive: holding the viewport
-      // still is the effect vestibular users report as nauseating, and on a
-      // phone it simply reads as a broken page.
+
+      // Claims the seven stations (marks them data-reveal-done). Pinning is
+      // desktop-only and motion-sensitive: holding the viewport still is the
+      // effect vestibular users report as nauseating, and on a phone it
+      // simply reads as a broken page.
       if (isDesktop && !reduce) benchScrub(gsap);
       else benchStatic(gsap, reduce);
+
+      // Now the general case, over whatever is left.
+      reveals(gsap, reduce);
+      cardParallax(gsap, reduce);
     });
   }
 
