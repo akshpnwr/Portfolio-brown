@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Akash Panwar — Full-Stack Developer</title>
+<style>
+  @page { size: A4; margin: 11mm 13mm; }
+
+  :root {
+    --ink: #1a1a1a;
+    --muted: #333;
+    --rule: #9a9a9a;
+    --link: #1a4fb4;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    margin: 0;
+    padding: 11mm 13mm;
+    font-family: Carlito, Calibri, "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 9.8pt;
+    line-height: 1.26;
+    color: var(--ink);
+    background: #fff;
+    max-width: 210mm;
+    margin-inline: auto;
+  }
+
+  a { color: var(--link); text-decoration: none; }
+
+  /* ---------- Header ---------- */
+  .name {
+    font-size: 24pt;
+    font-weight: 400;
+    letter-spacing: .06em;
+    text-align: center;
+    margin: 0 0 1pt;
+  }
+
+  .location {
+    text-align: center;
+    font-size: 10pt;
+    margin: 0 0 3pt;
+  }
+
+  .contact {
+    text-align: center;
+    font-size: 9.2pt;
+    margin: 0 0 8pt;
+  }
+
+  .contact span { white-space: nowrap; }
+  .contact .sep { color: var(--rule); padding: 0 6pt; }
+
+  /* ---------- Sections ---------- */
+  h2 {
+    font-size: 11.5pt;
+    font-weight: 700;
+    margin: 8pt 0 3pt;
+    padding-bottom: 1.5pt;
+    border-bottom: .8pt solid var(--ink);
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .entry {
+    margin-bottom: 5pt;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .entry:last-child { margin-bottom: 0; }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10pt;
+  }
+
+  .org { font-weight: 700; }
+  .date { font-weight: 700; white-space: nowrap; }
+  .role { font-style: italic; }
+  .place { font-style: italic; white-space: nowrap; }
+
+  /* ---------- Bullets ---------- */
+  ul {
+    margin: 2pt 0 0;
+    padding-left: 14pt;
+    list-style: none;
+  }
+
+  li {
+    position: relative;
+    margin-bottom: .8pt;
+    color: var(--muted);
+  }
+
+  li::before {
+    content: "-";
+    position: absolute;
+    left: -10pt;
+    top: -1pt;
+    color: var(--ink);
+  }
+
+  li:last-child { margin-bottom: 0; }
+
+  strong { color: var(--ink); }
+
+  /* ---------- Project heading line ---------- */
+  .proj-head { line-height: 1.25; }
+  .proj-name { font-weight: 700; }
+  .stack { font-style: italic; letter-spacing: .02em; }
+  .pipe { color: var(--rule); padding: 0 3pt; }
+  .proj-head a { font-weight: 700; letter-spacing: .03em; font-size: 9pt; }
+
+  /* ---------- Skills / links grid ---------- */
+  .summary {
+    margin: 0;
+    color: var(--muted);
+    text-align: justify;
+  }
+
+  .kv { margin-left: 4pt; }
+  .kv div { margin-bottom: 1.5pt; }
+  .kv b { display: inline; }
+
+  .links-list li::before { content: "-"; }
+
+  @media print {
+    body { padding: 0; }
+    .page-break { break-before: page; page-break-before: always; }
+  }
+</style>
+</head>
+<body>
+
+  <h1 class="name">AKASH PANWAR</h1>
+  <p class="location">Dehradun, Uttarakhand</p>
+  <p class="contact">
+    <span><a href="mailto:akashpanwar9976@gmail.com">akashpanwar9976@gmail.com</a></span>
+    <span class="sep">·</span>
+    <span><a href="https://github.com/akshpnwr">github.com/akshpnwr</a></span>
+    <span class="sep">·</span>
+    <span><a href="https://linkedin.com/in/akash-panwar-27b0141bb">linkedin.com/in/akash-panwar</a></span>
+    <span class="sep">·</span>
+    <span><a href="https://akash-panwar-portfolio.vercel.app/">akash-panwar-portfolio.vercel.app</a></span>
+  </p>
+
+  <!-- ================= SUMMARY ================= -->
+  <h2>Summary</h2>
+  <p class="summary">
+    Full-stack developer, three years shipping production web software. Founding engineer at
+    <strong>TalentGPT</strong> on a multi-tenant hiring SaaS, with
+    <strong>six client platforms live in production</strong>. Core stack: React, Node.js,
+    Express, MongoDB/MySQL.
+  </p>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <h2>Experience</h2>
+
+  <div class="entry">
+    <div class="row">
+      <span class="org">TalentGPT</span>
+      <span class="date">OCT 2025 – PRESENT</span>
+    </div>
+    <div class="row">
+      <span class="role">Founding Engineer</span>
+      <span class="place">Remote</span>
+    </div>
+    <ul>
+      <li>Built a <strong>job portal SaaS platform</strong> end to end, enabling recruiters to manage job postings, candidates, and hiring workflows from a single system.</li>
+      <li>Designed scalable backend services in <strong>Node.js, Express, and MongoDB</strong>, implementing APIs for job listings, applications, and user management.</li>
+      <li>Implemented <strong>ATS-style candidate scoring, filtering, and search</strong> with server-side pagination and query optimization to improve recruiter efficiency.</li>
+      <li>Developed the responsive front end with <strong>React + TanStack Router/Query</strong>, ensuring smooth data fetching and real-time UI updates.</li>
+      <li>Integrated authentication, role-based access, and organization-level permissions for a <strong>multi-tenant SaaS architecture</strong> isolating each company's data on a shared codebase.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="row">
+      <span class="org">Freelance Full-Stack Developer</span>
+      <span class="date">2024 – PRESENT</span>
+    </div>
+    <div class="row">
+      <span class="role">Contract Engineering · SaaS &amp; E-Commerce Platforms</span>
+      <span class="place">Remote</span>
+    </div>
+    <ul>
+      <li>Designed, built, deployed, and maintained <strong>6 platforms now live in production</strong> — including <strong>iReportify</strong> (marine reporting SaaS), <strong>realestateverifiedleads.ai</strong> (AI lead-gen SaaS), <strong>James Aston</strong>, and <strong>Furnicheer</strong> — each owned solo from architecture through launch and ongoing support.</li>
+      <li>Shipped full-stack applications on <strong>React, Node.js, Express, MySQL/MongoDB, Prisma and Sequelize</strong>, with AWS S3 media pipelines and role-based access control.</li>
+      <li>Delivered custom <strong>Shopify</strong> storefronts (Liquid, Dawn &amp; Broadcast themes) for luxury and handcrafted-goods brands, including bespoke sections, collection merchandising, and checkout tuning.</li>
+      <li>Worked directly with founders to translate business requirements into shipped product, handling scoping, deployment, and post-launch iteration without a supporting team.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="row">
+      <span class="org">Phemesoft (IBM Mentorship)</span>
+      <span class="date">JAN 2024 – APR 2024</span>
+    </div>
+    <div class="row">
+      <span class="role">Project Intern</span>
+      <span class="place">Remote</span>
+    </div>
+    <ul>
+      <li>Developed a machine-learning project under IBM mentorship using <strong>Python, scikit-learn, and TensorFlow</strong>.</li>
+      <li>Implemented k-means clustering to personalize song recommendations, improving recommendation accuracy by <strong>25%</strong>.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="row">
+      <span class="org">Closetnerds</span>
+      <span class="date">FEB 2023 – MAY 2023</span>
+    </div>
+    <div class="row">
+      <span class="role">Frontend Developer Intern</span>
+      <span class="place">Remote</span>
+    </div>
+    <ul>
+      <li>Crafted responsive webpages with <strong>ReactJS</strong>, reducing page load times and elevating user engagement.</li>
+      <li>Collaborated with the design team on UI/UX improvements that increased website usability.</li>
+      <li>Drove debugging and troubleshooting work contributing to a <strong>15% decrease</strong> in website downtime.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="row">
+      <span class="org">OPPO</span>
+      <span class="date">MAR 2023 – JUN 2023</span>
+    </div>
+    <div class="row">
+      <span class="role">Content Writer Intern</span>
+      <span class="place">Remote</span>
+    </div>
+    <ul>
+      <li>Produced gaming-community and mobile-games content for the Indian market, driving a <strong>15% increase</strong> in audience engagement, with research and analysis that improved content relevance by <strong>20%</strong>.</li>
+    </ul>
+  </div>
+
+  <!-- ================= PROJECTS ================= -->
+  <h2>Projects</h2>
+
+  <div class="entry">
+    <div class="proj-head">
+      <span class="proj-name">iReportify</span><span class="pipe">|</span><span class="stack">React, NodeJS, ExpressJS, MySQL, Sequelize, AWS S3</span><span class="pipe">|</span><a href="https://ireportify.com/">URL</a>
+    </div>
+    <ul>
+      <li>Marine inspection-reporting SaaS letting engineers and supervisors capture, upload, and share image-based reports from anywhere at sea — live and in use by shipping professionals worldwide.</li>
+      <li>Built a React front end over a Node/Express/MySQL backend with Sequelize ORM and AWS S3 image storage.</li>
+      <li>Implemented report generation, folder organization, and custom cover pages, replacing hours of manual paperwork.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="proj-head">
+      <span class="proj-name">realestateverifiedleads.ai</span><span class="pipe">|</span><span class="stack">React, Tailwind, Vite, Framer Motion, MySQL, Prisma</span><span class="pipe">|</span><a href="https://realestateverifiedleads.ai/">URL</a>
+    </div>
+    <ul>
+      <li>AI lead-generation SaaS connecting real-estate teams with voice-verified property buyers, live in production.</li>
+      <li>Built a 5-tier qualification flow that filters unverified leads before they reach the sales floor, bridging mass outreach and precision conversion.</li>
+      <li>Implemented role-based access control over a MySQL + Prisma backend, keeping each stage of the sales workflow scoped to its own team.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="proj-head">
+      <span class="proj-name">Easy Prime Holidays</span><span class="pipe">|</span><span class="stack">JavaScript, HTML, CSS, Firebase Auth, Firestore</span><span class="pipe">|</span><a href="https://www.easyprimeholidays.com/">URL</a>
+    </div>
+    <ul>
+      <li>Travel-discovery and booking platform for Himalayan tourism, with search across destinations, dates, and party size.</li>
+      <li>Integrated Firebase Authentication for user accounts and Firestore for real-time storage of destinations, blogs, and enquiries.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="proj-head">
+      <span class="proj-name">James Aston</span><span class="pipe">|</span><span class="stack">Shopify, Broadcast Theme, Liquid, JavaScript</span><span class="pipe">|</span><a href="https://jamesaston.in/">URL</a>
+    </div>
+    <ul>
+      <li>Custom Shopify storefront for a premium full-grain leather house, live and taking orders across men's, women's, and corporate-gifting lines.</li>
+      <li>Customised the Broadcast theme with bespoke Liquid sections for editorial collection stories, a layered product catalogue, and a checkout tuned for high-consideration purchases.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="proj-head">
+      <span class="proj-name">Furnicheer</span><span class="pipe">|</span><span class="stack">Shopify, Dawn Theme, Liquid, JavaScript</span><span class="pipe">|</span><a href="https://furnicheer.in/">URL</a>
+    </div>
+    <ul>
+      <li>Storefront for a handcrafted solid-wood furniture brand shipping across India — pooja mandirs, swings, and made-to-order pieces.</li>
+      <li>Customised the Dawn theme with Liquid for editorial category layouts, collection merchandising, and enquiry-driven flows for commissioned work.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="proj-head">
+      <span class="proj-name">Baluni Public School</span><span class="pipe">|</span><span class="stack">Wix, CMS, HTML, CSS</span><span class="pipe">|</span><a href="https://www.bpstilwari.in/">URL</a>
+    </div>
+    <ul>
+      <li>Full institutional website for a CBSE-affiliated school in Dehradun, covering academics, admissions, student life, gallery, and contact for prospective parents.</li>
+    </ul>
+  </div>
+
+  <div class="entry">
+    <div class="proj-head">
+      <span class="proj-name">JS Journal</span><span class="pipe">|</span><span class="stack">ReactJS, esbuild, Redux</span><span class="pipe">|</span><a href="https://github.com/akshpnwr/js-journal">GitHub</a>
+    </div>
+    <ul>
+      <li>Browser-based JavaScript prototyping code editor built on Monaco Editor, with esbuild for in-browser bundling and transpiling and Redux for predictable state.</li>
+      <li>Published to npm — initialized with <strong>npx js-berry-journal serve</strong>.</li>
+    </ul>
+  </div>
+
+  <!-- ================= EDUCATION ================= -->
+  <h2>Education</h2>
+
+  <div class="entry">
+    <div class="row">
+      <span class="org">UPES Dehradun</span>
+      <span class="date">AUGUST 2022 – JUNE 2024</span>
+    </div>
+    <div class="row">
+      <span class="role">Master of Computer Applications (CGPA: 8.7)</span>
+      <span class="place">Uttarakhand, India</span>
+    </div>
+  </div>
+
+  <div class="entry">
+    <div class="row">
+      <span class="org">Uttaranchal University</span>
+      <span class="date">AUGUST 2018 – JUNE 2021</span>
+    </div>
+    <div class="row">
+      <span class="role">Bachelor of Computer Applications (CGPA: 8.6)</span>
+      <span class="place">Uttarakhand, India</span>
+    </div>
+  </div>
+
+  <!-- ================= TECHNICAL SKILLS ================= -->
+  <h2>Technical Skills</h2>
+  <div class="kv">
+    <div><b>Languages:</b> JavaScript, TypeScript, Python, C++, SQL</div>
+    <div><b>Frontend:</b> React, Remix, TanStack Router/Query, Redux, Zustand, Tailwind CSS, Shadcn UI, Vite, HTML, CSS</div>
+    <div><b>Backend &amp; Data:</b> Node.js, Express, MongoDB, MySQL, Prisma, Sequelize, REST APIs, WebSockets, Firebase (Auth &amp; Firestore), AWS S3</div>
+    <div><b>Platforms &amp; Tools:</b> Shopify (Liquid, Dawn &amp; Broadcast), Wix, Git, Postman, VS Code, esbuild, Monaco</div>
+    <div><b>Domain:</b> Full-stack web development, multi-tenant SaaS architecture, e-commerce</div>
+  </div>
+
+  <!-- ================= EXTRA-CURRICULAR ================= -->
+  <h2>Extra-Curricular</h2>
+  <div class="entry">
+    <div class="row">
+      <span class="org">Student Developer — Website Team, UPES OPEN Community</span>
+      <span class="date">2022 – 2023</span>
+    </div>
+    <ul>
+      <li>Core member of the website team; built the site for the <strong>Dehashed</strong> event organized by UPES-OPEN and WEBCRUX (<a href="https://dehashed.in/">dehashed.in</a>).</li>
+      <li>Developed the front end of the UPES-OPEN community website (<a href="https://upes-open.org/">upes-open.org</a>).</li>
+    </ul>
+  </div>
+
+  <!-- ================= ACHIEVEMENTS ================= -->
+  <h2>Achievements</h2>
+  <ul>
+    <li><strong>HackerRank Gold Badge — SQL</strong>, demonstrating strong database query and data manipulation skills.</li>
+    <li><strong>Certificate of Excellence</strong> — Best Performer, Website Team, OPEN Community (2022–23).</li>
+    <li>Contributor badge, <strong>Hacktoberfest 2022</strong>.</li>
+    <li>Udemy certifications — <strong>React &amp; TypeScript</strong> (Stephen Grider, 2024) and <strong>React: The Complete Guide</strong> (Academind, 2023).</li>
+  </ul>
+
+</body>
+</html>

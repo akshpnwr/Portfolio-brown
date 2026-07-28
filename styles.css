@@ -221,10 +221,36 @@ button {
    3. Layout primitives
    ========================================================================== */
 
-/* Root wrapper — clips the decorative overflow of hero/contact glows. */
+/* ── ScrollSmoother scaffolding ────────────────────────────────
+   The wrapper is the viewport; #smooth-content is transformed as you scroll.
+   Both need to exist in CSS even when ScrollSmoother is off (mobile, reduced
+   motion, CDN failure) — in that state they are inert boxes and the page
+   scrolls natively, which is exactly the fallback we want. */
+
+#smooth-wrapper {
+  overflow: hidden;
+}
+
+/* Only ScrollSmoother sets this class, so a page without it keeps normal
+   document flow and normal native scrolling. */
+html.has-smooth-scroll #smooth-wrapper {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+/* Root wrapper — clips the decorative overflow of hero/contact glows.
+
+   `clip`, not `hidden`: both clip identically, but `hidden` creates a scroll
+   container, and any scrollable ancestor breaks ScrollTrigger's pinning
+   (position:sticky stops resolving against the viewport). `clip` does not,
+   so the pinned process section works while the glows stay clipped. */
 .page {
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
   background: var(--color-bone);
 }
 
@@ -443,6 +469,15 @@ button {
     padding var(--duration-slow) ease,
     background var(--duration-slow) ease,
     border-color var(--duration-slow) ease;
+}
+
+/* Condensed state past ~24px of scroll. JS toggles the class and nothing
+   else — the values that used to be written as inline styles on every
+   scroll frame now live here with the rest of the header's design. */
+.site-header--condensed {
+  padding: 11px 0;
+  background: rgba(250, 249, 246, 0.9);
+  border-bottom-color: rgba(107, 79, 59, 0.14);
 }
 
 .site-header__inner {
@@ -1071,6 +1106,42 @@ button {
   z-index: 0;
 }
 
+/* The rail's bright overlay — GSAP scrubs scaleX 0→1 as the pinned bench
+   advances, so the line appears to draw itself left-to-right. Separate from
+   .bench-rail so the dim base track stays visible ahead of the draw.
+   Deliberately left at full scale here rather than scaleX(0): if GSAP never
+   loads, the rail must still read as a finished line. GSAP collapses it to 0
+   itself once it is confirmed live, so the drawn state is the safe default
+   and the animated state is the enhancement. */
+.bench-rail__draw {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+      var(--brass-a45) 0%,
+      var(--color-brass-light) 50%,
+      var(--brass-a45) 100%);
+  transform-origin: left center;
+  box-shadow: 0 0 8px var(--brass-a55);
+}
+
+/* Stations dim until the rail draw reaches them, then settle to full
+   strength. Only the JS path ever sets .is-lit; without GSAP the station
+   keeps its normal appearance and nothing looks unfinished. */
+.station__text,
+.station svg {
+  transition:
+    opacity var(--duration-card) var(--ease-out-soft),
+    transform var(--duration-card) var(--ease-out-soft);
+}
+
+.station.is-lit .node {
+  border-color: var(--brass-a90);
+  box-shadow:
+    0 0 0 6px var(--color-ink),
+    0 0 18px var(--brass-a55),
+    0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
 .station {
   position: relative;
   z-index: 1;
@@ -1540,6 +1611,71 @@ button {
   .st-desc {
     max-width: none;
   }
+}
+
+/* ==========================================================================
+   7b. Interaction states
+
+   These were previously inline styles written by JS event handlers (chipIn,
+   cardIn, liftIn, pressIn, inputFocus and their partners). They are pure
+   presentation reacting to hover/active/focus, so CSS owns them now: no
+   listeners, no inline-style churn, and they keep working if JS fails.
+   The values are unchanged from the handlers they replace.
+   ========================================================================== */
+
+.chip {
+  box-shadow: var(--shadow-chip);
+}
+
+.chip:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-chip-hover);
+  border-color: var(--brass-a50);
+}
+
+.project:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Hover lift for the primary/ghost/nav/submit buttons. */
+.btn:hover,
+.btn--nav:hover,
+.btn--submit:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-btn-hover);
+}
+
+/* Press feedback. :active fires for both mouse and touch, which removes the
+   four separate mousedown/mouseup/touchstart/touchend handlers. The scale is
+   skipped under reduced motion by the block below. */
+.btn:active,
+.btn--nav:active {
+  transform: translateY(-2px) scale(0.97);
+  box-shadow: var(--shadow-btn-press);
+  transition:
+    transform 140ms var(--ease-out-soft),
+    box-shadow 140ms var(--ease-out-soft);
+}
+
+.btn--submit:active {
+  transform: translateY(2px);
+  box-shadow: var(--shadow-btn-press);
+}
+
+/* Touch has no hover to hold the lift, so the pressed state sits flat. */
+@media (hover: none) {
+
+  .btn:active,
+  .btn--nav:active {
+    transform: scale(0.97);
+  }
+}
+
+.field__input:focus {
+  border-color: var(--brass-a55);
+  box-shadow: var(--shadow-focus);
+  outline: none;
 }
 
 /* ==========================================================================
