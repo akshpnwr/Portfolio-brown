@@ -862,20 +862,45 @@ html.has-smooth-scroll #smooth-wrapper {
   height: 100%;
 }
 
+/* The single subheading paragraph. The 36px below it used to be split
+   across two stacked paragraphs (body + body--secondary); with the second
+   one gone the gap to the CTA row lives here. */
 .hero__body {
   font-size: var(--text-lead);
   line-height: 1.7;
   color: var(--color-graphite);
   max-width: 520px;
-  margin: 0 0 20px;
+  margin: 0 0 36px;
   font-weight: var(--weight-light);
 }
 
-.hero__body--secondary {
-  font-size: 15px;
-  color: var(--color-pebble);
-  max-width: 480px;
-  margin-bottom: 40px;
+/* Availability line under the hero CTAs. Deliberately quiet — it is a
+   scarcity signal, and shouting it undercuts the rest of the page's tone.
+   The dot reuses the status-pill's sage treatment so the two read as the
+   same system. Text comes from data.js → availability. */
+.hero__availability {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  color: var(--color-stone);
+  font-weight: var(--weight-light);
+  margin: 22px 0 0;
+}
+
+.hero__availability-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-round);
+  background: var(--color-sage);
+  box-shadow: 0 0 0 3px rgba(95, 111, 82, 0.15);
+}
+
+/* Booked-out variant, set by applyData() when availability.taking is false. */
+.hero__availability--closed .hero__availability-dot {
+  background: var(--color-brass);
+  box-shadow: 0 0 0 3px var(--brass-a14);
 }
 
 .hero__portrait-wrap {

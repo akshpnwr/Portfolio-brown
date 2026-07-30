@@ -30,6 +30,9 @@
     <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollSmoother.min.js"></script>
 
+    <!-- data.js must load before site.js: applyData() reads PortfolioData on
+         boot. Both are `defer`, so they execute in document order. -->
+    <script defer src="./data.js"></script>
     <script defer src="./image-slot.js"></script>
     <script defer src="./animations.js"></script>
     <script defer src="./site.js"></script>
@@ -131,25 +134,43 @@
               <div class="status-pill" data-reveal>
                 <span class="status-pill__dot"></span>
                 <span class="status-pill__label"
-                  >Fullstack Developer · Founding Engineer</span
+                  >Production SaaS, built end to end — for founders and small
+                  teams</span
                 >
               </div>
+              <!-- HEADLINE OPTIONS — pick one, delete the rest.
+                   The chosen one is live below. Keep the two-line break and
+                   the .display__accent span on the final phrase: that italic
+                   brass treatment is the hero's visual anchor.
+
+                   A) I build and ship
+                      production SaaS — solo.
+
+                   B) Your product, live in production.
+                      Built by one person who owns all of it.
+
+                   C) From schema to interface:
+                      complete products, shipped.   ← currently live
+              -->
               <h1 class="display display--hero" data-reveal>
-                I build thoughtful<br />digital products,<br /><span
+                From schema to interface:<br />complete products,<br /><span
                   class="display__accent"
-                  >end&nbsp;to&nbsp;end.</span
+                  >shipped.</span
                 >
               </h1>
+              <!-- SUBHEADING OPTIONS — pick one, delete the rest.
+
+                   A) ← currently live
+                   B) I'm Akash Panwar. Founders hire me to build the whole
+                      product — multi-tenant SaaS with real backends, RBAC and
+                      an interface people actually use. One person, from empty
+                      repo to production, answerable for all of it.
+              -->
               <p class="hero__body" data-reveal>
-                Hi, I'm Akash Panwar — a fullstack developer and founding
-                engineer building end-to-end web applications: multi-tenant
-                SaaS, commerce storefronts, and the quiet tooling in between.
-                React, Node, TypeScript and MongoDB, thoughtfully assembled.
-              </p>
-              <p class="hero__body hero__body--secondary" data-reveal>
-                Data models, APIs, and the interfaces that sit on top — built
-                for founders and small teams who care about the details most
-                people meet three months in.
+                I'm Akash Panwar. I build production SaaS for founders and small
+                teams — multi-tenant architecture, real backends, role-based
+                access, and the interface on top. One person owns the whole
+                thing, so nothing falls between the handoffs.
               </p>
               <div class="cta-row" data-reveal>
                 <a
@@ -164,10 +185,17 @@
                   href="#contact"
                   data-target="contact"
                   class="btn btn--ghost"
+                  data-track="hero-cta"
                 >
-                  Get in touch
+                  Start a project →
                 </a>
               </div>
+              <!-- Availability copy comes from data.js → availability.
+                   The inline text is the fallback if that file fails to load. -->
+              <p class="hero__availability" data-reveal data-availability>
+                <span class="hero__availability-dot" aria-hidden="true"></span>
+                Currently taking on one new project — available from September.
+              </p>
             </div>
 
             <div class="hero__portrait-wrap" data-reveal>
@@ -183,9 +211,13 @@
                 </div>
                 <div class="portrait-mount__glint"></div>
               </div>
+              <!-- Values come from data.js → heroStat. Never years of
+                   experience here — see the note in that file. -->
               <div class="portrait-badge">
-                <div class="portrait-badge__value">2+ yrs</div>
-                <div class="portrait-badge__label">building products</div>
+                <div class="portrait-badge__value" data-stat-value>7</div>
+                <div class="portrait-badge__label" data-stat-label>
+                  shipped to production
+                </div>
               </div>
             </div>
           </div>

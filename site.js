@@ -267,12 +267,87 @@
     })();
   }
 
+  /* ── Data-driven copy ────────────────────────────────────────────────────
+     Writes the values from data.js into the page: availability, the hero
+     stat, case-study metrics, the booking link.
+
+     Everything here degrades to the markup already in index.html. If data.js
+     fails to load, PortfolioData is undefined, this returns early, and the
+     visitor sees the last-committed inline copy rather than an empty page.
+     That is why the HTML carries real defaults instead of empty elements. */
+
+  function applyData() {
+    var D = window.PortfolioData;
+    if (!D) return;
+
+    /* Availability line beside the hero CTAs. */
+    var avail = document.querySelector('[data-availability]');
+    if (avail && D.availability) {
+      var a = D.availability;
+      var text = a.taking
+        ? String(a.line).replace('{month}', a.month)
+        : a.lineClosed;
+      // Keep the dot; only the text node after it changes.
+      var dot = avail.querySelector('.hero__availability-dot');
+      avail.textContent = '';
+      if (dot) avail.appendChild(dot);
+      avail.appendChild(document.createTextNode(text));
+      avail.classList.toggle('hero__availability--closed', !a.taking);
+    }
+
+    /* Hero stat badge. */
+    if (D.heroStat) {
+      var sv = document.querySelector('[data-stat-value]');
+      var sl = document.querySelector('[data-stat-label]');
+      if (sv) sv.textContent = D.heroStat.value;
+      if (sl) sl.textContent = D.heroStat.label;
+    }
+
+    /* Case-study outcome metrics. A metric still starting with "TODO" is
+       unfilled — hide the whole block rather than showing scaffolding to a
+       visitor. data.js logs those to the console instead. */
+    if (D.metrics) {
+      document.querySelectorAll('[data-project-id]').forEach(function (card) {
+        var entry = D.metrics[card.dataset.projectId];
+        if (!entry) return;
+        var slot = card.querySelector('[data-metric]');
+        var proseEl = card.querySelector('[data-outcome-prose]');
+        var filled = entry.metric && !/^TODO/.test(entry.metric);
+        if (slot) {
+          if (filled) {
+            slot.textContent = entry.metric;
+            slot.hidden = false;
+          } else {
+            slot.hidden = true;
+          }
+        }
+        if (proseEl && entry.prose) proseEl.textContent = entry.prose;
+      });
+    }
+
+    /* Booking link. Hidden entirely while no URL is set — a "Book a call"
+       button that goes nowhere costs more trust than its absence. */
+    var book = document.querySelector('[data-booking]');
+    if (book) {
+      if (D.booking && D.booking.url) {
+        book.href = D.booking.url;
+        book.textContent = D.booking.label;
+        book.hidden = false;
+      } else {
+        book.hidden = true;
+      }
+    }
+
+    if (D.checkMetrics) D.checkMetrics();
+  }
+
   /* ── Boot ────────────────────────────────────────────────────────────── */
 
   function start() {
     var year = document.querySelector('[data-year]');
     if (year) year.textContent = new Date().getFullYear();
 
+    applyData();
     setupNavClicks();
     setupMenu();
     setupDetails();
