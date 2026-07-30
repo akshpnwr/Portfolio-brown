@@ -1233,6 +1233,29 @@ html.has-smooth-scroll #smooth-wrapper {
   margin-bottom: 5px;
 }
 
+/* The hard result, above the outcome prose. Set in the display serif at
+   walnut so it carries the same weight as the stat figures in About — a
+   number a buyer can hold on to, rather than another line of description.
+
+   Rendered only when data.js carries a real figure. While the metric is
+   still a TODO, applyData() sets [hidden] and the outcome falls back to
+   prose alone, so unfilled scaffolding never reaches a visitor. */
+.detail__metric {
+  font-family: var(--font-display);
+  font-size: 30px;
+  line-height: 1.1;
+  color: var(--color-walnut);
+  margin-bottom: 6px;
+}
+
+.detail__metric[hidden] {
+  display: none;
+}
+
+.project--ink .detail__metric {
+  color: var(--color-brass-light);
+}
+
 .detail__text {
   margin: 0;
   font-size: 14.5px;

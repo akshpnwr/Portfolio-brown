@@ -275,19 +275,34 @@
           </div>
         </section>
 
-        <!-- WORK / PROJECTS -->
+        <!-- WORK / PROJECTS
+             Order is deliberate: the three SaaS platforms lead, the two
+             storefronts follow. That sequence is the positioning — a visitor
+             who reads only the first card should come away thinking "builds
+             production SaaS", not "builds Shopify sites".
+
+             Two earlier entries (Baluni Public School, a Wix build; Easy Prime
+             Holidays, vanilla JS) were removed rather than reordered. Both
+             were real work, but on a page selling $6k+ product builds they
+             priced the offer down. They remain in git history.
+
+             `.project--reversed` alternates the image side. Because two cards
+             were removed, the alternation was rebuilt from scratch — do not
+             assume the old odd/even pattern still holds when editing.
+
+             data-project-id keys each card to data.js → metrics. -->
         <section class="section--band" id="work">
           <div class="shell">
             <div class="section-head-row" data-reveal>
               <div>
-                <div class="eyebrow">02 — Selected Work</div>
+                <div class="eyebrow">03 — Selected Work</div>
                 <h2 class="display display--section-wide">
                   Things I've built<br />and kept alive.
                 </h2>
               </div>
               <p class="section-head-row__note">
-                A handful of recent partnerships. Each one designed, built,
-                deployed, and maintained by me.
+                Recent partnerships. Each one designed, built, deployed, and
+                maintained by me.
               </p>
             </div>
 
@@ -296,6 +311,7 @@
               <article
                 class="project"
                 data-project
+                data-project-id="talentgpt"
                 data-reveal
               >
                 <div class="frame">
@@ -351,10 +367,11 @@
                         </p>
                       </div>
                       <div>
-                        <div class="detail__label">Role</div>
-                        <p class="detail__text">
-                          Founding engineer, owning the platform end to end from
-                        the MongoDB schema up to the recruiter interface.
+                        <div class="detail__label">Outcome</div>
+                        <div class="detail__metric" data-metric hidden></div>
+                        <p class="detail__text" data-outcome-prose>
+                          A multi-tenant hiring platform running in production,
+                        with every organization isolated on one codebase.
                         </p>
                       </div>
                     </div>
@@ -369,112 +386,24 @@
                       rel="noopener"
                       target="_blank"
                       class="link-external"
+                      data-track="project-live"
+                      data-track-label="TalentGPT"
                     >Live ↗</a
                     >
                   </div>
                 </div>
               </article>
 
-              <!-- 02 · James Aston -->
+              <!-- 02 · realestateverifiedleads.ai -->
               <article
                 class="project project--reversed"
                 data-project
+                data-project-id="realestateverifiedleads"
                 data-reveal
               >
                 <div class="project__body">
                   <div class="project__meta">
                     <span class="project__index">02</span
-                    ><span class="project__rule"></span
-                    ><span class="project__kicker">Shopify Storefront · Leather Brand · 2024</span>
-                  </div>
-                  <h3 class="project__title">James Aston</h3>
-                  <p class="project__summary">
-                    Gave a premium leather house a storefront that sells the
-                    craft, not just the catalogue — vegetable-tanned, full-grain
-                    belts, bags, wallets and clutches. Custom Shopify build, live
-                    and taking orders.
-                  </p>
-                  <div class="tag-list">
-                    <span class="tag">Shopify</span>
-                    <span class="tag">Broadcast Theme</span>
-                    <span class="tag">Liquid</span>
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">HTML</span>
-                    <span class="tag">CSS</span>
-                  </div>
-                  <div class="project__detail" data-detail>
-                    <div class="project__detail-inner">
-                      <div>
-                        <div class="detail__label">Challenge</div>
-                        <p class="detail__text">
-                          Sell a high-consideration luxury product across men's,
-                        women's and corporate-gifting lines without cheapening
-                        the brand.
-                        </p>
-                      </div>
-                      <div>
-                        <div class="detail__label">Architecture</div>
-                        <p class="detail__text">
-                          Built on the premium Broadcast theme, customised with
-                        bespoke Liquid sections for editorial collection
-                        stories and a layered product catalogue, with a
-                        checkout tuned for a luxury purchase.
-                        </p>
-                      </div>
-                      <div>
-                        <div class="detail__label">Outcome</div>
-                        <p class="detail__text">
-                          An editorial storefront that carries the feel of the
-                        brand from collection story through to checkout.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="btn-row">
-                    <button class="btn-plain" type="button" data-detail-toggle aria-expanded="false">
-                      <span class="chevron" data-chev>↓</span>
-                      <span data-detail-label> View case details</span>
-                    </button>
-                    <a
-                      href="https://jamesaston.in/"
-                      rel="noopener"
-                      target="_blank"
-                      class="link-external"
-                    >Live ↗</a
-                    >
-                  </div>
-                </div>
-                <div class="frame">
-                  <image-slot
-                    id="proj5"
-                    src="assets/jamesaston.webp"
-                    fit="cover"
-                    shape="rounded"
-                    radius="18"
-                    placeholder="James Aston — cover image"
-                  ></image-slot>
-                </div>
-              </article>
-
-              <!-- 03 · realestateverifiedleads.ai -->
-              <article
-                class="project"
-                data-project
-                data-reveal
-              >
-                <div class="frame">
-                  <image-slot
-                    id="proj3"
-                    src="assets/realestateverifiedleads.webp"
-                    fit="cover"
-                    shape="rounded"
-                    radius="18"
-                    placeholder="realestateverifiedleads.ai — cover image"
-                  ></image-slot>
-                </div>
-                <div class="project__body">
-                  <div class="project__meta">
-                    <span class="project__index">03</span
                     ><span class="project__rule"></span
                     ><span class="project__kicker">SaaS Platform · Lead-Gen AI · 2025</span>
                   </div>
@@ -516,9 +445,10 @@
                       </div>
                       <div>
                         <div class="detail__label">Outcome</div>
-                        <p class="detail__text">
-                          A clear conversion narrative that filters unverified
-                        leads before they reach the sales team.
+                        <div class="detail__metric" data-metric hidden></div>
+                        <p class="detail__text" data-outcome-prose>
+                          A five-tier qualification flow that keeps unverified
+                        leads away from the closers.
                         </p>
                       </div>
                     </div>
@@ -533,97 +463,29 @@
                       rel="noopener"
                       target="_blank"
                       class="link-external"
-                    >Live ↗</a
-                    >
-                  </div>
-                </div>
-              </article>
-
-              <!-- 04 · Furnicheer -->
-              <article
-                class="project project--reversed"
-                data-project
-                data-reveal
-              >
-                <div class="project__body">
-                  <div class="project__meta">
-                    <span class="project__index">04</span
-                    ><span class="project__rule"></span
-                    ><span class="project__kicker">Shopify Storefront · Furniture Brand · 2025</span>
-                  </div>
-                  <h3 class="project__title">Furnicheer</h3>
-                  <p class="project__summary">
-                    Took a handcrafted solid-wood furniture brand online and
-                    selling across India and beyond — pooja mandirs, swings, and
-                    made-to-order pieces, with a storefront built to handle
-                    custom orders and nationwide shipping. Live and trading.
-                  </p>
-                  <div class="tag-list">
-                    <span class="tag">Shopify</span>
-                    <span class="tag">Dawn Theme</span>
-                    <span class="tag">Liquid</span>
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">HTML</span>
-                    <span class="tag">CSS</span>
-                  </div>
-                  <div class="project__detail" data-detail>
-                    <div class="project__detail-inner">
-                      <div>
-                        <div class="detail__label">Challenge</div>
-                        <p class="detail__text">
-                          Present a heritage, made-to-order furniture catalog —
-                        across temples, swings, furniture and décor — in a
-                        storefront that feels as considered as the products.
-                        </p>
-                      </div>
-                      <div>
-                        <div class="detail__label">Architecture</div>
-                        <p class="detail__text">
-                          Built on the free Dawn theme, customised with Liquid
-                        for editorial category layouts, collection
-                        merchandising, and enquiry-driven flows for
-                        commissioned pieces.
-                        </p>
-                      </div>
-                      <div>
-                        <div class="detail__label">Outcome</div>
-                        <p class="detail__text">
-                          A storefront that carries the brand's heritage feel
-                        from category browsing through to enquiry and checkout.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="btn-row">
-                    <button class="btn-plain" type="button" data-detail-toggle aria-expanded="false">
-                      <span class="chevron" data-chev>↓</span>
-                      <span data-detail-label> View case details</span>
-                    </button>
-                    <a
-                      href="https://furnicheer.in/"
-                      rel="noopener"
-                      target="_blank"
-                      class="link-external"
+                      data-track="project-live"
+                      data-track-label="realestateverifiedleads.ai"
                     >Live ↗</a
                     >
                   </div>
                 </div>
                 <div class="frame">
                   <image-slot
-                    id="proj7"
-                    src="assets/furnicheer.webp"
+                    id="proj3"
+                    src="assets/realestateverifiedleads.webp"
                     fit="cover"
                     shape="rounded"
                     radius="18"
-                    placeholder="Furnicheer — cover image"
+                    placeholder="realestateverifiedleads.ai — cover image"
                   ></image-slot>
                 </div>
               </article>
 
-              <!-- 05 · iReportify -->
+              <!-- 03 · iReportify -->
               <article
                 class="project"
                 data-project
+                data-project-id="ireportify"
                 data-reveal
               >
                 <div class="frame">
@@ -638,7 +500,7 @@
                 </div>
                 <div class="project__body">
                   <div class="project__meta">
-                    <span class="project__index">05</span
+                    <span class="project__index">03</span
                     ><span class="project__rule"></span
                     ><span class="project__kicker">SaaS Platform · Marine Reporting · 2025</span>
                   </div>
@@ -678,9 +540,10 @@
                       </div>
                       <div>
                         <div class="detail__label">Outcome</div>
-                        <p class="detail__text">
-                          Simplifies reporting and amplifies on-board efficiency
-                        for marine and industrial teams.
+                        <div class="detail__metric" data-metric hidden></div>
+                        <p class="detail__text" data-outcome-prose>
+                          Inspection reporting that happens on deck instead of
+                        at a desk, in use by shipping professionals worldwide.
                         </p>
                       </div>
                     </div>
@@ -695,62 +558,67 @@
                       rel="noopener"
                       target="_blank"
                       class="link-external"
+                      data-track="project-live"
+                      data-track-label="iReportify"
                     >Live ↗</a
                     >
                   </div>
                 </div>
               </article>
 
-              <!-- 06 · Baluni Public School -->
+              <!-- 04 · James Aston -->
               <article
                 class="project project--reversed"
                 data-project
+                data-project-id="jamesaston"
                 data-reveal
               >
                 <div class="project__body">
                   <div class="project__meta">
-                    <span class="project__index">06</span
+                    <span class="project__index">04</span
                     ><span class="project__rule"></span
-                    ><span class="project__kicker">School Website · Wix · Dehradun · 2024</span>
+                    ><span class="project__kicker">Shopify Storefront · Leather Brand · 2024</span>
                   </div>
-                  <h3 class="project__title">Baluni Public School</h3>
+                  <h3 class="project__title">James Aston</h3>
                   <p class="project__summary">
-                    Gave a CBSE-affiliated school its first proper online front
-                    door — a full institutional site for Baluni Public School in
-                    Tilwari, Bhauwala, Dehradun that carries admissions,
-                    academics, and the wider school story for prospective
-                    parents. Live.
+                    Gave a premium leather house a storefront that sells the
+                    craft, not just the catalogue — vegetable-tanned, full-grain
+                    belts, bags, wallets and clutches. Custom Shopify build, live
+                    and taking orders.
                   </p>
                   <div class="tag-list">
-                    <span class="tag">Wix</span>
-                    <span class="tag">CMS</span>
+                    <span class="tag">Shopify</span>
+                    <span class="tag">Broadcast Theme</span>
+                    <span class="tag">Liquid</span>
+                    <span class="tag">JavaScript</span>
                     <span class="tag">HTML</span>
                     <span class="tag">CSS</span>
-                    <span class="tag">Responsive Design</span>
                   </div>
                   <div class="project__detail" data-detail>
                     <div class="project__detail-inner">
                       <div>
                         <div class="detail__label">Challenge</div>
                         <p class="detail__text">
-                          Serve students, parents and staff from one site
-                        covering academics, admissions, student life, gallery,
-                        and contact.
+                          Sell a high-consideration luxury product across men's,
+                        women's and corporate-gifting lines without cheapening
+                        the brand.
                         </p>
                       </div>
                       <div>
                         <div class="detail__label">Architecture</div>
                         <p class="detail__text">
-                          A responsive Wix + CMS build covering the full school
-                        experience, from academics and admissions to campus
-                        gallery and contact.
+                          Built on the premium Broadcast theme, customised with
+                        bespoke Liquid sections for editorial collection
+                        stories and a layered product catalogue, with a
+                        checkout tuned for a luxury purchase.
                         </p>
                       </div>
                       <div>
                         <div class="detail__label">Outcome</div>
-                        <p class="detail__text">
-                          Smart learning values and a vibrant community voice
-                        come through in every section.
+                        <div class="detail__metric" data-metric hidden></div>
+                        <p class="detail__text" data-outcome-prose>
+                          An editorial storefront that carries the brand from
+                        collection story through to checkout.
                         </p>
                       </div>
                     </div>
@@ -761,85 +629,91 @@
                       <span data-detail-label> View case details</span>
                     </button>
                     <a
-                      href="https://www.bpstilwari.in/"
+                      href="https://jamesaston.in/"
                       rel="noopener"
                       target="_blank"
                       class="link-external"
+                      data-track="project-live"
+                      data-track-label="James Aston"
                     >Live ↗</a
                     >
                   </div>
                 </div>
                 <div class="frame">
                   <image-slot
-                    id="proj6"
-                    src="assets/bpstilwari.webp"
+                    id="proj5"
+                    src="assets/jamesaston.webp"
                     fit="cover"
                     shape="rounded"
                     radius="18"
-                    placeholder="Baluni Public School — cover image"
+                    placeholder="James Aston — cover image"
                   ></image-slot>
                 </div>
               </article>
 
-              <!-- 07 · Easy Prime Holidays -->
+              <!-- 05 · Furnicheer -->
               <article
                 class="project"
                 data-project
+                data-project-id="furnicheer"
                 data-reveal
               >
                 <div class="frame">
                   <image-slot
-                    id="proj4"
-                    src="assets/easyprimeholidays.webp"
+                    id="proj7"
+                    src="assets/furnicheer.webp"
                     fit="cover"
                     shape="rounded"
                     radius="18"
-                    placeholder="Easy Prime Holidays — cover image"
+                    placeholder="Furnicheer — cover image"
                   ></image-slot>
                 </div>
                 <div class="project__body">
                   <div class="project__meta">
-                    <span class="project__index">07</span
+                    <span class="project__index">05</span
                     ><span class="project__rule"></span
-                    ><span class="project__kicker">Travel Platform · Himalayan Tourism · 2025</span>
+                    ><span class="project__kicker">Shopify Storefront · Furniture Brand · 2025</span>
                   </div>
-                  <h3 class="project__title">Easy Prime Holidays</h3>
+                  <h3 class="project__title">Furnicheer</h3>
                   <p class="project__summary">
-                    Lets travellers plan a Himalayan trip in one place instead of
-                    a dozen tabs — a travel-discovery and booking platform,
-                    TripAdvisor-style, with search by destination, dates, and
-                    party size across the region. Live in production.
+                    Took a handcrafted solid-wood furniture brand online and
+                    selling across India and beyond — pooja mandirs, swings, and
+                    made-to-order pieces, with a storefront built to handle
+                    custom orders and nationwide shipping. Live and trading.
                   </p>
                   <div class="tag-list">
-                    <span class="tag">Vanilla JS</span>
+                    <span class="tag">Shopify</span>
+                    <span class="tag">Dawn Theme</span>
+                    <span class="tag">Liquid</span>
+                    <span class="tag">JavaScript</span>
                     <span class="tag">HTML</span>
                     <span class="tag">CSS</span>
-                    <span class="tag">Firebase Auth</span>
-                    <span class="tag">Firestore</span>
                   </div>
                   <div class="project__detail" data-detail>
                     <div class="project__detail-inner">
                       <div>
                         <div class="detail__label">Challenge</div>
                         <p class="detail__text">
-                          Make exploring and booking Himalayan travel
-                        effortless, from first idea to planned trip.
+                          Present a heritage, made-to-order furniture catalog —
+                        across temples, swings, furniture and décor — in a
+                        storefront that feels as considered as the products.
                         </p>
                       </div>
                       <div>
                         <div class="detail__label">Architecture</div>
                         <p class="detail__text">
-                          A vanilla JavaScript, HTML and CSS front end with
-                        Firebase for authentication and backend (Firestore),
-                        with search across destinations, dates and party size
-                        plus curated destinations, blogs, and services.
+                          Built on the free Dawn theme, customised with Liquid
+                        for editorial category layouts, collection
+                        merchandising, and enquiry-driven flows for
+                        commissioned pieces.
                         </p>
                       </div>
                       <div>
                         <div class="detail__label">Outcome</div>
-                        <p class="detail__text">
-                          A calm, mountain-inspired interface that guides
-                        travelers through every step of the journey.
+                        <div class="detail__metric" data-metric hidden></div>
+                        <p class="detail__text" data-outcome-prose>
+                          A storefront built to handle custom orders and
+                        nationwide shipping.
                         </p>
                       </div>
                     </div>
@@ -850,10 +724,12 @@
                       <span data-detail-label> View case details</span>
                     </button>
                     <a
-                      href="https://www.easyprimeholidays.com/"
+                      href="https://furnicheer.in/"
                       rel="noopener"
                       target="_blank"
                       class="link-external"
+                      data-track="project-live"
+                      data-track-label="Furnicheer"
                     >Live ↗</a
                     >
                   </div>
