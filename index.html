@@ -239,23 +239,22 @@
             </div>
             <div data-reveal>
               <p class="prose prose--lead">
-                I treat a codebase like a garden — pruned with intention,
-                planted for the season after this one, never crowded with
-                shrubbery I won't tend to. As founding engineer at TalentGPT I
-                own a multi-tenant hiring platform end to end, from the MongoDB
-                schema up to the React interface recruiters live in.
-              </p>
-              <p class="prose">
-                My path runs from a frontend internship at Closetnerds, through
-                an IBM-mentored machine-learning project at Phemesoft, to
-                building production SaaS today. I picked up a Master of Computer
-                Applications from UPES Dehradun (CGPA 8.7) along the way.
+                As founding engineer at TalentGPT I own a multi-tenant hiring
+                platform end to end, from the MongoDB schema up to the React
+                interface recruiters live in.
               </p>
               <p class="prose prose--last">
-                I write in JavaScript and TypeScript by default, reach for Node,
-                Express, and MongoDB on the backend, and have shipped a fair few
+                I write JavaScript and TypeScript by default, reach for Node,
+                Express and MongoDB on the backend, and have shipped a fair few
                 Shopify storefronts in Liquid when the brief called for
                 commerce.
+              </p>
+              <!-- Education, reduced to one quiet line. The Recognition
+                   section this replaced carried grades, Udemy certificates and
+                   community badges — hiring credentials that read junior to
+                   someone deciding whether to spend $6k. -->
+              <p class="about__footnote">
+                MCA, UPES Dehradun · BCA, Uttaranchal University
               </p>
               <div class="stat-row">
                 <div>
@@ -263,8 +262,8 @@
                   <div class="stat__label">projects shipped</div>
                 </div>
                 <div>
-                  <div class="stat__value">2+ yrs</div>
-                  <div class="stat__label">in production</div>
+                  <div class="stat__value">3</div>
+                  <div class="stat__label">SaaS platforms live</div>
                 </div>
                 <div>
                   <div class="stat__value">100%</div>
@@ -879,17 +878,31 @@
           </div>
         </section>
 
-        <!-- PROCESS -->
+        <!-- PROCESS
+             Four stations, not seven. The original list (Concept, Planning,
+             Design, Development, Testing, Deployment, Maintenance) described
+             a generic SDLC — every step was true, but naming all seven read
+             as padding rather than as a way of working.
+
+             The four kept are the ones a client actually experiences as
+             distinct phases with something handed over at the end of each.
+             Testing and design did not disappear; they are inside Build,
+             where they belong.
+
+             benchScrub() in animations.js derives its timeline span from
+             stations.length, so the sweep adapts to this count with no JS
+             change. The CSS grid does not — .bench is an explicit column
+             count in styles.css and must match. -->
         <section class="section--dark" id="process">
           <div class="shell">
             <div class="section-head section-head--wide" data-reveal>
-              <div class="eyebrow eyebrow--brass">04 — How I work</div>
+              <div class="eyebrow eyebrow--brass">05 — How I work</div>
               <h2 class="display display--section display--on-dark">
-                A steady bench, seven stations.
+                Four stations, one bench.
               </h2>
               <p class="section-intro section-intro--on-dark">
-                Every project moves through the same considered rhythm — no step
-                skipped, nothing rushed.
+                Every project moves through the same rhythm — no step skipped,
+                nothing rushed.
               </p>
             </div>
             <div class="bench" id="bench">
@@ -912,8 +925,11 @@
                 <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2h6c0-.8.4-1.5 1-2A7 7 0 0 0 12 2Z" />
               </svg>
               <div class="station__text">
-                <div class="st-title">Concept</div>
-                <p class="st-desc">Understand the problem worth solving.</p>
+                <div class="st-title">Scope</div>
+                <p class="st-desc">
+                  Understand the problem worth solving, then agree what is in
+                  and what is not.
+                </p>
               </div>
             </div>
             <div class="station" data-reveal>
@@ -929,11 +945,14 @@
                 stroke-linejoin="round"
                 aria-hidden="true"
               >
-                <path d="M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3ZM9 3v15M15 6v15" />
+                <path d="m8 6-6 6 6 6M16 6l6 6-6 6" />
               </svg>
               <div class="station__text">
-                <div class="st-title">Planning</div>
-                <p class="st-desc">Map scope, milestones, and risk.</p>
+                <div class="st-title">Build</div>
+                <p class="st-desc">
+                  Schema, API, interface — assembled honestly, and proven
+                  before anyone else has to.
+                </p>
               </div>
             </div>
             <div class="station" data-reveal>
@@ -949,11 +968,14 @@
                 stroke-linejoin="round"
                 aria-hidden="true"
               >
-                <path d="M12 19l7-7 3 3-7 7-3-3ZM18 13l-1.5-7.5L2 2l3.5 14.5L13 18ZM2 2l7.6 7.6M11 13a2 2 0 1 0-2-2" />
+                <path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.9.7-2.2-.1-3a2.1 2.1 0 0 0-2.9 0ZM12 15l-3-3a11 11 0 0 1 6-8c4-1 5 0 5 0s1 1 0 5a11 11 0 0 1-8 6ZM9 12H4s.5-2.8 2-4c1.3-1 3-1 3-1M12 15v5s2.8-.5 4-2c1-1.3 1-3 1-3" />
               </svg>
               <div class="station__text">
-                <div class="st-title">Design</div>
-                <p class="st-desc">Shape the interface and the feel.</p>
+                <div class="st-title">Ship</div>
+                <p class="st-desc">
+                  Into production, calmly — deployed, monitored, and actually
+                  in someone's hands.
+                </p>
               </div>
             </div>
             <div class="station" data-reveal>
@@ -969,77 +991,19 @@
                 stroke-linejoin="round"
                 aria-hidden="true"
               >
-                <path d="m8 6-6 6 6 6M16 6l6 6-6 6" />
-              </svg>
-              <div class="station__text">
-                <div class="st-title">Development</div>
-                <p class="st-desc">Build it honestly, piece by piece.</p>
-              </div>
-            </div>
-            <div class="station" data-reveal>
-              <div class="node">05</div>
-              <svg
-                width="26"
-                height="26"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#B08D57"
-                stroke-width="1.4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
-              </svg>
-              <div class="station__text">
-                <div class="st-title">Testing</div>
-                <p class="st-desc">Prove it works before anyone else does.</p>
-              </div>
-            </div>
-            <div class="station" data-reveal>
-              <div class="node">06</div>
-              <svg
-                width="26"
-                height="26"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#B08D57"
-                stroke-width="1.4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.9.7-2.2-.1-3a2.1 2.1 0 0 0-2.9 0ZM12 15l-3-3a11 11 0 0 1 6-8c4-1 5 0 5 0s1 1 0 5a11 11 0 0 1-8 6ZM9 12H4s.5-2.8 2-4c1.3-1 3-1 3-1M12 15v5s2.8-.5 4-2c1-1.3 1-3 1-3" />
-              </svg>
-              <div class="station__text">
-                <div class="st-title">Deployment</div>
-                <p class="st-desc">Ship to production, calmly.</p>
-              </div>
-            </div>
-            <div class="station" data-reveal>
-              <div class="node">07</div>
-              <svg
-                width="26"
-                height="26"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#B08D57"
-                stroke-width="1.4"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
                 <path d="M14.7 6.3a4 4 0 0 0-5.6 5.6l-6.4 6.4 2 2 6.4-6.4a4 4 0 0 0 5.6-5.6l-2.5 2.5-2-2 2.5-2.5Z" />
               </svg>
               <div class="station__text">
-                <div class="st-title">Maintenance</div>
-                <p class="st-desc">Stay on, keep it running well.</p>
+                <div class="st-title">Maintain</div>
+                <p class="st-desc">
+                  Stay on after launch. Most of what breaks does so in month
+                  three, not week one.
+                </p>
               </div>
             </div>
             </div>
           </div>
         </section>
-
         <!-- EXPERIENCE -->
         <section class="section" id="experience">
           <div class="shell">
@@ -1083,85 +1047,9 @@
               <h3 class="timeline__role">Frontend Developer Intern</h3>
               <div class="timeline__org">Closetnerds · Remote</div>
               <p class="timeline__text">
-                Crafted responsive pages in React that cut load times and
-                lifted engagement, partnered with the design team on UI/UX
-                improvements, and drove debugging work that brought site
-                downtime down by 15%.
+                Responsive React work, and debugging that cut site downtime
+                by 15%.
               </p>
-            </div>
-            <div class="timeline__item" data-reveal>
-              <span class="timeline__dot"></span>
-              <div class="timeline__date">Mar — Jun 2023</div>
-              <h3 class="timeline__role">Content Writer Intern</h3>
-              <div class="timeline__org">OPPO · Remote</div>
-              <p class="timeline__text">
-                Produced gaming-community and mobile-games content for the
-                Indian market — a 15% lift in audience engagement — backed by
-                research and analysis that improved content relevance by 20%.
-              </p>
-            </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- RECOGNITION -->
-        <section class="section" id="recognition">
-          <div class="shell">
-            <div class="section-head" data-reveal>
-              <div class="eyebrow">06 — Recognition</div>
-              <h2 class="display display--section">Marks along the way.</h2>
-              <p class="section-intro">
-                The degrees, badges, and certificates picked up between builds —
-                a meticulous, quick-learning habit kept up one course at a time.
-              </p>
-            </div>
-            <div class="card-grid">
-            <div class="column-card" data-reveal>
-              <h4 class="column-card__title">Education</h4>
-              <div class="entry-list">
-                <div>
-                  <div class="entry__title">Master of Computer Applications</div>
-                  <div class="entry__meta">UPES Dehradun · CGPA 8.7 · 2022–2024</div>
-                </div>
-                <div>
-                  <div class="entry__title">Bachelor of Computer Applications</div>
-                  <div class="entry__meta">Uttaranchal University · CGPA 8.6 · 2018–2021</div>
-                </div>
-              </div>
-            </div>
-            <div class="column-card" data-reveal>
-              <h4 class="column-card__title">Badges</h4>
-              <div class="entry-list">
-                <div>
-                  <div class="entry__title">HackerRank Gold — SQL</div>
-                  <div class="entry__meta">Strong database query &amp; data manipulation</div>
-                </div>
-                <div>
-                  <div class="entry__title">Hacktoberfest 2022</div>
-                  <div class="entry__meta">Awarded contributor badge</div>
-                </div>
-                <div>
-                  <div class="entry__title">Best Performer — Web Team</div>
-                  <div class="entry__meta">OPEN Community, UPES · 2022–23</div>
-                </div>
-              </div>
-            </div>
-            <div class="column-card" data-reveal>
-              <h4 class="column-card__title">Certifications</h4>
-              <div class="entry-list">
-                <div>
-                  <div class="entry__title">React &amp; TypeScript</div>
-                  <div class="entry__meta">Stephen Grider · Udemy · 2024</div>
-                </div>
-                <div>
-                  <div class="entry__title">React — The Complete Guide</div>
-                  <div class="entry__meta">Academind · Udemy · 2023</div>
-                </div>
-                <div>
-                  <div class="entry__title">The Complete JavaScript Course</div>
-                  <div class="entry__meta">~70 hours · Udemy · 2021</div>
-                </div>
-              </div>
             </div>
             </div>
           </div>
@@ -1323,7 +1211,7 @@
         <footer class="site-footer">
           <div class="site-footer__top">
             <div class="site-footer__tagline">
-              Crafted with precision, coffee, and countless iterations.
+              Available for one new project at a time.
             </div>
             <div class="site-footer__links">
               <a
