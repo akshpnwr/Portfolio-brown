@@ -925,12 +925,18 @@ html.has-smooth-scroll #smooth-wrapper {
   border-top: 1px solid var(--line-faint);
 }
 
-.service__price {
-  font-family: var(--font-display);
-  font-size: 29px;
-  line-height: 1;
-  color: var(--color-walnut);
-  margin-bottom: 16px;
+/* How the engagement is structured, above the CTA — where a price used to
+   sit. Set in the body face at label size rather than the 29px display
+   serif the figure used: "Fixed scope · 6–10 weeks" is a phrase, and at
+   display size it wrapped to two lines and read as a headline competing
+   with the service name above it. Brass, uppercase and tracked, so it
+   still anchors the foot of the card. */
+.service__shape {
+  font-size: 12.5px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-brass);
+  margin-bottom: 14px;
 }
 
 .service__cta {

@@ -4,7 +4,7 @@
    This site is static HTML with no build step, so there is no `src/data/*.ts`
    to import from. This file is the equivalent: a single global,
    `PortfolioData`, holding the values that get edited without touching layout
-   — prices, availability, the domain, the case-study metrics.
+   — service copy, availability, the domain, the case-study metrics.
 
    It loads BEFORE site.js and writes its values into the page on boot (see
    applyData() in site.js). The HTML carries sensible defaults inline, so if
@@ -22,9 +22,14 @@
      `taking` to false to swap the line to the unavailable variant. */
   var availability = {
     taking: true,
-    month: 'September',
-    // Rendered when taking === true. {month} is substituted.
-    line: 'Currently taking on one new project — available from {month}.',
+    // Left empty to say "available now". Set it to a month name — 'October'
+    // — and `line` switches to the deferred wording automatically, so the
+    // dated and undated versions never have to be edited by hand.
+    month: '',
+    // Rendered when taking === true and no month is set.
+    line: 'Available now — taking on one new project.',
+    // Used instead when a month IS set. {month} is substituted.
+    lineFrom: 'Currently taking on one new project — available from {month}.',
     lineClosed: 'Fully booked at the moment — worth asking about next quarter.'
   };
 
@@ -35,15 +40,26 @@
 
      Alternative: { value: '3', label: 'SaaS platforms live' } */
   var heroStat = {
-    value: '7',
+    value: '7+',
     // Kept short: the badge label is uppercase at 12px with wide tracking,
     // so anything longer than ~3 words wraps to three lines.
     label: 'shipped to production'
   };
 
   /* ── Services / engagement models ────────────────────────────────────────
-     Prices live here so they can be changed in one place. `featured` marks
-     the lead offer — exactly one card should carry it. */
+     `featured` marks the lead offer — exactly one card should carry it.
+
+     `shape` is the line above each CTA where a price used to sit. It says
+     how the engagement is structured — fixed scope, retainer, project-based
+     — rather than what it costs. A figure on the page invites a visitor to
+     disqualify themselves before there is any conversation about what they
+     actually need, and it dates badly.
+
+     If a figure is ever wanted back, set `price` instead — applyData()
+     still reads it as a fallback, so it is a one-line change. Note the slot
+     is styled as a small tracked label now, not the large serif a price
+     wants; restore .service__shape's old display treatment in styles.css
+     if you put numbers back. */
   var services = [
     {
       id: 'mvp',
@@ -58,7 +74,7 @@
         'Deployment',
         '30 days post-launch support'
       ],
-      price: 'From $6,000',
+      shape: 'Fixed scope · 6–10 weeks',
       cta: 'Start a project'
     },
     {
@@ -72,7 +88,7 @@
         '20–30 hrs/week',
         'Monthly rolling'
       ],
-      price: 'From $4,000/month',
+      shape: 'Monthly retainer · rolling',
       cta: 'Check availability'
     },
     {
@@ -87,7 +103,7 @@
         'Custom sections',
         'Launch'
       ],
-      price: 'From $2,500',
+      shape: 'Project-based · fixed scope',
       cta: 'Discuss a storefront'
     }
   ];

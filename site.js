@@ -332,9 +332,15 @@
     var avail = document.querySelector('[data-availability]');
     if (avail && D.availability) {
       var a = D.availability;
-      var text = a.taking
-        ? String(a.line).replace('{month}', a.month)
-        : a.lineClosed;
+      // Three states: booked, available from a named month, available now.
+      var text;
+      if (!a.taking) {
+        text = a.lineClosed;
+      } else if (a.month) {
+        text = String(a.lineFrom || a.line).replace('{month}', a.month);
+      } else {
+        text = a.line;
+      }
       // Keep the dot; only the text node after it changes.
       var dot = avail.querySelector('.hero__availability-dot');
       avail.textContent = '';
@@ -372,7 +378,10 @@
         set('.service__name', svc.name);
         set('.service__one-liner', svc.oneLiner);
         set('.service__body', svc.body);
-        set('.service__price', svc.price);
+        // `shape` describes how the engagement is structured. `price` is
+        // still honoured if it is ever set, so putting a figure back in
+        // data.js is a one-line change with nothing else to update.
+        set('.service__shape', svc.shape || svc.price);
 
         card.classList.toggle('service--featured', !!svc.featured);
 

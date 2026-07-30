@@ -133,8 +133,9 @@ Paid (~$9/mo), privacy-friendly, no cookie banner needed. Add to `<head>`:
 
 Either way, the events worth watching are `service-cta` (which offer people
 click) and `contact-submit` (whether they convert). If `service-cta` fires
-often on the MVP card but `contact-submit` stays flat, the price is doing
-the filtering — which is the point, but worth knowing.
+often on the MVP card but `contact-submit` stays flat, something between
+the card and the form is losing people — worth knowing before changing
+anything else.
 
 ---
 
