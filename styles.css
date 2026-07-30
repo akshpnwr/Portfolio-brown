@@ -1731,6 +1731,41 @@ html.has-smooth-scroll #smooth-wrapper {
   box-shadow: var(--shadow-note);
   position: relative;
   margin: 0;
+  /* Pivot at the pin, not the card's centre — matches .note__pin's
+     `top:-9px; left:50%`. A card that rotates about its middle reads as a
+     wobbling rectangle; one that rotates about a point above its top edge
+     reads as weight hanging off a pin. animations.js sets the same origin
+     so the JS settle and this hover share one pivot. */
+  transform-origin: 50% -9px;
+  transition:
+    transform var(--duration-card) var(--ease-out-soft),
+    box-shadow var(--duration-card) var(--ease-out-soft);
+}
+
+/* Nudge the note off true and let the shadow drop a little further, as if
+   the paper has swung forward on the pin and is hanging off the wall. The
+   rotation is deliberately small: the card is already tilted, and the pivot
+   sits above it, so a couple of degrees moves the bottom corner a long way.
+
+   Guarded on `:hover:hover` so it never latches on touch, where the state
+   sticks after a tap and leaves one note permanently askew. */
+@media (hover: hover) {
+
+  .note:hover {
+    box-shadow: 0 18px 36px rgba(74, 54, 40, 0.16);
+  }
+
+  .note--tilt-left:hover {
+    transform: rotate(-2.1deg);
+  }
+
+  .note--tilt-right:hover {
+    transform: rotate(1.9deg);
+  }
+
+  .note--tilt-slight:hover {
+    transform: rotate(-1.5deg);
+  }
 }
 
 .note--tilt-left {
@@ -2122,6 +2157,19 @@ html.has-smooth-scroll #smooth-wrapper {
 
   .portrait-badge__value {
     font-size: 25px;
+  }
+
+  /* Stacked, the portrait sits directly above the scroll cue instead of
+     beside it, and the hero's bottom padding is the only thing between them
+     — which left the cue crowding the blob's lower edge. Push the cue down
+     and grow the padding that reserves its space, so the gap comes from the
+     layout rather than from the cue overlapping the portrait. */
+  .hero {
+    padding-bottom: 132px;
+  }
+
+  .scroll-cue {
+    bottom: 24px;
   }
 }
 

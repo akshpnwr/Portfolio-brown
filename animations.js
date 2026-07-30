@@ -166,6 +166,120 @@
     })();
   }
 
+  /* Testimonial notes: hang each one on its pin and let it settle.
+
+     The notes are drawn as paper pinned to a wall, so the honest motion is a
+     card dropped onto a pin, swinging a little, and coming to rest — not an
+     endless sway. A permanent loop would put three independent moving objects
+     beside body copy the reader is trying to read, and ambient motion that
+     never resolves is what turns "pinned wall" into "mobile over a crib".
+     So the swing is a one-shot on reveal, and the only repeatable motion is
+     hover, which the reader chooses.
+
+     transform-origin is the whole trick. Rotation has to pivot at the pin —
+     top centre, matching .note__pin's `top:-9px; left:50%` — because a card
+     rotating about its own middle reads as a wobbling rectangle, while one
+     rotating about a point above its top edge reads as hanging weight.
+
+     These elements carry [data-reveal], so this claims them (see the same
+     pattern in benchScrub) before reveals() can arm a second opacity tween
+     on the same nodes. */
+  function notes(gsap, reduce) {
+    var els = gsap.utils.toArray('.note').filter(function (el) {
+      return el.getAttribute('data-reveal-done') !== '1';
+    });
+    if (!els.length) return;
+
+    els.forEach(function (el) { el.setAttribute('data-reveal-done', '1'); });
+
+    // Reduced motion: no swing, no drop, no rotation written at all — the CSS
+    // tilt is already correct and untouched, so this only fades them in,
+    // matching how reveals() degrades. Returns before any of the swing setup
+    // below, including the getComputedStyle reads.
+    if (reduce) {
+      gsap.set(els, { opacity: 0 });
+      gsap.to(els, { opacity: 1, duration: 0.35, ease: 'power3.out', overwrite: 'auto' });
+      return;
+    }
+
+    // The resting angles live in CSS (.note--tilt-*). Reading each one back
+    // means the settle lands on exactly the tilt the stylesheet intends, so
+    // JS and CSS can't drift apart if those rules are ever retuned.
+    var rest = els.map(function (el) {
+      var m = global.getComputedStyle(el).transform;
+      if (!m || m === 'none') return 0;
+      var p = m.match(/matrix\(([^)]+)\)/);
+      if (!p) return 0;
+      var v = p[1].split(',');
+      return Math.atan2(parseFloat(v[1]), parseFloat(v[0])) * (180 / Math.PI);
+    });
+
+    // Origin only. Deliberately no clearProps here: clearProps runs *after*
+    // the other properties in the same set() and would strip the origin it
+    // was just given, dropping the pivot back to the card's centre.
+    gsap.set(els, { transformOrigin: '50% -9px' });
+
+    els.forEach(function (el, i) {
+      var target = rest[i];
+      // How far off rest the note starts. elastic swings back and forth
+      // across `target` from here, so this is the widest excursion of the
+      // whole settle — it sets how big the sway reads. 7° is roughly six
+      // times the CSS resting tilt, visible without looking flung; past
+      // ~10° the pin stops seeming strong enough to hold the paper.
+      var swing = target >= 0 ? 7 : -7;
+
+      gsap.set(el, { opacity: 0, y: -26, rotation: target + swing });
+
+      var done = false;
+      var play = function () {
+        if (done) return;
+        done = true;
+        // Side-by-side notes cross the trigger line in the same frame, so
+        // without an offset all three swing as one block and read as a single
+        // hinged object. A tenth of a second apart is enough to separate them
+        // into three pieces of paper without looking like a queue.
+        var tl = gsap.timeline({ delay: i * 0.11 });
+        // Drop onto the pin.
+        tl.to(el, { opacity: 1, y: 0, duration: 0.42, ease: 'power2.out' })
+          // Then let the pin take the weight. elastic.out, not back.out:
+          // back gives a single overshoot that is essentially over in its
+          // first third, which is why the swing read as "barely there" no
+          // matter how long the duration got — stretching it just slowed a
+          // motion that had already finished. elastic oscillates across rest
+          // several times, so the extra seconds are spent visibly swinging.
+          //
+          // The two elastic params are amplitude and period: 1 keeps the
+          // overshoot at the stated angle (no extra flick beyond `swing`),
+          // and 0.55 is the wavelength — bigger is slower and looser, below
+          // ~0.4 it buzzes like a spring rather than swaying like paper.
+          .to(el, {
+            rotation: target,
+            duration: 2.1,
+            ease: 'elastic.out(1, 0.55)',
+            onComplete: function () {
+              // Hand the transform back to CSS. gsap's inline transform is a
+              // style attribute and beats the .note:hover rule on specificity,
+              // so leaving it here would silently dead-end the hover swing.
+              // The note has settled on its CSS rest angle, so clearing is
+              // visually a no-op — it just stops pinning the value inline.
+              // transformOrigin stays in the stylesheet, so the pivot holds.
+              gsap.set(el, { clearProps: 'transform' });
+            }
+          }, '-=0.18');
+      };
+
+      global.ScrollTrigger.create({
+        trigger: el,
+        start: REVEAL_START,
+        once: true,
+        onEnter: play,
+        // Same stranding guard reveals() uses: if the note is already past
+        // the start line at build time, onEnter never fires on its own.
+        onRefresh: function (self) { if (self.isActive || self.progress > 0) play(); }
+      });
+    });
+  }
+
   /* Section reveals. Replaces the old IntersectionObserver: batch() groups
      everything crossing the threshold in the same frame so a row of cards
      staggers together, which the old sibling-index maths only approximated. */
@@ -598,6 +712,11 @@
       // motion, the panels are `position: static` again — ordinary cards that
       // the reveal system should own as before.
       if (ctx.conditions.canStack && !reduce) stickyWork(gsap);
+
+      // Claims the testimonial notes (marks them data-reveal-done). Same
+      // reason as the stations: reveals() would otherwise arm a second
+      // opacity/y tween on nodes the settle timeline already drives.
+      notes(gsap, reduce);
 
       // Now the general case, over whatever is left.
       reveals(gsap, reduce);
