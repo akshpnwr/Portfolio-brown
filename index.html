@@ -55,18 +55,25 @@
           </a>
           <nav class="nav-links">
             <a
-              href="#work"
-              data-target="work"
-              data-nav
-              class="nav-links__link"
-            >Work</a
-            >
-            <a
               href="#about"
               data-target="about"
               data-nav
               class="nav-links__link"
             >About</a
+            >
+            <a
+              href="#services"
+              data-target="services"
+              data-nav
+              class="nav-links__link"
+            >Services</a
+            >
+            <a
+              href="#work"
+              data-target="work"
+              data-nav
+              class="nav-links__link"
+            >Work</a
             >
             <a
               href="#skills"
@@ -139,23 +146,33 @@
                 >
               </div>
               <!-- HEADLINE OPTIONS — pick one, delete the rest.
-                   The chosen one is live below. Keep the two-line break and
+                   The chosen one is live below. Keep the explicit <br /> and
                    the .display__accent span on the final phrase: that italic
                    brass treatment is the hero's visual anchor.
 
-                   A) I build and ship
+                   The line breaks are hand-placed, not left to wrapping. At
+                   --text-hero (up to 104px) a line much longer than ~22
+                   characters overflows the hero's left column and wraps
+                   raggedly — check any replacement at 1440px before keeping
+                   it.
+
+                   A) ← currently live
+                      I build and ship
                       production SaaS — solo.
 
-                   B) Your product, live in production.
-                      Built by one person who owns all of it.
+                   B) Your product,
+                      live in production.
 
                    C) From schema to interface:
-                      complete products, shipped.   ← currently live
+                      complete products, shipped.
+                      (Reads well, but line 1 is too long for the display
+                      size — it wrapped badly at 1440px. Needs a smaller
+                      --text-hero to use.)
               -->
               <h1 class="display display--hero" data-reveal>
-                From schema to interface:<br />complete products,<br /><span
+                I build and ship<br />production SaaS —<br /><span
                   class="display__accent"
-                  >shipped.</span
+                  >solo.</span
                 >
               </h1>
               <!-- SUBHEADING OPTIONS — pick one, delete the rest.
@@ -274,6 +291,127 @@
           </div>
         </section>
 
+        <!-- SERVICES / ENGAGEMENT
+             The offer. Before this section the site showed what Akash had
+             built but never said what could be bought, which left a visitor
+             who was ready to hire with nowhere to go but the contact form.
+
+             Cards render from data.js → services, so prices and copy change
+             in one place. The markup below is a real fallback, not a
+             placeholder: if data.js fails to load, these three cards still
+             read correctly with the prices committed here. Keep the two in
+             sync when prices change — or accept that the fallback shows the
+             last-committed figure. -->
+        <section class="section" id="services">
+          <div class="shell">
+            <div class="section-head" data-reveal>
+              <div class="eyebrow">02 — Engagements</div>
+              <h2 class="display display--section">
+                How we can work together.
+              </h2>
+              <p class="section-intro">
+                Three ways in, depending on where you are. Every one of them
+                ends with something running in production.
+              </p>
+            </div>
+
+            <div class="service-grid" data-service-grid>
+              <!-- Card 1 — MVP Build (lead offer) -->
+              <article class="service service--featured" data-reveal>
+                <div class="service__badge">Most popular</div>
+                <h3 class="service__name">MVP Build</h3>
+                <p class="service__one-liner">
+                  Idea to production in 6–10 weeks.
+                </p>
+                <p class="service__body">
+                  Full product build — data model, API, interface, deploy. You
+                  get a working, launched product, not a prototype.
+                </p>
+                <ul class="service__includes">
+                  <li>Architecture &amp; schema design</li>
+                  <li>Full-stack build</li>
+                  <li>Deployment</li>
+                  <li>30 days post-launch support</li>
+                </ul>
+                <div class="service__foot">
+                  <div class="service__price">From $6,000</div>
+                  <a
+                    href="#contact"
+                    data-target="contact"
+                    class="service__cta"
+                    data-track="service-cta"
+                    data-track-label="MVP Build"
+                  >Start a project <span aria-hidden="true">→</span></a>
+                </div>
+              </article>
+
+              <!-- Card 2 — Fractional Founding Engineer -->
+              <article class="service" data-reveal>
+                <h3 class="service__name">Fractional Founding Engineer</h3>
+                <p class="service__one-liner">
+                  Ongoing engineering ownership, part-time.
+                </p>
+                <p class="service__body">
+                  For funded teams who need senior end-to-end capability
+                  without a full-time hire. Feature development, architecture
+                  decisions, keeping it alive.
+                </p>
+                <ul class="service__includes">
+                  <li>20–30 hrs/week</li>
+                  <li>Monthly rolling</li>
+                </ul>
+                <div class="service__foot">
+                  <div class="service__price">From $4,000/month</div>
+                  <a
+                    href="#contact"
+                    data-target="contact"
+                    class="service__cta"
+                    data-track="service-cta"
+                    data-track-label="Fractional Founding Engineer"
+                  >Check availability <span aria-hidden="true">→</span></a>
+                </div>
+              </article>
+
+              <!-- Card 3 — Commerce Storefront (secondary line) -->
+              <article class="service" data-reveal>
+                <h3 class="service__name">Commerce Storefront</h3>
+                <p class="service__one-liner">
+                  Shopify builds for brands that care how it looks.
+                </p>
+                <p class="service__body">
+                  Custom theme development in Liquid — editorial storefronts
+                  tuned for high-consideration products.
+                </p>
+                <ul class="service__includes">
+                  <li>Theme customization</li>
+                  <li>Custom sections</li>
+                  <li>Launch</li>
+                </ul>
+                <div class="service__foot">
+                  <div class="service__price">From $2,500</div>
+                  <a
+                    href="#contact"
+                    data-target="contact"
+                    class="service__cta"
+                    data-track="service-cta"
+                    data-track-label="Commerce Storefront"
+                  >Discuss a storefront <span aria-hidden="true">→</span></a>
+                </div>
+              </article>
+            </div>
+
+            <p class="service-note" data-reveal>
+              Not sure which fits?
+              <a
+                href="#contact"
+                data-target="contact"
+                class="service-note__link"
+                data-track="service-cta"
+                data-track-label="Scope it"
+              >Tell me the problem and I'll scope it.</a>
+            </p>
+          </div>
+        </section>
         <!-- WORK / PROJECTS
              Order is deliberate: the three SaaS platforms lead, the two
              storefronts follow. That sequence is the positioning — a visitor
@@ -742,7 +880,7 @@
         <section class="section--band" id="skills">
           <div class="shell">
             <div class="section-head" data-reveal>
-              <div class="eyebrow">03 — Toolkit</div>
+              <div class="eyebrow">04 — Toolkit</div>
               <h2 class="display display--section">The tools I reach for.</h2>
               <p class="section-intro">
                 A stack I've refined over years of shipping — chosen for
@@ -1008,7 +1146,7 @@
         <section class="section" id="experience">
           <div class="shell">
             <div class="section-head section-head--full" data-reveal>
-              <div class="eyebrow">05 — The Journey</div>
+              <div class="eyebrow">06 — The Journey</div>
               <h2 class="display display--section">
                 A path built one project at a time.
               </h2>

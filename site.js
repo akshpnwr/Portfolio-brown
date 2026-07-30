@@ -161,7 +161,9 @@
         l.classList.add('is-active');
       });
     }, { threshold: 0, rootMargin: '-45% 0px -55% 0px' });
-    ['work', 'about', 'skills', 'process', 'experience'].forEach(function (id) {
+    // Must stay in sync with the [data-nav] links in the header — a section
+    // missing here simply never highlights.
+    ['about', 'services', 'work', 'skills', 'process', 'experience'].forEach(function (id) {
       var s = document.getElementById(id);
       if (s) io.observe(s);
     });
@@ -301,6 +303,71 @@
       var sl = document.querySelector('[data-stat-label]');
       if (sv) sv.textContent = D.heroStat.value;
       if (sl) sl.textContent = D.heroStat.label;
+    }
+
+    /* Service cards. The three cards are already in index.html as a working
+       fallback; this overwrites their text from data.js so prices and copy
+       have a single source of truth.
+
+       Deliberately an overwrite of existing markup rather than building the
+       cards from scratch: the fallback has to be real HTML for the offer to
+       survive a failed data.js load, and once it exists, rendering over it
+       is both less code and less that can go wrong. Cards beyond the number
+       in data.js are left untouched; extra entries in data.js are ignored. */
+    if (D.services && D.services.length) {
+      var cards = document.querySelectorAll('[data-service-grid] .service');
+      D.services.forEach(function (svc, i) {
+        var card = cards[i];
+        if (!card) return;
+        var set = function (sel, text) {
+          var el = card.querySelector(sel);
+          if (el && text) el.textContent = text;
+        };
+        set('.service__name', svc.name);
+        set('.service__one-liner', svc.oneLiner);
+        set('.service__body', svc.body);
+        set('.service__price', svc.price);
+
+        card.classList.toggle('service--featured', !!svc.featured);
+
+        // Only the lead card carries a badge in the markup, but data.js is
+        // free to move `featured` to another card — so create the element if
+        // the card needs one and does not have it.
+        var badge = card.querySelector('.service__badge');
+        if (svc.featured && svc.badge) {
+          if (!badge) {
+            badge = document.createElement('div');
+            badge.className = 'service__badge';
+            card.insertBefore(badge, card.firstElementChild);
+          }
+          badge.textContent = svc.badge;
+          badge.hidden = false;
+        } else if (badge) {
+          badge.hidden = true;
+        }
+
+        var list = card.querySelector('.service__includes');
+        if (list && svc.includes) {
+          list.textContent = '';
+          svc.includes.forEach(function (item) {
+            var li = document.createElement('li');
+            li.textContent = item;
+            list.appendChild(li);
+          });
+        }
+
+        var cta = card.querySelector('.service__cta');
+        if (cta && svc.cta) {
+          // Rebuild rather than set textContent: the arrow is a separate
+          // aria-hidden span, and replacing the whole node would drop it.
+          cta.textContent = svc.cta + ' ';
+          var arrow = document.createElement('span');
+          arrow.setAttribute('aria-hidden', 'true');
+          arrow.textContent = '→';
+          cta.appendChild(arrow);
+          cta.dataset.trackLabel = svc.name;
+        }
+      });
     }
 
     /* Case-study outcome metrics. A metric still starting with "TODO" is

@@ -101,7 +101,13 @@
   --weight-medium: 500;
 
   /* Fluid type scale */
-  --text-hero: clamp(52px, 8vw, 104px);
+  /* Capped at 88px, down from 104px. The buyer-facing headline runs longer
+     per line than the philosophical one it replaced ("I build and ship
+     production SaaS — solo." vs "I build thoughtful digital products"), and
+     at 104px its three lines pushed the CTA row and availability line below
+     the fold on a 1000px-tall viewport — burying the two things the hero
+     exists to surface. */
+  --text-hero: clamp(46px, 6.4vw, 88px);
   --text-h2: clamp(38px, 5vw, 60px);
   --text-h2-wide: clamp(38px, 5.5vw, 68px);
   --text-h2-contact: clamp(40px, 5.5vw, 66px);
@@ -788,6 +794,178 @@ html.has-smooth-scroll #smooth-wrapper {
   font-weight: var(--weight-light);
 }
 
+/* ── Service cards (engagement models) ─────────────────────────
+   Built from the tokens already in use elsewhere: bone card on the page
+   ground, hairline border, the same radius and shadow as the project
+   panels. The featured card is distinguished by a walnut border and a
+   badge rather than by size or colour, so the row keeps one baseline and
+   the grid stays even. */
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2.4vw, 30px);
+  align-items: stretch;
+}
+
+.service {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bone);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: clamp(26px, 2.6vw, 36px);
+  box-shadow: var(--shadow-card);
+  transition:
+    transform var(--duration-card) var(--ease-out-soft),
+    box-shadow var(--duration-card) var(--ease-out-soft);
+}
+
+.service:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* The lead offer. Walnut border plus a badge — deliberately not a larger
+   card or a different background, both of which break the row's baseline
+   and make the other two read as rejected options rather than as
+   alternatives. */
+.service--featured {
+  border-color: var(--color-walnut);
+  box-shadow: var(--shadow-panel);
+}
+
+/* Every card reserves the badge row, whether or not it has a badge, so the
+   three service names sit on one line. Without this the featured card's
+   title is pushed down by the badge and the row reads as misaligned. The
+   unbadged cards get the space via .service__name's margin-top below. */
+.service__badge {
+  align-self: flex-start;
+  font-size: 11.5px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-bone);
+  background: var(--color-walnut);
+  padding: 5px 11px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 16px;
+}
+
+.service__badge[hidden] {
+  display: none;
+}
+
+/* The badge's reserved height (badge line-height + its 16px margin) applied
+   as top margin on cards that have no badge, so all three names align.
+   :first-child only matches when no badge precedes it. */
+.service__name {
+  font-family: var(--font-display);
+  font-weight: var(--weight-normal);
+  font-size: 27px;
+  line-height: 1.15;
+  color: var(--color-ink);
+  margin: 0 0 8px;
+}
+
+.service__name:first-child {
+  margin-top: 43px;
+}
+
+.service__one-liner {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-walnut);
+  margin: 0 0 16px;
+}
+
+.service__body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-graphite);
+  font-weight: var(--weight-light);
+  margin: 0 0 22px;
+}
+
+.service__includes {
+  list-style: none;
+  margin: 0 0 26px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.service__includes li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-stone);
+  font-weight: var(--weight-light);
+}
+
+/* Brass tick, drawn in CSS rather than shipping an icon per line. */
+.service__includes li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 6px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--color-brass);
+  border-width: 0 1.5px 1.5px 0;
+  transform: rotate(45deg);
+}
+
+/* margin-top:auto pins the price and CTA to the bottom of every card, so
+   the three CTAs line up regardless of how much copy sits above them. */
+.service__foot {
+  margin-top: auto;
+  padding-top: 22px;
+  border-top: 1px solid var(--line-faint);
+}
+
+.service__price {
+  font-family: var(--font-display);
+  font-size: 29px;
+  line-height: 1;
+  color: var(--color-walnut);
+  margin-bottom: 16px;
+}
+
+.service__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14.5px;
+  color: var(--color-ink);
+  letter-spacing: 0.01em;
+  transition: gap var(--duration-base) var(--ease-out-soft);
+}
+
+.service__cta:hover {
+  gap: 12px;
+}
+
+.service-note {
+  margin: clamp(32px, 4vw, 44px) 0 0;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-stone);
+  font-weight: var(--weight-light);
+}
+
+.service-note__link {
+  color: var(--color-walnut);
+  border-bottom: 1px solid var(--brass-a45);
+  transition: border-color var(--duration-base) ease;
+}
+
+.service-note__link:hover {
+  border-bottom-color: var(--color-walnut);
+}
+
 /* ── Media frame ───────────────────────────────────────────── */
 
 .frame {
@@ -804,12 +982,15 @@ html.has-smooth-scroll #smooth-wrapper {
 
 /* ── Hero ──────────────────────────────────────────────────── */
 
+/* Padding is fluid rather than fixed at 160/130: the hero now carries a CTA
+   row AND an availability line under a three-line headline, and fixed
+   padding pushed both off-screen on shorter laptops. */
 .hero {
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 160px var(--gutter) 130px;
+  padding: clamp(120px, 13vh, 160px) var(--gutter) clamp(90px, 11vh, 130px);
   overflow: hidden;
 }
 
@@ -1777,6 +1958,12 @@ html.has-smooth-scroll #smooth-wrapper {
   .project__body {
     overflow-y: visible;
   }
+
+  /* Services drop to two columns. The featured card leads the row, so it
+     keeps the top-left position where reading starts. */
+  .service-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 820px) {
@@ -1841,6 +2028,12 @@ html.has-smooth-scroll #smooth-wrapper {
 }
 
 @media (max-width: 600px) {
+
+  /* Services stack. Order is source order, so the MVP Build card stays
+     first — the one offer a phone visitor is most likely to read. */
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
 
   /* Mobile: the process becomes a vertical connected timeline. */
   .bench {
