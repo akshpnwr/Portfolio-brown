@@ -3,14 +3,60 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Akash Panwar — Fullstack Developer &amp; Founding Engineer</title>
+    <title>Akash Panwar — SaaS Product Developer | MVP Builds for Founders</title>
     <meta
       name="description"
-      content="Akash Panwar — fullstack developer and founding engineer building end-to-end web applications. Based in Dehradun, India."
+      content="I build production SaaS for founders and small teams — multi-tenant architecture, real backends, and the interface on top. MVP builds from $6,000, shipped in 6–10 weeks."
     />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="mask-icon" href="favicon.svg" color="#6B4F3B" />
     <meta name="theme-color" content="#faf9f6" />
+
+    <!-- ⚠️ DOMAIN NOT YET SET — see DOMAIN.md before launch.
+         Every absolute URL below assumes https://akashpanwar.dev, which is
+         a placeholder. Nothing here breaks while the site is served from
+         *.vercel.app, but the canonical tag will point at a host that does
+         not resolve, which is worse than having no canonical at all.
+
+         Search this file for "akashpanwar.dev" to find all of them, and
+         update data.js -> site.domain plus sitemap.xml at the same time.
+         data.js logs a console warning while the placeholder is in use. -->
+    <link rel="canonical" href="https://akashpanwar.dev/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Akash Panwar" />
+    <meta property="og:url" content="https://akashpanwar.dev/" />
+    <meta
+      property="og:title"
+      content="Akash Panwar — SaaS Product Developer | MVP Builds for Founders"
+    />
+    <meta
+      property="og:description"
+      content="Production SaaS built end to end — multi-tenant architecture, real backends, and the interface on top. MVP builds from $6,000."
+    />
+    <!-- 1200×630. Link previews are the first thing a cold-outreach
+         recipient sees, and this site's primary traffic is cold outreach —
+         a missing OG image means the difference between a card and a bare
+         blue link. og-image.svg is committed; see DOMAIN.md for why a PNG
+         should replace it before any real outreach campaign. -->
+    <meta property="og:image" content="https://akashpanwar.dev/assets/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Akash Panwar — production SaaS, built end to end."
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Akash Panwar — SaaS Product Developer | MVP Builds for Founders"
+    />
+    <meta
+      name="twitter:description"
+      content="Production SaaS built end to end — multi-tenant architecture, real backends, and the interface on top. MVP builds from $6,000."
+    />
+    <meta name="twitter:image" content="https://akashpanwar.dev/assets/og-image.png" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1253,6 +1299,23 @@
                 I take on a small number of projects at a time so each one gets
                 my full attention. Tell me what you're working on.
               </p>
+              <!-- Booking link. Hidden by applyData() until data.js →
+                   booking.url is set, so a dead "Book a call" button can
+                   never ship. DOMAIN.md has the Cal.com setup steps.
+                   Lower friction than the form: a founder who will not write
+                   a project brief will often still pick a slot. -->
+              <a
+                href="#"
+                class="btn btn--primary contact__book"
+                data-booking
+                data-track="book-call"
+                rel="noopener"
+                target="_blank"
+                hidden
+              >
+                Book a 20-min call
+                <span class="btn__arrow">→</span>
+              </a>
               <div class="contact-list">
               <a
                 href="mailto:akashpanwar9976@gmail.com"

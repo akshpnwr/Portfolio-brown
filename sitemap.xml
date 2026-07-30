@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Single-page site, so this lists one URL. The section anchors (#services,
+  #work) are not separate entries: Google treats them as fragments of this
+  page, and listing them dilutes rather than helps.
+
+  The host below is a PLACEHOLDER. Update it together with the canonical and
+  og:url tags in index.html and site.domain in data.js. See DOMAIN.md.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://akashpanwar.dev/</loc>
+    <lastmod>2026-07-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

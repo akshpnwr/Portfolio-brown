@@ -947,6 +947,17 @@ html.has-smooth-scroll #smooth-wrapper {
   gap: 12px;
 }
 
+/* Booking button in the contact column, above the email/social list.
+   [hidden] needs the explicit display:none because .btn sets
+   display:inline-flex, which would otherwise win. */
+.contact__book {
+  margin-bottom: 30px;
+}
+
+.contact__book[hidden] {
+  display: none;
+}
+
 .service-note {
   margin: clamp(32px, 4vw, 44px) 0 0;
   text-align: center;

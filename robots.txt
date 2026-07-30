@@ -1,0 +1,7 @@
+# Everything is public and indexable — this site exists to be found.
+User-agent: *
+Allow: /
+
+# PLACEHOLDER HOST — update with the canonical tag in index.html when the
+# custom domain goes live. See DOMAIN.md.
+Sitemap: https://akashpanwar.dev/sitemap.xml

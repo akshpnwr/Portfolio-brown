@@ -26,6 +26,48 @@
     return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   };
 
+  /* ── Analytics ───────────────────────────────────────────────────────────
+     One helper in front of whichever provider is installed, so nothing else
+     in this file knows or cares which one it is. No provider present (the
+     current state, and every local open of index.html) means every call is
+     a silent no-op — never a thrown error, and never a blocked click.
+
+     Supports Vercel Analytics (window.va) and Plausible (window.plausible);
+     see DOMAIN.md for the one-line snippet that turns either on.
+
+     Events, deliberately few. Analytics on a five-page-view-a-day site is
+     only useful if each number answers a question worth acting on:
+       hero-cta       — did the new headline move anyone to the offer?
+       service-cta    — which engagement do people actually want?
+       book-call      — does a calendar beat a form?
+       project-live   — which case study earns the outbound click?
+       contact-submit — the only one that is really a conversion. */
+
+  function track(name, data) {
+    try {
+      if (typeof window.va === 'function') {
+        window.va('event', { name: name, data: data || {} });
+      }
+      if (typeof window.plausible === 'function') {
+        window.plausible(name, data ? { props: data } : undefined);
+      }
+    } catch (e) {
+      // Analytics must never break the interaction it is measuring.
+    }
+  }
+
+  /* Delegated so it covers the service cards, which applyData() rewrites
+     after this runs, and any element that later grows a [data-track]. */
+  function setupTracking() {
+    document.addEventListener('click', function (e) {
+      var el = e.target.closest('[data-track]');
+      if (!el) return;
+      track(el.dataset.track, el.dataset.trackLabel
+        ? { label: el.dataset.trackLabel }
+        : undefined);
+    });
+  }
+
   /* ── Smooth in-page nav ──────────────────────────────────────────────── */
 
   function setupNavClicks() {
@@ -123,6 +165,10 @@
           form.querySelectorAll('input, textarea').forEach(function (el) {
             el.value = '';
           });
+          // Only on a confirmed 2xx: a submit that Formspree rejected is
+          // not a lead, and counting it would overstate the one number on
+          // this site that actually matters.
+          track('contact-submit');
           return;
         }
         return res.json().catch(function () { return {}; }).then(function (data) {
@@ -415,6 +461,7 @@
     if (year) year.textContent = new Date().getFullYear();
 
     applyData();
+    setupTracking();
     setupNavClicks();
     setupMenu();
     setupDetails();
