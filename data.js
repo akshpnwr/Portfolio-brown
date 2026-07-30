@@ -33,18 +33,36 @@
     lineClosed: 'Fully booked at the moment — worth asking about next quarter.'
   };
 
-  /* ── Hero stat ───────────────────────────────────────────────────────────
-     The badge over the portrait. Never put years of experience here: it is
-     the most prominent number on the page and a low year-count reads junior
-     to a buyer. Keep it a count of shipped things.
+  /* ── Shipped-work count ──────────────────────────────────────────────────
+     ONE number, rendered in two places: the badge over the hero portrait and
+     the first cell of the About stat row. They used to be set separately and
+     drifted apart — the hero said 7+ while About said 12+, which reads as
+     inflation to anyone who notices, and the work grid shows only five.
 
-     Alternative: { value: '3', label: 'SaaS platforms live' } */
+     The count is deliberately higher than the five case studies on the page:
+     the grid is a curated selection, not an inventory. Two projects were cut
+     from it for positioning reasons and are still shipped work.
+
+     Never put years of experience here: it is the most prominent number on
+     the page and a low year-count reads junior to a buyer. Keep it a count
+     of shipped things. */
+  var shippedCount = '12+';
+
   var heroStat = {
-    value: '7+',
+    value: shippedCount,
     // Kept short: the badge label is uppercase at 12px with wide tracking,
     // so anything longer than ~3 words wraps to three lines.
     label: 'shipped to production'
   };
+
+  /* ── About stat row ──────────────────────────────────────────────────────
+     The three figures under the About prose. The first shares its value with
+     the hero badge above, by construction. */
+  var aboutStats = [
+    { value: shippedCount, label: 'projects shipped' },
+    { value: '3', label: 'SaaS platforms live' },
+    { value: '100%', label: 'end-to-end ownership' }
+  ];
 
   /* ── Services / engagement models ────────────────────────────────────────
      `featured` marks the lead offer — exactly one card should carry it.
@@ -202,6 +220,7 @@
   global.PortfolioData = {
     availability: availability,
     heroStat: heroStat,
+    aboutStats: aboutStats,
     services: services,
     metrics: metrics,
     booking: booking,

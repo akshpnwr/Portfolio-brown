@@ -357,6 +357,21 @@
       if (sl) sl.textContent = D.heroStat.label;
     }
 
+    /* About stat row. Its first figure and the hero badge above read from
+       the same constant in data.js, so the page cannot claim two different
+       counts of shipped work. */
+    if (D.aboutStats) {
+      var cells = document.querySelectorAll('[data-about-stats] > div');
+      D.aboutStats.forEach(function (stat, i) {
+        var cell = cells[i];
+        if (!cell) return;
+        var v = cell.querySelector('.stat__value');
+        var l = cell.querySelector('.stat__label');
+        if (v) v.textContent = stat.value;
+        if (l) l.textContent = stat.label;
+      });
+    }
+
     /* Service cards. The three cards are already in index.html as a working
        fallback; this overwrites their text from data.js so prices and copy
        have a single source of truth.

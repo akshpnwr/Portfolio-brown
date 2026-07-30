@@ -319,7 +319,10 @@
               <p class="about__footnote">
                 MCA, UPES Dehradun · BCA, Uttaranchal University
               </p>
-              <div class="stat-row">
+              <!-- Values come from data.js → aboutStats. The first figure
+                   shares its source with the hero portrait badge, so the two
+                   cannot disagree. Inline text is the fallback. -->
+              <div class="stat-row" data-about-stats>
                 <div>
                   <div class="stat__value">12+</div>
                   <div class="stat__label">projects shipped</div>
