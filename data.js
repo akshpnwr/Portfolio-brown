@@ -27,9 +27,9 @@
     // dated and undated versions never have to be edited by hand.
     month: '',
     // Rendered when taking === true and no month is set.
-    line: 'Available now — taking on one new project.',
+    line: 'Available now — taking on new projects.',
     // Used instead when a month IS set. {month} is substituted.
-    lineFrom: 'Currently taking on one new project — available from {month}.',
+    lineFrom: 'Taking on new projects — available from {month}.',
     lineClosed: 'Fully booked at the moment — worth asking about next quarter.'
   };
 
