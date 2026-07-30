@@ -315,6 +315,175 @@
     })();
   }
 
+  /* ── Hero portrait: water blob ───────────────────────────────────────────
+     The portrait is clipped to a blob whose outline is 12 points in polar
+     space. Two things move each point's radius:
+
+       1. An ambient wave — each point carries its own amplitude, frequency
+          and phase, so the silhouette breathes unevenly rather than pulsing
+          like a jellyfish.
+
+       2. Ripples. A pointer near the edge pushes the points closest to it
+          outward; the push decays over ~900ms and overshoots on the way back
+          (the sin term), which is what sells it as surface tension rather
+          than a balloon inflating.
+
+     Both paths (the clip and the brass rim) share one `d` string, so the rim
+     is always exactly on the crop's edge.
+
+     Deliberately NOT gated behind an IntersectionObserver: the blob is in the
+     hero, so it is on screen at load and scrolled past within one viewport.
+     The rAF loop parks itself when the tab is hidden (the browser stops
+     serving frames) and there is nothing else to reclaim. */
+
+  var BLOB_POINTS = 12;
+  var BLOB_BASE = 46;
+  /* Ceiling on ripple displacement. Resting radius peaks near 48.6 (base plus
+     the largest lobe amplitude) and a worst-case ripple pile-up reaches ~52 —
+     past the viewBox's 50-unit half-extent, which is why the <image> in
+     index.html spans -6 to 106 rather than 0 to 100: the clip can swing wider
+     than the viewBox, and a photo bounded at 100 would clip flat against its
+     own rect exactly where the blob bulges furthest. Keep the two in step if
+     this value changes. */
+  var RIPPLE_MAX = 4;
+
+  function setupPortrait() {
+    var host = document.getElementById('heroPortrait');
+    if (!host) return;
+    var paths = host.querySelectorAll('[data-blob-path]');
+    if (!paths.length) return;
+
+    // Reduced motion keeps the committed static blob — the shape is the
+    // design, the undulation is the decoration. Nothing to do, and no
+    // listeners bound, so a hover can't start it either.
+    if (prefersReduced()) return;
+
+    // Same descriptors, in the same order, as the generator that produced the
+    // `d` committed in index.html — so the first animated frame continues
+    // from the static shape instead of snapping to a different one.
+    var lobes = [];
+    for (var i = 0; i < BLOB_POINTS; i++) {
+      lobes.push({
+        amp: 1.6 + 1.5 * Math.sin(i * 2.399),
+        freq: 0.5 + 0.22 * Math.cos(i * 1.7),
+        phase: i * 1.618
+      });
+    }
+
+    // Point angles, fixed. Shared by the path builder and the ripple's
+    // "which points are near the cursor" test.
+    var angles = [];
+    for (var j = 0; j < BLOB_POINTS; j++) {
+      angles.push((j / BLOB_POINTS) * Math.PI * 2 - Math.PI / 2);
+    }
+
+    var ripples = [];
+    var RIPPLE_MS = 900;
+
+    /* Pointer position in the SVG's own 0–100 space, so the ripple math needs
+       no knowledge of the element's rendered size. pointermove (not
+       mousemove) so a stylus drives it too; coarse pointers are excluded at
+       the listener, since a touch has no hover to ripple with. */
+    host.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'touch') return;
+      var r = host.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      var x = ((e.clientX - r.left) / r.width) * 100;
+      var y = ((e.clientY - r.top) / r.height) * 100;
+
+      // Throttle to one ripple per ~55ms of travel: a fast sweep across the
+      // blob would otherwise queue dozens of overlapping pushes and the edge
+      // would boil rather than ripple.
+      var last = ripples[ripples.length - 1];
+      if (last && performance.now() - last.born < 55) return;
+
+      ripples.push({ x: x, y: y, born: performance.now() });
+      if (ripples.length > 14) ripples.shift();
+    });
+
+    var toPath = function (pts) {
+      var n = pts.length;
+      var d = 'M' + pts[0][0].toFixed(2) + ' ' + pts[0][1].toFixed(2);
+      for (var i = 0; i < n; i++) {
+        var p0 = pts[(i - 1 + n) % n];
+        var p1 = pts[i];
+        var p2 = pts[(i + 1) % n];
+        var p3 = pts[(i + 2) % n];
+        // Catmull-Rom → cubic bezier. The /6 tangent scale is the standard
+        // uniform conversion; it keeps the curve passing exactly through
+        // every point, which a plain quadratic smoothing would not.
+        d += 'C' +
+          (p1[0] + (p2[0] - p0[0]) / 6).toFixed(2) + ' ' +
+          (p1[1] + (p2[1] - p0[1]) / 6).toFixed(2) + ',' +
+          (p2[0] - (p3[0] - p1[0]) / 6).toFixed(2) + ' ' +
+          (p2[1] - (p3[1] - p1[1]) / 6).toFixed(2) + ',' +
+          p2[0].toFixed(2) + ' ' + p2[1].toFixed(2);
+      }
+      return d + 'Z';
+    };
+
+    var t0 = performance.now();
+
+    (function frame(now) {
+      var t = (now - t0) / 1000;
+
+      // Retire finished ripples before the per-point loop so dead entries
+      // aren't re-tested 12 times each.
+      for (var r = ripples.length - 1; r >= 0; r--) {
+        if (now - ripples[r].born > RIPPLE_MS) ripples.splice(r, 1);
+      }
+
+      var pts = [];
+      for (var i = 0; i < BLOB_POINTS; i++) {
+        var l = lobes[i];
+        var rad = BLOB_BASE + l.amp * Math.sin(t * l.freq + l.phase);
+
+        var a = angles[i];
+        var px = 50 + Math.cos(a) * BLOB_BASE;
+        var py = 50 + Math.sin(a) * BLOB_BASE;
+
+        // Ripple displacement is summed separately, then clamped. Overlapping
+        // ripples land on the same points constantly (a slow drag parks
+        // several within one falloff radius), and added straight onto `rad`
+        // they compound without limit — a clustered sweep pushed the edge to
+        // r≈65, well past the 50-unit half-extent of the viewBox, where the
+        // photo would clip flat against the SVG's own bounds.
+        var push = 0;
+        for (var k = 0; k < ripples.length; k++) {
+          var rp = ripples[k];
+          var age = (now - rp.born) / RIPPLE_MS;
+          var dx = px - rp.x;
+          var dy = py - rp.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+
+          // Falloff: full strength on the point nearest the cursor, nothing
+          // past ~44 units. Squared so the bulge stays local instead of
+          // lifting the whole outline. The radius spans roughly four of the
+          // twelve points — narrower and a ripple moves one point on its own,
+          // which reads as a dent rather than a travelling wave.
+          var near = Math.max(0, 1 - dist / 44);
+          if (!near) continue;
+
+          // Decaying overshoot — out, back past rest, settle.
+          var swing = Math.sin(age * Math.PI * 1.6) * (1 - age) * (1 - age);
+          push += near * near * swing * 14;
+        }
+
+        // Hard ceiling well inside the viewBox. Ripples ease toward it rather
+        // than hitting a corner: tanh is linear for the single-ripple case
+        // that dominates, and saturates only once they pile up.
+        rad += RIPPLE_MAX * Math.tanh(push / RIPPLE_MAX);
+
+        pts.push([50 + Math.cos(a) * rad, 50 + Math.sin(a) * rad]);
+      }
+
+      var d = toPath(pts);
+      for (var p = 0; p < paths.length; p++) paths[p].setAttribute('d', d);
+
+      requestAnimationFrame(frame);
+    })(t0);
+  }
+
   /* ── Data-driven copy ────────────────────────────────────────────────────
      Writes the values from data.js into the page: availability, the hero
      stat, case-study metrics, the booking link.
@@ -494,6 +663,7 @@
     setupScrollChrome();
     setupGlow();
     setupParticles();
+    setupPortrait();
 
     // GSAP scroll effects. Loaded from a CDN, so it may not be parsed yet.
     if (window.PortfolioAnimations) window.PortfolioAnimations.init();

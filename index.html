@@ -262,17 +262,53 @@
             </div>
 
             <div class="hero__portrait-wrap" data-reveal>
-              <div class="portrait-mount" id="heroPortrait">
-                <div class="portrait-mount__inner">
-                  <image-slot
-                    id="portrait"
-                    src="uploads/akash-avatar.webp"
-                    shape="rounded"
-                    radius="16"
-                    placeholder="Akash Panwar"
-                  ></image-slot>
-                </div>
-                <div class="portrait-mount__glint"></div>
+              <!-- The blob is an SVG clip path, not a CSS shape: setupPortrait()
+                   in site.js rewrites the path's `d` every frame so the outline
+                   undulates and ripples away from the cursor. Without JS (or
+                   under reduced motion) the committed `d` below stands on its
+                   own as a static organic silhouette — it is a real shape, not
+                   a placeholder circle, so nothing looks broken. -->
+              <div class="portrait-blob" id="heroPortrait">
+                <!-- The portrait is content, not decoration, so the SVG is
+                     labelled rather than aria-hidden — it replaces an <img>
+                     that carried the same name. role="img" collapses the
+                     shapes inside into that one label. -->
+                <svg
+                  class="portrait-blob__svg"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="xMidYMid meet"
+                  role="img"
+                  aria-label="Akash Panwar"
+                >
+                  <defs>
+                    <!-- userSpaceOnUse against the 0–100 viewBox, so the path
+                         data is shared verbatim with the outline stroke. -->
+                    <clipPath id="portraitClip" clipPathUnits="userSpaceOnUse">
+                      <path data-blob-path
+                        d="M50.00 4.00C57.67 3.24,67.67 4.07,74.31 7.90C80.94 11.74,86.67 19.99,89.83 27.00C92.98 34.02,93.20 42.31,93.24 50.00C93.28 57.69,93.37 66.38,90.06 73.13C86.75 79.88,80.06 86.83,73.38 90.50C66.71 94.17,57.71 95.30,50.00 95.15C42.29 95.00,33.88 93.24,27.13 89.61C20.38 85.99,13.68 79.99,9.49 73.39C5.30 66.79,1.88 57.72,2.01 50.00C2.14 42.28,5.87 33.31,10.26 27.05C14.64 20.79,21.69 16.28,28.31 12.44C34.94 8.60,42.33 4.76,50.00 4.00Z" />
+                    </clipPath>
+                  </defs>
+                  <!-- Inset past the viewBox on purpose. A ripple can swing
+                       the clip path out to ~52 units from centre, beyond the
+                       viewBox's 50; a photo bounded at 0/100 would clip flat
+                       against its own rect exactly where the blob bulges
+                       furthest. This rect spans -6 to 106, and the blob's
+                       worst case is -2.1 to 99 — margin on every side.
+                       Keep it ahead of RIPPLE_MAX in site.js. -->
+                  <image
+                    class="portrait-blob__image"
+                    href="uploads/akash-avatar.webp"
+                    x="-6"
+                    y="-6"
+                    width="112"
+                    height="112"
+                    preserveAspectRatio="xMidYMin slice"
+                    clip-path="url(#portraitClip)"
+                  />
+                  <!-- Brass rim, riding the same path so it wobbles with it. -->
+                  <path class="portrait-blob__rim" data-blob-path
+                        d="M50.00 4.00C57.67 3.24,67.67 4.07,74.31 7.90C80.94 11.74,86.67 19.99,89.83 27.00C92.98 34.02,93.20 42.31,93.24 50.00C93.28 57.69,93.37 66.38,90.06 73.13C86.75 79.88,80.06 86.83,73.38 90.50C66.71 94.17,57.71 95.30,50.00 95.15C42.29 95.00,33.88 93.24,27.13 89.61C20.38 85.99,13.68 79.99,9.49 73.39C5.30 66.79,1.88 57.72,2.01 50.00C2.14 42.28,5.87 33.31,10.26 27.05C14.64 20.79,21.69 16.28,28.31 12.44C34.94 8.60,42.33 4.76,50.00 4.00Z" />
+                </svg>
               </div>
               <!-- Values come from data.js → heroStat. Never years of
                    experience here — see the note in that file. -->

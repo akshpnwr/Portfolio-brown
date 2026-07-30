@@ -1116,45 +1116,53 @@ html.has-smooth-scroll #smooth-wrapper {
   position: relative;
 }
 
-/* Walnut "mount" the portrait sits inside; JS parallaxes it on scroll. */
-.portrait-mount {
+/* The portrait is a photo clipped to an organic blob whose outline undulates
+   and ripples away from the cursor — setupPortrait() in site.js drives it.
+
+   Square by construction: the blob path lives in a 0–100 viewBox and is
+   near-radial, so a non-square box would stretch the lobes into ovals. The
+   photo inside keeps its own aspect via preserveAspectRatio="slice". */
+.portrait-blob {
   position: relative;
-  padding: 14px;
-  border-radius: var(--radius-3xl);
-  background: linear-gradient(150deg,
-      var(--color-walnut-light),
-      var(--color-walnut-deep));
-  box-shadow: var(--shadow-portrait);
-  will-change: transform;
+  aspect-ratio: 1;
+  max-width: 460px;
+  margin-inline: auto;
+  /* The drop shadow has to follow the blob's silhouette, not a bounding box —
+     a box-shadow here would paint a square halo around a round shape. */
+  filter: drop-shadow(0 30px 55px rgba(74, 54, 40, 0.28));
 }
 
-.portrait-mount__inner {
-  border-radius: 16px;
-  overflow: hidden;
-  aspect-ratio: 4 / 5;
+.portrait-blob__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Clay backstop while the photo decodes, matching the old mount's inner. */
+.portrait-blob__image {
   background: var(--color-clay);
 }
 
-/* Brass glint along the bottom edge of the mount. */
-.portrait-mount__glint {
-  position: absolute;
-  left: 50%;
-  bottom: -1px;
-  transform: translateX(-50%);
-  width: 44%;
-  height: 5px;
-  border-radius: 0 0 6px 6px;
-  background: linear-gradient(90deg,
-      var(--brass-a00),
-      rgba(176, 141, 87, 0.7),
-      var(--brass-a00));
+/* Brass rim on the same path as the clip, so it wobbles in lockstep.
+   vector-effect keeps the hairline at 1px however the SVG is scaled. */
+.portrait-blob__rim {
+  fill: none;
+  stroke: var(--brass-a55);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
 }
 
-/* Floating "2+ yrs" card overlapping the portrait's lower-left corner. */
+/* Floating stat card at the blob's lower-left.
+
+   Pulled inward rather than hung off a corner: the blob has no corner to
+   overlap, and its widest point at that height is roughly 8% of the box in
+   from the edge. Sitting flush at 0 would leave the card floating in the gap
+   beside the curve instead of reading as attached to it. */
 .portrait-badge {
   position: absolute;
-  bottom: -22px;
-  left: -22px;
+  bottom: 6%;
+  left: 0;
   background: var(--color-bone);
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -2099,6 +2107,21 @@ html.has-smooth-scroll #smooth-wrapper {
 
   .st-desc {
     max-width: none;
+  }
+
+  /* The blob is square, so at full column width it eats far more vertical
+     space on a phone than the old 4:5 frame did — enough to push the CTAs
+     under the fold. Cap it and pull the badge in with it. */
+  .portrait-blob {
+    max-width: 300px;
+  }
+
+  .portrait-badge {
+    padding: 11px 14px;
+  }
+
+  .portrait-badge__value {
+    font-size: 25px;
   }
 }
 
