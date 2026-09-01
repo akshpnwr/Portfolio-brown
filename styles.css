@@ -60,6 +60,10 @@
   /* error state */
   --color-rust: #a5544c;
 
+  /* LinkedIn brand blue — the one cool colour on the page, so it is used
+     only on hover, never at rest. */
+  --color-linkedin: #0a66c2;
+
   /* On the dark process band */
   --color-on-dark: #faf9f6;
   --color-on-dark-muted: #b9b2a7;
@@ -1809,6 +1813,24 @@ html.has-smooth-scroll #smooth-wrapper {
 .note__name {
   color: var(--color-ink-soft);
   font-weight: var(--weight-medium);
+}
+
+/* LinkedIn mark trailing the citation. Sits at stone weight so it reads as a
+   quiet affordance next to the name rather than competing with the quote,
+   and warms to brass on hover. inline-flex keeps the glyph optically centred
+   on the text baseline, which a bare inline <svg> does not. */
+.note__linkedin {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 6px;
+  vertical-align: -2px;
+  color: var(--color-stone);
+  transition: color var(--duration-card) var(--ease-out-soft);
+}
+
+.note__linkedin:hover,
+.note__linkedin:focus-visible {
+  color: var(--color-linkedin);
 }
 
 /* ── Contact ───────────────────────────────────────────────── */
