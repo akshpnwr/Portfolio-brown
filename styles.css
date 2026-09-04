@@ -334,9 +334,27 @@ html.has-smooth-scroll #smooth-wrapper {
   gap: clamp(20px, 3vw, 36px);
 }
 
+/* Testimonials: four across on desktop. Fixed column counts rather than
+   auto-fit, because auto-fit at this card width lands on 3+1 through a wide
+   band of the viewport, and a single orphaned note under a full row reads
+   as a mistake. 2x2 on tablet keeps that symmetry; one column below that. */
 .card-grid--wide {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: clamp(20px, 3vw, 32px);
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(20px, 2.4vw, 28px);
+}
+
+@media (max-width: 1100px) {
+
+  .card-grid--wide {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+
+  .card-grid--wide {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ==========================================================================
@@ -1731,7 +1749,7 @@ html.has-smooth-scroll #smooth-wrapper {
 .note {
   background: var(--color-bone);
   border-radius: 16px;
-  padding: 32px 30px;
+  padding: 28.8px 27px;
   box-shadow: var(--shadow-note);
   position: relative;
   margin: 0;
