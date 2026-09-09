@@ -1,0 +1,8 @@
+# resume.akashpanwar.dev
+#
+# This host is sent directly to hiring managers; it is not meant to be
+# found via search. It shares most of its content with akashpanwar.dev,
+# so allowing it to be indexed would split ranking signals between two
+# hosts saying the same thing. The main domain stays fully indexable.
+User-agent: *
+Disallow: /

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/robots.txt",
+      "has": [{ "type": "host", "value": "resume.akashpanwar.dev" }],
+      "destination": "/resume-site/robots.txt"
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "resume.akashpanwar.dev" }],
+      "destination": "/resume-site/index.html"
+    },
+    {
+      "source": "/:path((?!assets/|uploads/|resume-site/|resume\\.pdf|favicon\\.svg).*)",
+      "has": [{ "type": "host", "value": "resume.akashpanwar.dev" }],
+      "destination": "/resume-site/:path"
+    }
+  ]
+}
