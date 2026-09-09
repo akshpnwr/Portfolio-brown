@@ -1,21 +1,36 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/robots.txt",
-      "has": [{ "type": "host", "value": "resume.akashpanwar.dev" }],
-      "destination": "/resume-site/robots.txt"
+      "src": "/(assets/.*|uploads/.*|resume\\.pdf|favicon\\.svg)",
+      "has": [
+        {
+          "type": "host",
+          "value": "resume\\.akashpanwar\\.dev"
+        }
+      ],
+      "dest": "/$1"
     },
     {
-      "source": "/",
-      "has": [{ "type": "host", "value": "resume.akashpanwar.dev" }],
-      "destination": "/resume-site/index.html"
+      "src": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "resume\\.akashpanwar\\.dev"
+        }
+      ],
+      "dest": "/resume-site/index.html"
     },
     {
-      "source": "/:path((?!assets/|uploads/|resume-site/|resume\\.pdf|favicon\\.svg).*)",
-      "has": [{ "type": "host", "value": "resume.akashpanwar.dev" }],
-      "destination": "/resume-site/:path"
+      "src": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "resume\\.akashpanwar\\.dev"
+        }
+      ],
+      "dest": "/resume-site/$1"
     }
   ]
 }
