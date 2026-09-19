@@ -125,7 +125,7 @@
       if (open) {
         panel.style.maxHeight = '0px';
         if (chev) chev.style.transform = '';
-        if (label) label.textContent = ' View case details';
+        if (label) label.textContent = ' Read the full story';
         btn.setAttribute('aria-expanded', 'false');
       } else {
         panel.style.maxHeight = panel.scrollHeight + 'px';
@@ -209,7 +209,7 @@
     }, { threshold: 0, rootMargin: '-45% 0px -55% 0px' });
     // Must stay in sync with the [data-nav] links in the header — a section
     // missing here simply never highlights.
-    ['about', 'services', 'work', 'skills', 'process', 'experience'].forEach(function (id) {
+    ['about', 'work', 'services', 'skills', 'process'].forEach(function (id) {
       var s = document.getElementById(id);
       if (s) io.observe(s);
     });
@@ -526,9 +526,11 @@
       if (sl) sl.textContent = D.heroStat.label;
     }
 
-    /* About stat row. Its first figure and the hero badge above read from
-       the same constant in data.js, so the page cannot claim two different
-       counts of shipped work. */
+    /* About stat row — the three figures that carry the section. Its first
+       figure and the hero portrait badge read from the same constant in
+       data.js, so the page cannot claim two different counts of shipped
+       work. The hero no longer repeats all three: one badge up there, the
+       full row here. */
     if (D.aboutStats) {
       var cells = document.querySelectorAll('[data-about-stats] > div');
       D.aboutStats.forEach(function (stat, i) {
@@ -566,6 +568,15 @@
         // still honoured if it is ever set, so putting a figure back in
         // data.js is a one-line change with nothing else to update.
         set('.service__shape', svc.shape || svc.price);
+
+        // CTA label. Only the text node is replaced so the arrow <span>
+        // after it survives — set() would blow it away with textContent.
+        var ctaEl = card.querySelector('.service__cta');
+        if (ctaEl && svc.cta) {
+          var arrow = ctaEl.querySelector('span');
+          ctaEl.textContent = svc.cta + ' ';
+          if (arrow) ctaEl.appendChild(arrow);
+        }
 
         card.classList.toggle('service--featured', !!svc.featured);
 

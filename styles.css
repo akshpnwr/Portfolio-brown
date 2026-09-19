@@ -139,8 +139,6 @@
   --shell: 1240px;
   /* header bar, which runs slightly wider than the content */
   --shell-wide: 1340px;
-  /* readable prose measure for the timeline */
-  --shell-prose: 900px;
 
   /* ── Radii ───────────────────────────────────────────────── */
   --radius-sm: 9px;
@@ -300,8 +298,8 @@ html.has-smooth-scroll #smooth-wrapper {
 }
 
 /* The one centred container every section uses, so all content shares a
-   single left edge. Sections that need a narrower measure (the timeline,
-   the hero copy) constrain their own inner element rather than the shell. */
+   single left edge. Sections that need a narrower measure (the hero copy)
+   constrain their own inner element rather than the shell. */
 .shell {
   max-width: var(--shell);
   margin: 0 auto;
@@ -318,6 +316,23 @@ html.has-smooth-scroll #smooth-wrapper {
 
 .split--about {
   grid-template-columns: 0.9fr 1.1fr;
+}
+
+/* About runs on the tighter rhythm. The standard --section-y (160px top and
+   bottom at 1440px) was sized for the two-paragraph version of this section;
+   once the prose came down to one sentence and the figures took over, that
+   padding left a dead stretch under the stats. Reuses the existing tight
+   token rather than a one-off number, so About still sits on the same
+   rhythm as the tinted bands.
+
+   Symmetric top and bottom. An earlier revision cut the bottom to ~60px
+   because About's padding STACKED with the plain Services section that
+   followed it. Work (tinted) sits there now, and a band edge needs real
+   clearance under the stat row — nothing stacks, so the tight token is
+   the whole gap. Revisit this if the section after About changes again. */
+#about {
+  padding-top: var(--section-y-tight);
+  padding-bottom: var(--section-y-tight);
 }
 
 /* Width comes from .shell, as in every other section — the split only owns
@@ -490,17 +505,6 @@ html.has-smooth-scroll #smooth-wrapper {
 
 .prose--last {
   margin-bottom: 24px;
-}
-
-/* Education line in About. Deliberately the quietest text in the section —
-   it is present for completeness, not as a credential to lean on. Carries
-   the 40px that .prose--last used to hold before the stat row. */
-.about__footnote {
-  font-size: 13.5px;
-  line-height: 1.6;
-  color: var(--color-pebble);
-  font-weight: var(--weight-light);
-  margin: 0 0 40px;
 }
 
 /* ==========================================================================
@@ -694,16 +698,6 @@ html.has-smooth-scroll #smooth-wrapper {
 
 /* ── Pills & chips ─────────────────────────────────────────── */
 
-/* Static tech tag on a project card. */
-.tag {
-  font-size: 13px;
-  padding: 6px 13px;
-  border-radius: var(--radius-sm);
-  background: var(--color-linen);
-  border: 1px solid var(--line);
-  color: var(--color-cocoa);
-}
-
 /* Interactive skill chip — JS lifts it on hover. */
 .chip {
   font-size: 14px;
@@ -716,13 +710,6 @@ html.has-smooth-scroll #smooth-wrapper {
   transition:
     transform var(--duration-base) ease,
     box-shadow var(--duration-base) ease;
-}
-
-.tag-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 24px;
 }
 
 .chip-list {
@@ -780,6 +767,26 @@ html.has-smooth-scroll #smooth-wrapper {
   color: var(--color-pebble);
   margin-top: 8px;
   line-height: 1.5;
+}
+
+/* About variant: the figures ARE the section, not a footnote beneath it.
+
+   Bigger type and more air than the base row, and the values are the
+   largest non-heading text in the section - that is the point. 56px is
+   as far as this can go before "100%" and "SaaS platforms live" start
+   fighting for the same column width at 1024px. */
+.stat-row--lead {
+  padding-top: 38px;
+  gap: 26px;
+}
+
+.stat-row--lead .stat__value {
+  font-size: 56px;
+}
+
+.stat-row--lead .stat__label {
+  font-size: 13.5px;
+  margin-top: 11px;
 }
 
 /* ── Column card (skills / recognition) ────────────────────── */
@@ -1116,7 +1123,7 @@ html.has-smooth-scroll #smooth-wrapper {
   font-size: 14px;
   color: var(--color-stone);
   font-weight: var(--weight-light);
-  margin: 22px 0 0;
+  margin: 26px 0 0;
 }
 
 .hero__availability-dot {
@@ -1356,7 +1363,6 @@ html.has-smooth-scroll #smooth-wrapper {
   color: var(--color-brass-light);
 }
 
-.project--ink .tag,
 .project--ink .chip {
   background: rgba(250, 249, 246, 0.06);
   border-color: rgba(250, 249, 246, 0.16);
@@ -1501,6 +1507,15 @@ html.has-smooth-scroll #smooth-wrapper {
   line-height: 1.65;
   color: var(--color-stone);
   font-weight: var(--weight-light);
+}
+
+/* The stack, last row of the expanded detail. Quieter than .detail__text
+   on purpose: the technologies stay available to a technical reader without
+   competing with the problem/built/result story above them, which is what a
+   non-technical founder is actually reading for. */
+.detail__text--tech {
+  font-size: 13.5px;
+  color: var(--color-pebble);
 }
 
 /* Chevron in the disclosure button — JS rotates it when open. */
@@ -1673,76 +1688,6 @@ html.has-smooth-scroll #smooth-wrapper {
   max-width: 20ch;
 }
 
-/* ── Journey timeline ──────────────────────────────────────── */
-
-/* Sits in the standard shell so its rail aligns with every other section's
-   left edge; the max-width keeps the entry prose at a readable measure
-   instead of stretching the full 1160px. */
-.timeline {
-  position: relative;
-  padding-left: 36px;
-  max-width: var(--shell-prose);
-}
-
-.timeline__line {
-  position: absolute;
-  left: 7px;
-  top: 6px;
-  bottom: 6px;
-  width: 1px;
-  background: linear-gradient(rgba(107, 79, 59, 0.35), rgba(107, 79, 59, 0.08));
-}
-
-.timeline__item {
-  position: relative;
-  padding-bottom: 48px;
-}
-
-.timeline__item:last-child {
-  padding-bottom: 0;
-}
-
-.timeline__dot {
-  position: absolute;
-  left: -36px;
-  top: 6px;
-  width: 15px;
-  height: 15px;
-  border-radius: var(--radius-round);
-  background: var(--color-bone);
-  border: 2px solid var(--color-brass);
-  box-shadow: 0 0 0 4px var(--brass-a14);
-}
-
-.timeline__date {
-  font-size: 13px;
-  letter-spacing: 0.12em;
-  color: var(--color-brass);
-  margin-bottom: 8px;
-}
-
-.timeline__role {
-  font-family: var(--font-display);
-  font-weight: var(--weight-normal);
-  font-size: 26px;
-  margin: 0 0 6px;
-  color: var(--color-ink);
-}
-
-.timeline__org {
-  font-size: 14px;
-  color: var(--color-pebble);
-  margin-bottom: 12px;
-}
-
-.timeline__text {
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--color-graphite);
-  font-weight: var(--weight-light);
-  margin: 0;
-}
-
 /* ── Testimonials ──────────────────────────────────────────── */
 
 /* Pinned notes — each is rotated slightly off-axis in the markup. */
@@ -1869,8 +1814,17 @@ html.has-smooth-scroll #smooth-wrapper {
   line-height: 1.75;
   color: var(--color-graphite);
   font-weight: var(--weight-light);
-  margin: 0 0 36px;
+  margin: 0 0 20px;
   max-width: 400px;
+}
+
+/* Scarcity line under the main intro. Quieter and smaller — it is a
+   qualifier on the offer above, not a second pitch, and the 36px gap the
+   intro used to carry to the contact list now lives here. */
+.contact__intro--scarcity {
+  font-size: 15px;
+  color: var(--color-stone);
+  margin: 0 0 36px;
 }
 
 .contact-list {

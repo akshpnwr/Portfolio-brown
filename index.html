@@ -118,15 +118,15 @@
           <a href="#about" data-target="about" data-nav class="nav-links__link"
             >About</a
           >
+          <a href="#work" data-target="work" data-nav class="nav-links__link"
+            >Work</a
+          >
           <a
             href="#services"
             data-target="services"
             data-nav
             class="nav-links__link"
             >Services</a
-          >
-          <a href="#work" data-target="work" data-nav class="nav-links__link"
-            >Work</a
           >
           <a
             href="#skills"
@@ -141,13 +141,6 @@
             data-nav
             class="nav-links__link"
             >Process</a
-          >
-          <a
-            href="#experience"
-            data-target="experience"
-            data-nav
-            class="nav-links__link"
-            >Journey</a
           >
           <a href="#contact" data-target="contact" class="btn--nav">Contact</a>
         </nav>
@@ -188,68 +181,56 @@
                 <div class="status-pill" data-reveal>
                   <span class="status-pill__dot"></span>
                   <span class="status-pill__label"
-                    >Production SaaS, built end to end — for founders and small
-                    teams</span
+                    >Full-stack developer for founders and small teams</span
                   >
                 </div>
-                <!-- HEADLINE OPTIONS — pick one, delete the rest.
-                   The chosen one is live below. Keep the explicit <br /> and
-                   the .display__accent span on the final phrase: that italic
-                   brass treatment is the hero's visual anchor.
+                <!-- HEADLINE — keep the explicit <br /> and the
+                     .display__accent span on the final phrase: that italic
+                     brass treatment is the hero's visual anchor.
 
-                   The line breaks are hand-placed, not left to wrapping. At
-                   --text-hero (up to 104px) a line much longer than ~22
-                   characters overflows the hero's left column and wraps
-                   raggedly — check any replacement at 1440px before keeping
-                   it.
+                     The line breaks are hand-placed, not left to wrapping. At
+                     --text-hero (up to 104px) a line much longer than ~22
+                     characters overflows the hero's left column and wraps
+                     raggedly — check any replacement at 1440px before keeping
+                     it.
 
-                   A) ← currently live
-                      I build and ship
-                      production SaaS — solo.
-
-                   B) Your product,
-                      live in production.
-
-                   C) From schema to interface:
-                      complete products, shipped.
-                      (Reads well, but line 1 is too long for the display
-                      size — it wrapped badly at 1440px. Needs a smaller
-                      --text-hero to use.)
-              -->
+                     Now leads with the outcome the buyer wants (their idea,
+                     live) rather than the method (built solo). "solo" moved
+                     into the subheading, where it reads as reassurance about
+                     ownership instead of the headline's main promise. -->
                 <h1 class="display display--hero" data-reveal>
-                  I build and ship<br />production SaaS —<br /><span
-                    class="display__accent"
-                    >solo.</span
+                  Your idea,<br />live in<br /><span class="display__accent"
+                    >production</span
                   >
                 </h1>
-                <!-- SUBHEADING OPTIONS — pick one, delete the rest.
-
-                   A) ← currently live
-                   B) I'm Akash Panwar. Founders hire me to build the whole
-                      product — multi-tenant SaaS with real backends, RBAC and
-                      an interface people actually use. One person, from empty
-                      repo to production, answerable for all of it.
-              -->
+                <!-- One sentence, deliberately. The timeline, the support
+                     window and the no-handoffs argument all live further
+                     down the page (services card, About) — repeating them
+                     here just made a paragraph nobody finishes. -->
                 <p class="hero__body" data-reveal>
-                  I'm Akash Panwar. I build production SaaS for founders and
-                  small teams — multi-tenant architecture, real backends,
-                  role-based access, and the interface on top. One person owns
-                  the whole thing, so nothing falls between the handoffs.
+                  I'm Akash Panwar. Founders and small teams hire me to build
+                  their product and get it live.
                 </p>
+                <!-- Primary CTA is the conversation, not the portfolio.
+                     "Tell me about your project" asks for a sentence, not a
+                     commitment — lower friction than "Start a project", which
+                     reads like signing something. Work stays one click away
+                     as the secondary. -->
                 <div class="cta-row" data-reveal>
-                  <a href="#work" data-target="work" class="btn btn--primary">
-                    View selected work
-                    <span class="btn__arrow">→</span>
-                  </a>
                   <a
                     href="#contact"
                     data-target="contact"
-                    class="btn btn--ghost"
+                    class="btn btn--primary"
                     data-track="hero-cta"
                   >
-                    Start a project →
+                    Tell me about your project
+                    <span class="btn__arrow">→</span>
+                  </a>
+                  <a href="#work" data-target="work" class="btn btn--ghost">
+                    See what I've shipped →
                   </a>
                 </div>
+
                 <!-- Availability copy comes from data.js → availability.
                    The inline text is the fallback if that file fails to load. -->
                 <p class="hero__availability" data-reveal data-availability>
@@ -257,7 +238,7 @@
                     class="hero__availability-dot"
                     aria-hidden="true"
                   ></span>
-                  Available now — taking on new projects.
+                  Taking on a new project this month.
                 </p>
               </div>
 
@@ -341,35 +322,30 @@
               <div class="about__aside" data-reveal>
                 <div class="eyebrow">01 — About</div>
                 <h2 class="display display--section">
-                  A quiet obsession with getting the details right.
+                  One person, answerable<br />for the whole thing.
                 </h2>
               </div>
               <div data-reveal>
+                <!-- One sentence, then the numbers. This section used to run
+                     two paragraphs above a small stat row; the figures were a
+                     footnote to prose nobody read to the end. Inverted: the
+                     numbers carry the section and the sentence frames them.
+
+                     The founding-engineer fact is the strongest single
+                     credential on the page, so it survives the cut — it is
+                     what the three figures below are evidence of. -->
                 <p class="prose prose--lead">
-                  As founding engineer at TalentGPT I owned a multi-tenant
-                  hiring platform end to end, from the MongoDB schema up to the
-                  React interface recruiters live in.
-                </p>
-                <p class="prose prose--last">
-                  I write JavaScript and TypeScript by default, reach for Node,
-                  Express and MongoDB on the backend, and have shipped a fair
-                  few Shopify storefronts in Liquid when the brief called for
-                  commerce.
-                </p>
-                <!-- Education, reduced to one quiet line. The Recognition
-                   section this replaced carried grades, Udemy certificates and
-                   community badges — hiring credentials that read junior to
-                   someone deciding whether to spend $6k. -->
-                <p class="about__footnote">
-                  MCA, UPES Dehradun · BCA, Uttaranchal University
+                  Founding engineer at TalentGPT — empty repo to production,
+                  still running it. I do the same for founders who need one
+                  person accountable for the whole build.
                 </p>
                 <!-- Values come from data.js → aboutStats. The first figure
                    shares its source with the hero portrait badge, so the two
                    cannot disagree. Inline text is the fallback. -->
-                <div class="stat-row" data-about-stats>
+                <div class="stat-row stat-row--lead" data-about-stats>
                   <div>
-                    <div class="stat__value">12+</div>
-                    <div class="stat__label">projects shipped</div>
+                    <div class="stat__value">7+</div>
+                    <div class="stat__label">products shipped</div>
                   </div>
                   <div>
                     <div class="stat__value">3</div>
@@ -384,133 +360,6 @@
             </div>
           </section>
 
-          <!-- SERVICES / ENGAGEMENT
-             The offer. Before this section the site showed what Akash had
-             built but never said what could be bought, which left a visitor
-             who was ready to hire with nowhere to go but the contact form.
-
-             Cards render from data.js → services, so prices and copy change
-             in one place. The markup below is a real fallback, not a
-             placeholder: if data.js fails to load, these three cards still
-             read correctly with the prices committed here. Keep the two in
-             sync when prices change — or accept that the fallback shows the
-             last-committed figure. -->
-          <section class="section" id="services">
-            <div class="shell">
-              <div class="section-head" data-reveal>
-                <div class="eyebrow">02 — Engagements</div>
-                <h2 class="display display--section">
-                  How we can work together.
-                </h2>
-                <p class="section-intro">
-                  Three ways in, depending on where you are. Every one of them
-                  ends with something running in production.
-                </p>
-              </div>
-
-              <div class="service-grid" data-service-grid>
-                <!-- Card 1 — MVP Build (lead offer) -->
-                <article class="service service--featured" data-reveal>
-                  <div class="service__badge">Most popular</div>
-                  <h3 class="service__name">MVP Build</h3>
-                  <p class="service__one-liner">
-                    Idea to production in 6–10 weeks.
-                  </p>
-                  <p class="service__body">
-                    Full product build — data model, API, interface, deploy. You
-                    get a working, launched product, not a prototype.
-                  </p>
-                  <ul class="service__includes">
-                    <li>Architecture &amp; schema design</li>
-                    <li>Full-stack build</li>
-                    <li>Deployment</li>
-                    <li>30 days post-launch support</li>
-                  </ul>
-                  <div class="service__foot">
-                    <div class="service__shape">Fixed scope · 6–10 weeks</div>
-                    <a
-                      href="#contact"
-                      data-target="contact"
-                      class="service__cta"
-                      data-track="service-cta"
-                      data-track-label="MVP Build"
-                      >Start a project <span aria-hidden="true">→</span></a
-                    >
-                  </div>
-                </article>
-
-                <!-- Card 2 — Fractional Founding Engineer -->
-                <article class="service" data-reveal>
-                  <h3 class="service__name">Fractional Founding Engineer</h3>
-                  <p class="service__one-liner">
-                    Ongoing engineering ownership, part-time.
-                  </p>
-                  <p class="service__body">
-                    For funded teams who need senior end-to-end capability
-                    without a full-time hire. Feature development, architecture
-                    decisions, keeping it alive.
-                  </p>
-                  <ul class="service__includes">
-                    <li>20–30 hrs/week</li>
-                    <li>Monthly rolling</li>
-                  </ul>
-                  <div class="service__foot">
-                    <div class="service__shape">Monthly retainer · rolling</div>
-                    <a
-                      href="#contact"
-                      data-target="contact"
-                      class="service__cta"
-                      data-track="service-cta"
-                      data-track-label="Fractional Founding Engineer"
-                      >Check availability <span aria-hidden="true">→</span></a
-                    >
-                  </div>
-                </article>
-
-                <!-- Card 3 — Commerce Storefront (secondary line) -->
-                <article class="service" data-reveal>
-                  <h3 class="service__name">Commerce Storefront</h3>
-                  <p class="service__one-liner">
-                    Shopify builds for brands that care how it looks.
-                  </p>
-                  <p class="service__body">
-                    Custom theme development in Liquid — editorial storefronts
-                    tuned for high-consideration products.
-                  </p>
-                  <ul class="service__includes">
-                    <li>Theme customization</li>
-                    <li>Custom sections</li>
-                    <li>Launch</li>
-                  </ul>
-                  <div class="service__foot">
-                    <div class="service__shape">
-                      Project-based · fixed scope
-                    </div>
-                    <a
-                      href="#contact"
-                      data-target="contact"
-                      class="service__cta"
-                      data-track="service-cta"
-                      data-track-label="Commerce Storefront"
-                      >Discuss a storefront <span aria-hidden="true">→</span></a
-                    >
-                  </div>
-                </article>
-              </div>
-
-              <p class="service-note" data-reveal>
-                Not sure which fits?
-                <a
-                  href="#contact"
-                  data-target="contact"
-                  class="service-note__link"
-                  data-track="service-cta"
-                  data-track-label="Scope it"
-                  >Tell me the problem and I'll scope it.</a
-                >
-              </p>
-            </div>
-          </section>
           <!-- WORK / PROJECTS
              Order is deliberate: the three SaaS platforms lead, the two
              storefronts follow. That sequence is the positioning — a visitor
@@ -531,14 +380,14 @@
             <div class="shell">
               <div class="section-head-row" data-reveal>
                 <div>
-                  <div class="eyebrow">03 — Selected Work</div>
+                  <div class="eyebrow">02 — Selected Work</div>
                   <h2 class="display display--section-wide">
                     Things I've built<br />and kept alive.
                   </h2>
                 </div>
                 <p class="section-head-row__note">
-                  Recent partnerships. Each one designed, built, deployed, and
-                  maintained by me.
+                  Five products, all live. Each one designed, built, deployed
+                  and still maintained by me.
                 </p>
               </div>
 
@@ -576,18 +425,10 @@
                       production solo, on a true multi-tenant architecture that
                       isolates every company's data on a single codebase.
                     </p>
-                    <div class="tag-list">
-                      <span class="tag">Node.js</span>
-                      <span class="tag">Express</span>
-                      <span class="tag">MongoDB</span>
-                      <span class="tag">React</span>
-                      <span class="tag">TanStack Query</span>
-                      <span class="tag">RBAC</span>
-                    </div>
                     <div class="project__detail" data-detail>
                       <div class="project__detail-inner">
                         <div>
-                          <div class="detail__label">Challenge</div>
+                          <div class="detail__label">The problem</div>
                           <p class="detail__text">
                             Let many organizations run their own hiring on one
                             platform, with candidate scoring and search that
@@ -595,22 +436,29 @@
                           </p>
                         </div>
                         <div>
-                          <div class="detail__label">Architecture</div>
+                          <div class="detail__label">What I built</div>
                           <p class="detail__text">
-                            Scalable Node, Express and MongoDB services with an
-                            ATS-style scoring and search system on server-side
-                            pagination, and a React front end on TanStack Router
-                            &amp; Query with organization-level, role-based
-                            access.
+                            A full hiring platform — job postings, candidates
+                            and workflows in one place, with ATS-style scoring
+                            and search that stays fast as the data grows. Each
+                            organization gets its own isolated space, and
+                            role-based access decides who sees what.
                           </p>
                         </div>
                         <div>
-                          <div class="detail__label">Outcome</div>
+                          <div class="detail__label">Result</div>
                           <div class="detail__metric" data-metric hidden></div>
                           <p class="detail__text" data-outcome-prose>
                             A multi-tenant hiring platform running in
                             production, with every organization isolated on one
                             codebase.
+                          </p>
+                        </div>
+                        <div>
+                          <div class="detail__label">Tech</div>
+                          <p class="detail__text detail__text--tech">
+                            Node.js · Express · MongoDB · React · TanStack
+                            Router &amp; Query · RBAC
                           </p>
                         </div>
                       </div>
@@ -623,7 +471,7 @@
                         aria-expanded="false"
                       >
                         <span class="chevron" data-chev>↓</span>
-                        <span data-detail-label> View case details</span>
+                        <span data-detail-label> Read the full story</span>
                       </button>
                       <a
                         href="https://talentgpt.world/"
@@ -661,40 +509,38 @@
                       keeping each stage of the sales workflow in its lane. Live
                       in production.
                     </p>
-                    <div class="tag-list">
-                      <span class="tag">React</span>
-                      <span class="tag">Tailwind</span>
-                      <span class="tag">Framer Motion</span>
-                      <span class="tag">Vite</span>
-                      <span class="tag">MySQL</span>
-                      <span class="tag">Prisma</span>
-                      <span class="tag">RBAC</span>
-                    </div>
                     <div class="project__detail" data-detail>
                       <div class="project__detail-inner">
                         <div>
-                          <div class="detail__label">Challenge</div>
+                          <div class="detail__label">The problem</div>
                           <p class="detail__text">
-                            Bridge mass digital outreach and precision sales
-                            conversions while insulating the sales floor from
-                            unverified noise.
+                            Sales teams were burning their days on leads that
+                            went nowhere. Mass outreach brings volume; closers
+                            need only the buyers who are real.
                           </p>
                         </div>
                         <div>
-                          <div class="detail__label">Architecture</div>
+                          <div class="detail__label">What I built</div>
                           <p class="detail__text">
-                            A React + Tailwind front end (Vite, Framer Motion)
-                            over a MySQL backend with Prisma and role-based
-                            access control, driving a 5-tier qualification flow
-                            so closers spend their time on genuine buyers.
+                            A lead-gen platform with a five-tier qualification
+                            flow — every buyer clears voice verification before
+                            a closer ever sees them. Role-based access keeps
+                            each stage of the sales workflow in its own lane.
                           </p>
                         </div>
                         <div>
-                          <div class="detail__label">Outcome</div>
+                          <div class="detail__label">Result</div>
                           <div class="detail__metric" data-metric hidden></div>
                           <p class="detail__text" data-outcome-prose>
                             A five-tier qualification flow that keeps unverified
                             leads away from the closers.
+                          </p>
+                        </div>
+                        <div>
+                          <div class="detail__label">Tech</div>
+                          <p class="detail__text detail__text--tech">
+                            React · Tailwind · Framer Motion · Vite · MySQL ·
+                            Prisma · RBAC
                           </p>
                         </div>
                       </div>
@@ -707,7 +553,7 @@
                         aria-expanded="false"
                       >
                         <span class="chevron" data-chev>↓</span>
-                        <span data-detail-label> View case details</span>
+                        <span data-detail-label> Read the full story</span>
                       </button>
                       <a
                         href="https://realestateverifiedleads.ai/"
@@ -765,18 +611,10 @@
                       required. Live and in use by shipping professionals
                       worldwide.
                     </p>
-                    <div class="tag-list">
-                      <span class="tag">React</span>
-                      <span class="tag">Node.js</span>
-                      <span class="tag">Express</span>
-                      <span class="tag">MySQL</span>
-                      <span class="tag">Sequelize</span>
-                      <span class="tag">AWS S3</span>
-                    </div>
                     <div class="project__detail" data-detail>
                       <div class="project__detail-inner">
                         <div>
-                          <div class="detail__label">Challenge</div>
+                          <div class="detail__label">The problem</div>
                           <p class="detail__text">
                             Give teams on board a way to produce and share
                             inspection reports instantly, from anywhere, without
@@ -784,21 +622,28 @@
                           </p>
                         </div>
                         <div>
-                          <div class="detail__label">Architecture</div>
+                          <div class="detail__label">What I built</div>
                           <p class="detail__text">
-                            A React front end over a Node, Express and MySQL
-                            backend (Sequelize ORM) with AWS S3 for image
-                            storage, driving report generation, folder
-                            organization, and custom cover pages.
+                            A reporting tool built for a phone on deck — capture
+                            images, generate the report, organise it into
+                            folders and add custom cover pages, then share it,
+                            all without returning to a desk.
                           </p>
                         </div>
                         <div>
-                          <div class="detail__label">Outcome</div>
+                          <div class="detail__label">Result</div>
                           <div class="detail__metric" data-metric hidden></div>
                           <p class="detail__text" data-outcome-prose>
                             Inspection reporting that happens on deck instead of
                             at a desk, in use by shipping professionals
                             worldwide.
+                          </p>
+                        </div>
+                        <div>
+                          <div class="detail__label">Tech</div>
+                          <p class="detail__text detail__text--tech">
+                            React · Node.js · Express · MySQL · Sequelize · AWS
+                            S3
                           </p>
                         </div>
                       </div>
@@ -811,7 +656,7 @@
                         aria-expanded="false"
                       >
                         <span class="chevron" data-chev>↓</span>
-                        <span data-detail-label> View case details</span>
+                        <span data-detail-label> Read the full story</span>
                       </button>
                       <a
                         href="https://ireportify.com/"
@@ -848,18 +693,10 @@
                       full-grain belts, bags, wallets and clutches. Custom
                       Shopify build, live and taking orders.
                     </p>
-                    <div class="tag-list">
-                      <span class="tag">Shopify</span>
-                      <span class="tag">Broadcast Theme</span>
-                      <span class="tag">Liquid</span>
-                      <span class="tag">JavaScript</span>
-                      <span class="tag">HTML</span>
-                      <span class="tag">CSS</span>
-                    </div>
                     <div class="project__detail" data-detail>
                       <div class="project__detail-inner">
                         <div>
-                          <div class="detail__label">Challenge</div>
+                          <div class="detail__label">The problem</div>
                           <p class="detail__text">
                             Sell a high-consideration luxury product across
                             men's, women's and corporate-gifting lines without
@@ -867,20 +704,26 @@
                           </p>
                         </div>
                         <div>
-                          <div class="detail__label">Architecture</div>
+                          <div class="detail__label">What I built</div>
                           <p class="detail__text">
-                            Built on the premium Broadcast theme, customised
-                            with bespoke Liquid sections for editorial
-                            collection stories and a layered product catalogue,
-                            with a checkout tuned for a luxury purchase.
+                            Bespoke Liquid sections for editorial collection
+                            stories and a layered product catalogue, with a
+                            checkout tuned for a considered, high-value
+                            purchase.
                           </p>
                         </div>
                         <div>
-                          <div class="detail__label">Outcome</div>
+                          <div class="detail__label">Result</div>
                           <div class="detail__metric" data-metric hidden></div>
                           <p class="detail__text" data-outcome-prose>
                             An editorial storefront that carries the brand from
                             collection story through to checkout.
+                          </p>
+                        </div>
+                        <div>
+                          <div class="detail__label">Tech</div>
+                          <p class="detail__text detail__text--tech">
+                            Shopify · Broadcast theme · Liquid · JavaScript
                           </p>
                         </div>
                       </div>
@@ -893,7 +736,7 @@
                         aria-expanded="false"
                       >
                         <span class="chevron" data-chev>↓</span>
-                        <span data-detail-label> View case details</span>
+                        <span data-detail-label> Read the full story</span>
                       </button>
                       <a
                         href="https://jamesaston.in/"
@@ -951,18 +794,10 @@
                       handle custom orders and nationwide shipping. Live and
                       trading.
                     </p>
-                    <div class="tag-list">
-                      <span class="tag">Shopify</span>
-                      <span class="tag">Dawn Theme</span>
-                      <span class="tag">Liquid</span>
-                      <span class="tag">JavaScript</span>
-                      <span class="tag">HTML</span>
-                      <span class="tag">CSS</span>
-                    </div>
                     <div class="project__detail" data-detail>
                       <div class="project__detail-inner">
                         <div>
-                          <div class="detail__label">Challenge</div>
+                          <div class="detail__label">The problem</div>
                           <p class="detail__text">
                             Present a heritage, made-to-order furniture catalog
                             — across temples, swings, furniture and décor — in a
@@ -970,20 +805,26 @@
                           </p>
                         </div>
                         <div>
-                          <div class="detail__label">Architecture</div>
+                          <div class="detail__label">What I built</div>
                           <p class="detail__text">
-                            Built on the free Dawn theme, customised with Liquid
-                            for editorial category layouts, collection
-                            merchandising, and enquiry-driven flows for
-                            commissioned pieces.
+                            A storefront with editorial category layouts,
+                            collection merchandising, and enquiry-driven flows
+                            for commissioned pieces — custom Liquid work on a
+                            Dawn foundation.
                           </p>
                         </div>
                         <div>
-                          <div class="detail__label">Outcome</div>
+                          <div class="detail__label">Result</div>
                           <div class="detail__metric" data-metric hidden></div>
                           <p class="detail__text" data-outcome-prose>
                             A storefront built to handle custom orders and
                             nationwide shipping.
+                          </p>
+                        </div>
+                        <div>
+                          <div class="detail__label">Tech</div>
+                          <p class="detail__text detail__text--tech">
+                            Shopify · Dawn theme · Liquid · JavaScript
                           </p>
                         </div>
                       </div>
@@ -996,7 +837,7 @@
                         aria-expanded="false"
                       >
                         <span class="chevron" data-chev>↓</span>
-                        <span data-detail-label> View case details</span>
+                        <span data-detail-label> Read the full story</span>
                       </button>
                       <a
                         href="https://furnicheer.in/"
@@ -1014,15 +855,152 @@
             </div>
           </section>
 
+          <!-- SERVICES / ENGAGEMENT
+             The offer. Before this section the site showed what Akash had
+             built but never said what could be bought, which left a visitor
+             who was ready to hire with nowhere to go but the contact form.
+
+             Sits AFTER Selected Work deliberately: the case studies are the
+             evidence, and a visitor reads what was actually built before
+             being shown what it costs to buy. Pitch after proof, not before
+             it. If this moves back above Work, renumber both eyebrows.
+
+             Cards render from data.js → services, so prices and copy change
+             in one place. The markup below is a real fallback, not a
+             placeholder: if data.js fails to load, these three cards still
+             read correctly with the prices committed here. Keep the two in
+             sync when prices change — or accept that the fallback shows the
+             last-committed figure. -->
+          <section class="section--band" id="services">
+            <div class="shell">
+              <div class="section-head" data-reveal>
+                <div class="eyebrow">03 — Engagements</div>
+                <h2 class="display display--section">
+                  How we can work together.
+                </h2>
+                <p class="section-intro">
+                  Three ways in, depending on where you are. Every one ends with
+                  something live that your customers can use.
+                </p>
+              </div>
+
+              <div class="service-grid" data-service-grid>
+                <!-- Card 1 — MVP Build (lead offer) -->
+                <article class="service service--featured" data-reveal>
+                  <div class="service__badge">Most popular</div>
+                  <h3 class="service__name">MVP &amp; Product Development</h3>
+                  <p class="service__one-liner">
+                    Your idea, live in production in 6–10 weeks.
+                  </p>
+                  <p class="service__body">
+                    You get a launched product people can sign up for and use —
+                    not a prototype, not a handover document. I own the whole
+                    build, so there is no gap between the backend, the interface
+                    and the deploy.
+                  </p>
+                  <ul class="service__includes">
+                    <li>Built and launched end to end</li>
+                    <li>Scales past your first customers</li>
+                    <li>Live deployment on your domain</li>
+                    <li>30 days support after launch</li>
+                  </ul>
+                  <div class="service__foot">
+                    <div class="service__shape">Fixed scope · 6–10 weeks</div>
+                    <a
+                      href="#contact"
+                      data-target="contact"
+                      class="service__cta"
+                      data-track="service-cta"
+                      data-track-label="MVP &amp; Product Development"
+                      >Tell me about your project
+                      <span aria-hidden="true">→</span></a
+                    >
+                  </div>
+                </article>
+
+                <!-- Card 2 — Fractional Engineering -->
+                <article class="service" data-reveal>
+                  <h3 class="service__name">Fractional Engineering</h3>
+                  <p class="service__one-liner">
+                    A senior engineer who owns it, without the full-time hire.
+                  </p>
+                  <p class="service__body">
+                    For funded teams already running something. I take ownership
+                    of features, architecture calls and the unglamorous work of
+                    keeping a live product healthy.
+                  </p>
+                  <ul class="service__includes">
+                    <li>20–30 hrs/week</li>
+                    <li>Monthly rolling — cancel anytime</li>
+                  </ul>
+                  <div class="service__foot">
+                    <div class="service__shape">Monthly retainer · rolling</div>
+                    <a
+                      href="#contact"
+                      data-target="contact"
+                      class="service__cta"
+                      data-track="service-cta"
+                      data-track-label="Fractional Engineering"
+                      >Check availability <span aria-hidden="true">→</span></a
+                    >
+                  </div>
+                </article>
+
+                <!-- Card 3 — Shopify Storefronts (secondary line) -->
+                <article class="service" data-reveal>
+                  <h3 class="service__name">Shopify Storefronts</h3>
+                  <p class="service__one-liner">
+                    Storefronts that sell the craft, not just the catalogue.
+                  </p>
+                  <p class="service__body">
+                    Custom Shopify builds for brands whose product deserves
+                    better than a theme out of the box — editorial storefronts
+                    tuned for considered purchases.
+                  </p>
+                  <ul class="service__includes">
+                    <li>Custom theme, built to your brand</li>
+                    <li>Made-to-order and custom flows</li>
+                    <li>Launched and trading</li>
+                  </ul>
+                  <div class="service__foot">
+                    <div class="service__shape">
+                      Project-based · fixed scope
+                    </div>
+                    <a
+                      href="#contact"
+                      data-target="contact"
+                      class="service__cta"
+                      data-track="service-cta"
+                      data-track-label="Shopify Storefronts"
+                      >Discuss your storefront
+                      <span aria-hidden="true">→</span></a
+                    >
+                  </div>
+                </article>
+              </div>
+
+              <p class="service-note" data-reveal>
+                Not sure which fits?
+                <a
+                  href="#contact"
+                  data-target="contact"
+                  class="service-note__link"
+                  data-track="service-cta"
+                  data-track-label="Scope it"
+                  >Tell me the problem and I'll scope it.</a
+                >
+              </p>
+            </div>
+          </section>
           <!-- SKILLS -->
-          <section class="section--band" id="skills">
+          <section class="section" id="skills">
             <div class="shell">
               <div class="section-head" data-reveal>
                 <div class="eyebrow">04 — Toolkit</div>
-                <h2 class="display display--section">The tools I reach for.</h2>
+                <h2 class="display display--section">What I build with.</h2>
                 <p class="section-intro">
-                  A stack I've refined over years of shipping — chosen for
-                  reliability, not novelty.
+                  Chosen for reliability over novelty. If your stack differs,
+                  say so — the approach matters more than the tools.
                 </p>
               </div>
               <div class="card-grid">
@@ -1208,64 +1186,13 @@
               </div>
             </div>
           </section>
-          <!-- EXPERIENCE -->
-          <section class="section" id="experience">
-            <div class="shell">
-              <div class="section-head section-head--full" data-reveal>
-                <div class="eyebrow">06 — The Journey</div>
-                <h2 class="display display--section">
-                  A path built one project at a time.
-                </h2>
-              </div>
-              <div class="timeline">
-                <div class="timeline__line" aria-hidden="true"></div>
-                <div class="timeline__item" data-reveal>
-                  <span class="timeline__dot"></span>
-                  <div class="timeline__date">Oct 2025 — Aug 2026</div>
-                  <h3 class="timeline__role">Founding Engineer</h3>
-                  <div class="timeline__org">TalentGPT · Remote</div>
-                  <p class="timeline__text">
-                    Built a job-portal SaaS from the ground up — scalable Node,
-                    Express and MongoDB services for listings, applications and
-                    users, ATS-style candidate filtering and search, and a React
-                    + TanStack front end with multi-tenant, role-based access.
-                    Server-side pagination and query tuning kept it fast as it
-                    grew.
-                  </p>
-                </div>
-                <div class="timeline__item" data-reveal>
-                  <span class="timeline__dot"></span>
-                  <div class="timeline__date">Jan — Apr 2024</div>
-                  <h3 class="timeline__role">Project Intern</h3>
-                  <div class="timeline__org">Phemesoft · IBM Mentorship</div>
-                  <p class="timeline__text">
-                    Built a machine-learning project under IBM mentorship,
-                    implementing k-means clustering to personalize song
-                    recommendations and lifting recommendation accuracy by 25%.
-                    Worked in Python with scikit-learn and TensorFlow.
-                  </p>
-                </div>
-                <div class="timeline__item" data-reveal>
-                  <span class="timeline__dot"></span>
-                  <div class="timeline__date">Feb — May 2023</div>
-                  <h3 class="timeline__role">Frontend Developer Intern</h3>
-                  <div class="timeline__org">Closetnerds · Remote</div>
-                  <p class="timeline__text">
-                    Responsive React work, and debugging that cut site downtime
-                    by 15%.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
           <!-- TESTIMONIALS -->
           <section class="section--band">
             <div class="shell">
               <div class="section-head section-head--center" data-reveal>
-                <div class="eyebrow">07 — Kind words</div>
+                <div class="eyebrow">06 — Client words</div>
                 <h2 class="display display--section-center">
-                  Notes from people I've built with.
+                  The founders I built it with.
                 </h2>
               </div>
               <div class="card-grid card-grid--wide">
@@ -1278,7 +1205,8 @@
                     day."
                   </p>
                   <figcaption class="note__cite">
-                    <strong class="note__name">Sahib Chawla</strong> · Founder, TalentGPT
+                    <strong class="note__name">Sahib Chawla</strong> · Founder,
+                    TalentGPT
                     <a
                       class="note__linkedin"
                       href="https://www.linkedin.com/in/sahib97"
@@ -1385,13 +1313,23 @@
             <div class="contact__wash"></div>
             <div class="shell split split--contact stack-mobile">
               <div data-reveal>
-                <div class="eyebrow">08 — Contact</div>
+                <div class="eyebrow">07 — Contact</div>
                 <h2 class="display display--contact">
-                  Let's build<br />something lasting.
+                  Tell me what<br />you're building.
                 </h2>
+                <!-- The final CTA needs a reason to write, not just a form.
+                     Three things a founder gets from the message itself,
+                     before any commitment: a real reply, a scope, and an
+                     honest answer about fit. -->
                 <p class="contact__intro">
-                  I take on a small number of projects at a time so each one
-                  gets my full attention. Tell me what you're working on.
+                  Send me a couple of lines about your idea and I'll reply with
+                  how I'd build it, roughly how long it takes, and whether I'm
+                  the right person for it. No pitch deck required, and if it's
+                  not a fit I'll say so.
+                </p>
+                <p class="contact__intro contact__intro--scarcity">
+                  I take on a small number of projects at a time, so each one
+                  gets my full attention.
                 </p>
                 <!-- Booking link. Hidden by applyData() until data.js →
                    booking.url is set, so a dead "Book a call" button can
@@ -1523,17 +1461,17 @@
                     />
                   </label>
                   <label class="field">
-                    <span class="field__label">Project</span>
+                    <span class="field__label">What you’re building</span>
                     <textarea
                       class="field__input field__input--textarea"
                       required
                       rows="4"
                       name="message"
-                      placeholder="A few words about what you're building…"
+                      placeholder="What it is, who it’s for, and where you’re starting from…"
                     ></textarea>
                   </label>
                   <button class="btn--submit" type="submit">
-                    Send message
+                    Tell me about your project
                   </button>
                   <p class="form__status" data-status></p>
                 </div>
@@ -1545,7 +1483,7 @@
           <footer class="site-footer">
             <div class="site-footer__top">
               <div class="site-footer__tagline">
-                Available for new projects.
+                Taking on a new project this month.
               </div>
               <div class="site-footer__links">
                 <a

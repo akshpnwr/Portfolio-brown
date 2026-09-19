@@ -27,7 +27,10 @@
     // dated and undated versions never have to be edited by hand.
     month: '',
     // Rendered when taking === true and no month is set.
-    line: 'Available now — taking on new projects.',
+    // "Available now" read as open capacity, which undercut the contact
+    // section's scarcity line ("a small number of projects at a time").
+    // Taking *a* project says the same availability without sounding empty.
+    line: 'Taking on a new project this month.',
     // Used instead when a month IS set. {month} is substituted.
     lineFrom: 'Taking on new projects — available from {month}.',
     lineClosed: 'Fully booked at the moment — worth asking about next quarter.'
@@ -36,17 +39,21 @@
   /* ── Shipped-work count ──────────────────────────────────────────────────
      ONE number, rendered in two places: the badge over the hero portrait and
      the first cell of the About stat row. They used to be set separately and
-     drifted apart — the hero said 7+ while About said 12+, which reads as
-     inflation to anyone who notices, and the work grid shows only five.
+     drifted apart, which reads as inflation to anyone who notices.
 
-     The count is deliberately higher than the five case studies on the page:
-     the grid is a curated selection, not an inventory. Two projects were cut
-     from it for positioning reasons and are still shipped work.
+     "7+" because seven is what the site SHOWS, not what exists: the five
+     case studies plus two cut from the grid for positioning reasons (Baluni
+     Public School, Easy Prime Holidays). Akash confirmed there is more
+     shipped work beyond these — these are the ones he rates highest and
+     chose to put forward. The "+" carries that without listing it.
+
+     The seven on the page stay individually nameable, so the claim survives
+     a reference call: "which seven are these?" has an answer.
 
      Never put years of experience here: it is the most prominent number on
      the page and a low year-count reads junior to a buyer. Keep it a count
      of shipped things. */
-  var shippedCount = '12+';
+  var shippedCount = '7+';
 
   var heroStat = {
     value: shippedCount,
@@ -56,10 +63,15 @@
   };
 
   /* ── About stat row ──────────────────────────────────────────────────────
-     The three figures under the About prose. The first shares its value with
-     the hero badge above, by construction. */
+     The three figures that ARE the About section — they carry it, with one
+     sentence of framing above rather than the other way round.
+
+     The first shares its value with the hero portrait badge, by
+     construction. That badge is now the hero's only figure: a proof strip
+     repeating all three under the CTAs said the same thing twice on one
+     screen, so it was removed. */
   var aboutStats = [
-    { value: shippedCount, label: 'projects shipped' },
+    { value: shippedCount, label: 'products shipped' },
     { value: '3', label: 'SaaS platforms live' },
     { value: '100%', label: 'end-to-end ownership' }
   ];
@@ -83,28 +95,28 @@
       id: 'mvp',
       featured: true,
       badge: 'Most popular',
-      name: 'MVP Build',
-      oneLiner: 'Idea to production in 6–10 weeks.',
-      body: 'Full product build — data model, API, interface, deploy. You get a working, launched product, not a prototype.',
+      name: 'MVP & Product Development',
+      oneLiner: 'Your idea, live in production in 6–10 weeks.',
+      body: 'You get a launched product people can sign up for and use — not a prototype, not a handover document. I own the whole build, so there is no gap between the backend, the interface and the deploy.',
       includes: [
-        'Architecture & schema design',
-        'Full-stack build',
-        'Deployment',
-        '30 days post-launch support'
+        'Built and launched end to end',
+        'Scales past your first customers',
+        'Live deployment on your domain',
+        '30 days support after launch'
       ],
       shape: 'Fixed scope · 6–10 weeks',
-      cta: 'Start a project'
+      cta: 'Tell me about your project'
     },
     {
       id: 'fractional',
       featured: false,
       badge: '',
-      name: 'Fractional Founding Engineer',
-      oneLiner: 'Ongoing engineering ownership, part-time.',
-      body: 'For funded teams who need senior end-to-end capability without a full-time hire. Feature development, architecture decisions, keeping it alive.',
+      name: 'Fractional Engineering',
+      oneLiner: 'A senior engineer who owns it, without the full-time hire.',
+      body: 'For funded teams already running something. I take ownership of features, architecture calls and the unglamorous work of keeping a live product healthy.',
       includes: [
         '20–30 hrs/week',
-        'Monthly rolling'
+        'Monthly rolling — cancel anytime'
       ],
       shape: 'Monthly retainer · rolling',
       cta: 'Check availability'
@@ -113,16 +125,16 @@
       id: 'commerce',
       featured: false,
       badge: '',
-      name: 'Commerce Storefront',
-      oneLiner: 'Shopify builds for brands that care how it looks.',
-      body: 'Custom theme development in Liquid — editorial storefronts tuned for high-consideration products.',
+      name: 'Shopify Storefronts',
+      oneLiner: 'Storefronts that sell the craft, not just the catalogue.',
+      body: 'Custom Shopify builds for brands whose product deserves better than a theme out of the box — editorial storefronts tuned for considered purchases.',
       includes: [
-        'Theme customization',
-        'Custom sections',
-        'Launch'
+        'Custom theme, built to your brand',
+        'Made-to-order and custom flows',
+        'Launched and trading'
       ],
       shape: 'Project-based · fixed scope',
-      cta: 'Discuss a storefront'
+      cta: 'Discuss your storefront'
     }
   ];
 
@@ -140,23 +152,23 @@
   var metrics = {
     talentgpt: {
       metric: 'TODO — get from client: recruiters onboarded, time-to-hire reduction, orgs on the platform',
-      prose: 'A multi-tenant hiring platform running in production, with every organization isolated on one codebase.'
+      prose: 'Live in production and still running. Multiple organizations hire on one codebase, each one\'s data sealed off from the rest, and it stayed fast as the data grew.'
     },
     ireportify: {
       metric: 'TODO — get from client: hours saved per inspection, reports/month, crew count',
-      prose: 'Inspection reporting that happens on deck instead of at a desk, in use by shipping professionals worldwide.'
+      prose: 'Live and in daily use by shipping professionals worldwide. Reporting now happens on deck in a few taps instead of back at a desk.'
     },
     realestateverifiedleads: {
       metric: 'TODO — get from client: lead-to-close %, qualified leads/month, sales-time saved',
-      prose: 'A five-tier qualification flow that keeps unverified leads away from the closers.'
+      prose: 'Live in production, and I\'m now the team\'s go-to for the critical work. Closers only ever see buyers who cleared voice verification.'
     },
     jamesaston: {
       metric: 'TODO — get from client: conversion %, AOV, orders/month since launch',
-      prose: 'An editorial storefront that carries the brand from collection story through to checkout.'
+      prose: 'Live and taking orders. The storefront carries the brand from collection story through to checkout — launched without drama, in the founder\'s words.'
     },
     furnicheer: {
       metric: 'TODO — get from client: orders/month, enquiry volume, AOV on made-to-order pieces',
-      prose: 'A storefront built to handle custom orders and nationwide shipping.'
+      prose: 'Live and trading across India and beyond, handling made-to-order pieces and nationwide shipping.'
     }
   };
 
@@ -178,7 +190,11 @@
      in JS, the rest are in index.html <head> and sitemap.xml. */
   var site = {
     domain: 'https://akashpanwar.dev',
-    isPlaceholderDomain: true
+    // Registered, resolving and served from Vercel over HTTPS; the OG image
+    // at /assets/og-image.png returns a real PNG, so link previews render.
+    // Flipped false so the console stops reporting a placeholder that is no
+    // longer one.
+    isPlaceholderDomain: false
   };
 
   /* ── Unfilled-metric report ──────────────────────────────────────────────
