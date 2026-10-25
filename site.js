@@ -10,8 +10,8 @@
    Hover, press and focus feedback are NOT here — they moved to CSS
    (styles.css §7b), which is where presentational state reacting to
    :hover/:active/:focus belongs. What remains is genuine behaviour: smooth
-   nav, the mobile menu, the case-detail accordions, the contact form, plus
-   the two ambient systems (hero grain drift, dust particles).
+   nav, the mobile menu, the case-detail accordions, the contact form and
+   the hero grain drift.
    ========================================================================== */
 
 (function () {
@@ -160,11 +160,12 @@
         headers: { Accept: 'application/json' }
       }).then(function (res) {
         if (res.ok) {
-          say("Thank you — your message is on its way. I'll reply within a day.",
+          say("Thanks. Your message is on its way and I'll reply within a day.",
             '--color-sage');
-          form.querySelectorAll('input, textarea').forEach(function (el) {
-            el.value = '';
-          });
+          // reset(), not value = '': it also clears the browser's
+          // "user has interacted" flag, so the emptied required fields don't
+          // light up as :user-invalid.
+          form.reset();
           // Only on a confirmed 2xx: a submit that Formspree rejected is
           // not a lead, and counting it would overstate the one number on
           // this site that actually matters.
@@ -174,7 +175,7 @@
         return res.json().catch(function () { return {}; }).then(function (data) {
           var msg = data.errors
             ? data.errors.map(function (x) { return x.message; }).join(', ')
-            : 'Something went wrong.';
+            : 'The message didn\'t send.';
           say(msg + ' Please email me directly instead.', '--color-rust');
         });
       }).catch(function () {
@@ -241,78 +242,6 @@
         ticking = false;
       });
     }, { passive: true });
-  }
-
-  /* ── Cursor-tracking hero glow ───────────────────────────────────────── */
-
-  function setupGlow() {
-    if (prefersReduced()) return;
-    var hero = document.getElementById('top');
-    var glow = document.getElementById('heroGlow');
-    if (!hero || !glow) return;
-    hero.addEventListener('mousemove', function (e) {
-      var r = hero.getBoundingClientRect();
-      glow.style.left = (e.clientX - r.left) + 'px';
-      glow.style.top = (e.clientY - r.top) + 'px';
-      glow.style.opacity = '1';
-    });
-    hero.addEventListener('mouseleave', function () { glow.style.opacity = '0'; });
-  }
-
-  /* ── Ambient dust particles ──────────────────────────────────────────── */
-
-  function setupParticles() {
-    // Continuous ambient motion — skip entirely under reduced motion.
-    if (prefersReduced()) return;
-    var canvas = document.getElementById('dust');
-    if (!canvas) return;
-    var ctx = canvas.getContext('2d');
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var W, H, parts;
-
-    var resize = function () {
-      var r = canvas.getBoundingClientRect();
-      W = r.width; H = r.height;
-      canvas.width = W * dpr; canvas.height = H * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-    var init = function () {
-      var n = Math.max(24, Math.floor(W / 26));
-      parts = [];
-      for (var i = 0; i < n; i++) {
-        parts.push({
-          x: Math.random() * W, y: Math.random() * H,
-          r: Math.random() * 1.6 + 0.4,
-          vy: -(Math.random() * 0.28 + 0.06),
-          vx: (Math.random() - 0.5) * 0.14,
-          a: Math.random() * 0.4 + 0.12,
-          ph: Math.random() * Math.PI * 2,
-          bright: Math.random() > 0.8
-        });
-      }
-    };
-    resize(); init();
-    window.addEventListener('resize', function () { resize(); init(); });
-
-    (function draw() {
-      ctx.clearRect(0, 0, W, H);
-      for (var i = 0; i < parts.length; i++) {
-        var p = parts[i];
-        p.y += p.vy; p.ph += 0.01;
-        p.x += p.vx + Math.sin(p.ph) * 0.12;
-        if (p.y < -6) { p.y = H + 6; p.x = Math.random() * W; }
-        if (p.x < -6) p.x = W + 6;
-        if (p.x > W + 6) p.x = -6;
-        var tw = p.a * (0.7 + 0.3 * Math.sin(p.ph * 2));
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.bright
-          ? 'rgba(226,205,168,' + tw + ')'
-          : 'rgba(176,141,87,' + tw + ')';
-        ctx.fill();
-      }
-      requestAnimationFrame(draw);
-    })();
   }
 
   /* ── Hero portrait: water blob ───────────────────────────────────────────
@@ -510,11 +439,7 @@
       } else {
         text = a.line;
       }
-      // Keep the dot; only the text node after it changes.
-      var dot = avail.querySelector('.hero__availability-dot');
-      avail.textContent = '';
-      if (dot) avail.appendChild(dot);
-      avail.appendChild(document.createTextNode(text));
+      avail.textContent = text;
       avail.classList.toggle('hero__availability--closed', !a.taking);
     }
 
@@ -672,8 +597,6 @@
     setupForm();
     setupNavHighlight();
     setupScrollChrome();
-    setupGlow();
-    setupParticles();
     setupPortrait();
 
     // GSAP scroll effects. Loaded from a CDN, so it may not be parsed yet.

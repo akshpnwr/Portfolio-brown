@@ -32,8 +32,8 @@
     // Taking *a* project says the same availability without sounding empty.
     line: 'Taking on a new project this month.',
     // Used instead when a month IS set. {month} is substituted.
-    lineFrom: 'Taking on new projects — available from {month}.',
-    lineClosed: 'Fully booked at the moment — worth asking about next quarter.'
+    lineFrom: 'Taking on new projects from {month}.',
+    lineClosed: 'Fully booked right now. Ask me about next quarter.'
   };
 
   /* ── Shipped-work count ──────────────────────────────────────────────────
@@ -57,8 +57,8 @@
 
   var heroStat = {
     value: shippedCount,
-    // Kept short: the badge label is uppercase at 12px with wide tracking,
-    // so anything longer than ~3 words wraps to three lines.
+    // Kept short: the badge is narrow, so anything longer than ~3 words
+    // wraps to three lines.
     label: 'shipped to production'
   };
 
@@ -87,24 +87,26 @@
 
      If a figure is ever wanted back, set `price` instead — applyData()
      still reads it as a fallback, so it is a one-line change. Note the slot
-     is styled as a small tracked label now, not the large serif a price
-     wants; restore .service__shape's old display treatment in styles.css
-     if you put numbers back. */
+     is styled as a small label now, not the large display figure a price
+     wants; give .service__shape a display treatment in styles.css if you
+     put numbers back. */
   var services = [
     {
       id: 'mvp',
       featured: true,
       badge: 'Most popular',
       name: 'MVP & Product Development',
-      oneLiner: 'Your idea, live in production in 6–10 weeks.',
-      body: 'You get a launched product people can sign up for and use — not a prototype, not a handover document. I own the whole build, so there is no gap between the backend, the interface and the deploy.',
+      // ⁠ (word joiner) stops a narrow card breaking the line after the
+      // en dash, which left "6–" and "10 weeks" on separate lines.
+      oneLiner: 'Your idea, live in production in 6–⁠10 weeks.',
+      body: 'You get a launched product people can sign up for and use, not a prototype or a handover document. I own the whole build, so there is no gap between the backend, the interface and the deploy.',
       includes: [
         'Built and launched end to end',
         'Scales past your first customers',
         'Live deployment on your domain',
         '30 days support after launch'
       ],
-      shape: 'Fixed scope · 6–10 weeks',
+      shape: 'Fixed scope · 6–⁠10 weeks',
       cta: 'Tell me about your project'
     },
     {
@@ -116,7 +118,7 @@
       body: 'For funded teams already running something. I take ownership of features, architecture calls and the unglamorous work of keeping a live product healthy.',
       includes: [
         '20–30 hrs/week',
-        'Monthly rolling — cancel anytime'
+        'Monthly rolling, cancel anytime'
       ],
       shape: 'Monthly retainer · rolling',
       cta: 'Check availability'
@@ -126,8 +128,8 @@
       featured: false,
       badge: '',
       name: 'Shopify Storefronts',
-      oneLiner: 'Storefronts that sell the craft, not just the catalogue.',
-      body: 'Custom Shopify builds for brands whose product deserves better than a theme out of the box — editorial storefronts tuned for considered purchases.',
+      oneLiner: 'For brands with a product worth showing properly.',
+      body: 'Custom Shopify builds for brands whose product deserves better than a theme out of the box. Editorial storefronts tuned for considered purchases.',
       includes: [
         'Custom theme, built to your brand',
         'Made-to-order and custom flows',
@@ -164,7 +166,7 @@
     },
     jamesaston: {
       metric: 'TODO — get from client: conversion %, AOV, orders/month since launch',
-      prose: 'Live and taking orders. The storefront carries the brand from collection story through to checkout — launched without drama, in the founder\'s words.'
+      prose: 'Live and taking orders. The storefront carries the brand from collection story through to checkout, and it launched without drama, in the founder\'s words.'
     },
     furnicheer: {
       metric: 'TODO — get from client: orders/month, enquiry volume, AOV on made-to-order pieces',

@@ -1,0 +1,3 @@
+# Local Claude Code skills (installed via `npx skills add`)
+.claude/
+skills-lock.json
