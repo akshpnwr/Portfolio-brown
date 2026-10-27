@@ -168,6 +168,10 @@
       metric: 'TODO — get from client: conversion %, AOV, orders/month since launch',
       prose: 'Live and taking orders. The storefront carries the brand from collection story through to checkout, and it launched without drama, in the founder\'s words.'
     },
+    freshndew: {
+      metric: 'TODO — get from client: conversion %, orders/month, repeat-purchase rate',
+      prose: 'Live and selling. The storefront teaches the hard-water problem first, then walks the visitor straight into the cleanser-and-moisturiser routine.'
+    },
     furnicheer: {
       metric: 'TODO — get from client: orders/month, enquiry volume, AOV on made-to-order pieces',
       prose: 'Live and trading across India and beyond, handling made-to-order pieces and nationwide shipping.'

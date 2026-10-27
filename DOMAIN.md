@@ -141,7 +141,7 @@ anything else.
 
 ## 4. Before launch — content that's still missing
 
-- **Case-study metrics.** All five projects have `TODO` placeholders in
+- **Case-study metrics.** All six projects have `TODO` placeholders in
   `data.js → metrics`. They're hidden from visitors and logged to the
   console. Get real figures from each client (conversion %, load time,
   orders/month, hours saved) — this is the single highest-value content
