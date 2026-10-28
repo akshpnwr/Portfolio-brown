@@ -62,7 +62,8 @@
     poll: null,    // pending readiness timer
     started: false, // guards against overlapping init() calls
     token: 0,      // increments per init(); stale async work checks it
-    smoother: null // ScrollSmoother instance, when active
+    smoother: null, // ScrollSmoother instance, when active
+    stacked: false // work panels are pinned (stickyWork ran)
   };
 
   /* Resolves once gsap + both plugins exist; rejects after ~6s.
@@ -308,6 +309,105 @@
     }, 3000);
   }
 
+  /* Hero shelf: the books drop onto it, in random order, just after the
+     headline starts; the chips rise in once the books have landed, and the
+     call-to-action plate on the board pops in last.
+
+     Claims the shelf (strips data-reveal) for the same reason hero() claims
+     the <h1>: a reveal fading the whole shelf while this fades each book
+     would multiply the two opacities. clearProps hands every book back to
+     CSS when it lands — the project books' hover lift is a CSS transform,
+     and an inline one left behind by gsap would override it. */
+  function shelf(gsap, reduce) {
+    var root = document.querySelector('[data-shelf]');
+    if (!root) return;
+    root.removeAttribute('data-reveal');
+    gsap.set(root, { opacity: 1, y: 0 });
+    // Inside the shelf, so the reduced-motion fade of root covers it.
+    var cta = root.querySelector('[data-hero-cta]');
+
+    if (reduce) {
+      gsap.from(root, { opacity: 0, duration: 0.4 });
+      return;
+    }
+
+    var items = root.querySelectorAll('.shelf__books > *');
+    var chips = root.querySelectorAll('.book__chip');
+
+    // Opacity gets its own plain fade: the long shadow is cast only by fully
+    // opaque pixels (see #shelf-shadow), so riding the bounce would flicker
+    // each book's shadow on and off as it settled. One shared random order
+    // keeps the two tweens on the same book.
+    var order = gsap.utils.shuffle(Array.prototype.slice.call(items));
+    gsap.fromTo(order,
+      { y: -26 },
+      {
+        y: 0,
+        duration: 0.55,
+        ease: 'bounce.out',
+        stagger: 0.018,
+        delay: 0.35,
+        clearProps: 'transform'
+      });
+    gsap.fromTo(order,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 0.2,
+        ease: 'none',
+        stagger: 0.018,
+        delay: 0.35,
+        clearProps: 'opacity'
+      });
+    // Chips and plate stop at .98, their resting CSS opacity, so neither
+    // flashes a long shadow at the end of its entrance.
+    gsap.fromTo(chips,
+      { y: 10, opacity: 0 },
+      {
+        y: 0,
+        opacity: 0.98,
+        duration: 0.5,
+        ease: 'power3.out',
+        stagger: 0.07,
+        delay: 1.3,
+        // Only y/opacity are cleared: the chip's centring translateX lives
+        // in CSS, and gsap folds it into its own transform while running.
+        clearProps: 'opacity,transform'
+      });
+    // After the chips, so the call to action arrives once the picture is
+    // complete rather than competing with the books for the eye.
+    if (cta) {
+      gsap.fromTo(cta,
+        { y: 8, scale: 0.94, opacity: 0 },
+        {
+          y: 0,
+          scale: 1,
+          opacity: 0.98,
+          duration: 0.5,
+          ease: 'back.out(2)',
+          delay: 1.6,
+          // As for the chips: the plate's centring translateX lives in CSS.
+          clearProps: 'opacity,transform'
+        });
+    }
+
+    // Backstop, as for the headline: a shelf of invisible books is worse
+    // than one that never animated. The plate is the hero's call to action,
+    // so it matters most of all.
+    setTimeout(function () {
+      var els = Array.prototype.slice.call(
+        root.querySelectorAll('.shelf__books > *, .book__chip'));
+      if (cta) els.push(cta);
+      els.forEach(function (el) {
+        // Below the chips' and plate's resting .98.
+        if (parseFloat(global.getComputedStyle(el).opacity) < 0.9) {
+          el.style.opacity = '';
+          el.style.transform = '';
+        }
+      });
+    }, 4000);
+  }
+
   /* The work section's stacked panels.
 
      Each project is a viewport-sized panel that holds at the top of the screen
@@ -339,6 +439,7 @@
   function stickyWork(gsap) {
     var panels = gsap.utils.toArray('.project');
     if (panels.length < 2) return;
+    state.stacked = true;
 
     panels.forEach(function (p) { p.setAttribute('data-reveal-done', '1'); });
     gsap.set(panels, { opacity: 1, y: 0, clearProps: 'transform' });
@@ -586,6 +687,9 @@
       // settles part-way, permanently faded.
       hero(gsap, SplitText, reduce);
 
+      // Claims the hero shelf (strips data-reveal), for the same reason.
+      shelf(gsap, reduce);
+
       // Claims the seven stations (marks them data-reveal-done). Pinning is
       // desktop-only and motion-sensitive: holding the viewport still is the
       // effect vestibular users report as nauseating, and on a phone it
@@ -601,6 +705,10 @@
 
       // Now the general case, over whatever is left.
       reveals(gsap, reduce);
+
+      // matchMedia reverts this context when a condition flips (a resize
+      // across 901px, reduced motion toggled); the stack goes with it.
+      return function () { state.stacked = false; };
     });
   }
 
@@ -650,6 +758,11 @@
      use this rather than scrolling the window directly. */
   function scrollTo(el, offset) {
     if (!el) return;
+    // A stacked work panel pins at 'top top' and runs behind the header on
+    // purpose. Stopping it at the header offset instead leaves the bottom
+    // strip of the panel it covers showing above it — the hero shelf's books
+    // link straight to panels, so this is a path visitors actually take.
+    if (state.stacked && el.matches('.project')) offset = 0;
     if (state.smoother) {
       state.smoother.scrollTo(el, true, 'top ' + (offset || 0) + 'px');
       return;

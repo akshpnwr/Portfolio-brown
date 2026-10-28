@@ -60,6 +60,22 @@
      only on hover, never at rest. */
   --color-linkedin: #0a66c2;
 
+  /* Hero bookshelf — illustration only, nowhere else. Kept apart from sage
+     and rust so the status colours stay status colours. Muted toward the
+     walnut family so the shelf sits on bone without shouting. */
+  --spine-terracotta: #b8694c;
+  --spine-ochre: #c99a4f;
+  --spine-sand: #dcc391;
+  --spine-teal: #5e8584;
+  --spine-slate: #3f5663;
+  --spine-sage: #7f8c69;
+  --spine-walnut: #7a5a42;
+  --shelf-wood: #9c6a43;
+  --shelf-wood-top: #b8875a;
+  /* the shelf's long cast shadow on the wall (see #shelf-shadow in
+     index.html) */
+  --shelf-shadow: rgba(74, 54, 40, 0.13);
+
   /* On the dark process band */
   --color-on-dark: #f7f6f3;
   --color-on-dark-muted: #b9b2a7;
@@ -98,7 +114,11 @@
   --weight-semibold: 600;
 
   /* Fluid type scale — five steps, far apart. */
-  --text-hero: clamp(48px, 7vw, 100px);
+  /* Set as a title over the hero bookshelf, not a poster: one line on
+     desktop, so the shelf stays the picture. Height-bounded too (7vh) — on
+     a short laptop the width alone would push the lower shelf below the
+     fold. The 34px floor keeps "live in production." on one phone line. */
+  --text-hero: clamp(34px, min(4.2vw, 7vh), 60px);
   --text-h2: clamp(34px, 4.4vw, 58px);
   --text-h3: clamp(26px, 2.8vw, 38px);
   --text-lead: clamp(17px, 1.4vw, 20px);
@@ -408,7 +428,7 @@ html.has-smooth-scroll #smooth-wrapper {
   /* SplitText's line masks clip at the line box; a sliver of padding keeps
      descenders inside the mask at this tight line-height. */
   padding-bottom: 0.04em;
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
 
 .display--section,
@@ -545,12 +565,35 @@ html.has-smooth-scroll #smooth-wrapper {
   color: var(--color-ink);
 }
 
+/* Round avatar beside the name, cropped to the head. The crop is a square
+   70% of the photo's width, from 26.7% in and the very top, so hair and
+   chin both sit inside the circle; the image is sized and offset to match
+   (1 / 0.7 = 142.86%, 26.7% / 0.7 = 38.1%). */
 .brand__mark {
-  width: 20px;
-  height: 20px;
-  border-radius: var(--radius-sm);
-  background: var(--color-walnut);
-  display: inline-block;
+  position: relative;
+  flex: none;
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-clay);
+  /* A story ring: a thin bone gap, the walnut ring, then a soft warm glow.
+     Box-shadows sit outside the box, so overflow: hidden doesn't clip them. */
+  margin: 0 4px;
+  box-shadow:
+    0 0 0 2px var(--color-bone),
+    0 0 0 4px var(--color-walnut),
+    0 0 10px 4px rgba(184, 120, 60, 0.45);
+}
+
+.brand__mark img {
+  position: absolute;
+  top: 0;
+  left: -38.1%;
+  width: 142.86%;
+  max-width: none;
+  height: auto;
 }
 
 .nav-links {
@@ -700,12 +743,6 @@ html.has-smooth-scroll #smooth-wrapper {
   align-items: center;
   gap: 22px;
   flex-wrap: wrap;
-}
-
-.cta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
 }
 
 /* ── Pills & chips ─────────────────────────────────────────── */
@@ -1017,9 +1054,10 @@ html.has-smooth-scroll #smooth-wrapper {
 
 /* ── Hero ──────────────────────────────────────────────────── */
 
-/* Padding is fluid rather than fixed at 160/130: the hero now carries a CTA
-   row AND an availability line under a three-line headline, and fixed
-   padding pushed both off-screen on shorter laptops. */
+/* One centred column: headline and sentence, then the shelf, whose plate is
+   the call to action. The top padding is tight because the
+   shelf runs ~440px under the sentence, and on a 900px-tall laptop the whole
+   of it should land on the first screen. */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -1028,7 +1066,7 @@ html.has-smooth-scroll #smooth-wrapper {
   min-height: 100svh;
   display: flex;
   align-items: center;
-  padding: clamp(120px, 13vh, 160px) var(--gutter) clamp(90px, 11vh, 130px);
+  padding: clamp(96px, 11vh, 140px) var(--gutter) clamp(56px, 8vh, 96px);
   overflow: hidden;
 }
 
@@ -1037,127 +1075,328 @@ html.has-smooth-scroll #smooth-wrapper {
   width: 100%;
   max-width: var(--shell);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(32px, 6vw, 88px);
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
-/* Decorative layers — all non-interactive. */
-.hero__grain,
-.hero__wash {
-  pointer-events: none;
-}
-
+/* Paper grain — the wall the shelf hangs on. Non-interactive. */
 .hero__grain {
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
   opacity: 0.05;
   mix-blend-mode: multiply;
 }
 
-/* Static warm bloom anchored to the top-left of the hero. */
-.hero__wash {
-  position: absolute;
-  top: -10%;
-  left: -5%;
-  width: 60%;
-  height: 70%;
-  background: radial-gradient(closest-side,
-      rgba(176, 141, 87, 0.12),
-      var(--brass-a00));
+/* Where the headline breaks on narrow screens: after "Your idea,", never
+   inside the second phrase. */
+.hero__nowrap {
+  white-space: nowrap;
 }
 
-/* The single subheading paragraph; the gap to the CTA row lives here. */
+/* Headline and sentence as one block. */
+.hero__head {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+/* The single subheading paragraph — one line on desktop, like a subtitle. */
 .hero__body {
   font-size: var(--text-lead);
   line-height: 1.55;
   color: var(--color-graphite);
-  max-width: 30em;
-  margin: 0 0 36px;
+  max-width: 36em;
+  margin: 0;
 }
 
-/* Availability line under the hero CTAs. Deliberately quiet: it is a
-   scarcity signal, and shouting it undercuts the rest of the page's tone.
-   Text comes from data.js → availability. */
-.hero__availability {
-  font-size: 14.5px;
-  color: var(--color-stone);
-  margin: 24px 0 0;
-}
+/* ── Hero shelf ──
 
-.hero__portrait-wrap {
-  position: relative;
-}
+   Two tiers of books on a wall shelf. Each tier is books + board, and the
+   tier as a whole casts the shadow: drop-shadow follows the silhouette of
+   everything inside it, so the ragged tops of the books, the chips and the
+   plant all throw one continuous shadow down-left onto the wall, the way
+   a single light source would. Per-book shadows can't do this — each
+   later book would paint its shadow over its left-hand neighbour.
 
-/* The portrait is a photo clipped to an organic blob whose outline undulates
-   and ripples away from the cursor — setupPortrait() in site.js drives it.
-
-   Square by construction: the blob path lives in a 0–100 viewBox and is
-   near-radial, so a non-square box would stretch the lobes into ovals. The
-   photo inside keeps its own aspect via preserveAspectRatio="slice". */
-.portrait-blob {
-  position: relative;
-  aspect-ratio: 1;
-  max-width: 460px;
-  margin-inline: auto;
-  /* The drop shadow has to follow the blob's silhouette, not a bounding box —
-     a box-shadow here would paint a square halo around a round shape. */
-  filter: drop-shadow(0 30px 55px rgba(74, 54, 40, 0.28));
-}
-
-.portrait-blob__svg {
-  display: block;
+   --shelf-h is the height of a 1.0 book; every book height and the plant
+   are fractions of it, so the whole shelf rescales from this one value. */
+.shelf {
+  /* Bounded by viewport height as well as width, like --text-hero: on a
+     900px-tall laptop that keeps both tiers on the first screen. */
+  --shelf-h: clamp(88px, min(9.4vw, 15vh), 136px);
   width: 100%;
-  height: 100%;
-  overflow: visible;
+  max-width: 1000px;
+  margin-top: clamp(24px, 4vh, 48px);
+  text-align: left;
+  /* On the whole shelf, not per tier: the upper tier's shadow falls across
+     the lower one, and two filters would stack where they overlap. */
+  filter: url(#shelf-shadow);
 }
 
-/* Clay backstop while the photo decodes, matching the old mount's inner. */
-.portrait-blob__image {
-  background: var(--color-clay);
+.shelf__tier {
+  position: relative;
+  /* Headroom for the chips above the tallest books. */
+  padding-top: 44px;
 }
 
-/* Brass rim on the same path as the clip, so it wobbles in lockstep.
-   vector-effect keeps the hairline at 1px however the SVG is scaled. */
-.portrait-blob__rim {
-  fill: none;
-  stroke: var(--brass-a55);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-}
-
-/* Floating stat card at the blob's lower-left.
-
-   Pulled inward rather than hung off a corner: the blob has no corner to
-   overlap, and its widest point at that height is roughly 8% of the box in
-   from the edge. Sitting flush at 0 would leave the card floating in the gap
-   beside the curve instead of reading as attached to it. */
-.portrait-badge {
+/* The filter's definitions: in the DOM for url() to find, never seen. */
+.shelf-shadow-defs {
   position: absolute;
-  bottom: 6%;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.shelf-shadow__long {
+  flood-color: var(--shelf-shadow);
+}
+
+.shelf__books {
+  display: flex;
+  align-items: flex-end;
+  height: var(--shelf-h);
+  /* The board overhangs the books at both ends. */
+  padding: 0 clamp(14px, 2.6vw, 30px);
+}
+
+.shelf__board {
+  position: relative;
+  height: 14px;
+  background: var(--shelf-wood);
+  border-top: 4px solid var(--shelf-wood-top);
+  border-radius: 2px;
+}
+
+/* ── Books ── */
+
+.book {
+  position: relative;
+  display: block;
+  /* Basis 0 + a grow weight: the row fills the tier exactly at any width,
+     and each book keeps its proportion of it. */
+  flex: var(--w) 1 0;
+  min-width: 0;
+  height: calc(var(--shelf-h) * var(--h));
+  background: var(--c);
+  border-radius: 2px 2px 0 0;
+}
+
+/* The shaded right-hand third of the spine, so each book reads as rounded
+   rather than as a flat bar of colour. */
+.book::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 24%;
+  background: rgba(33, 30, 27, 0.1);
+  border-top-right-radius: inherit;
+}
+
+/* Bands across the spine — one, or a pair framing the title area. */
+.book--band::before,
+.book--bands::before {
+  content: '';
+  position: absolute;
   left: 0;
-  background: var(--color-bone);
-  border-radius: var(--radius-lg);
-  padding: 14px 18px;
-  box-shadow: var(--shadow-raised);
+  right: 0;
+  top: 13%;
 }
 
-.portrait-badge__value {
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-heading);
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-  color: var(--color-ink);
+.book--band::before {
+  height: 7%;
+  background: var(--b);
 }
 
-.portrait-badge__label {
-  font-size: 13.5px;
+.book--bands::before {
+  height: 24%;
+  border-top: 5px solid var(--b);
+  border-bottom: 5px solid var(--b);
+}
+
+/* Leaning on its left-hand neighbour, resting on its bottom-left corner.
+   The margin is the room the tilt needs: height × sin(8°). */
+.book--lean {
+  transform: rotate(-8deg);
+  transform-origin: bottom left;
+  margin-left: calc(var(--shelf-h) * var(--h) * 0.14);
+}
+
+/* A short stack lying flat, like the one on the reference's lower shelf. */
+.book-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  margin: 0 6px;
+}
+
+/* The potted plant standing on top of the stack. The white bowl all but
+   vanishes into the wall, so it gets a tighter, darker shadow of its own on
+   top of the tier's, falling the same way (down-left). */
+.shelf__plant {
+  display: block;
+  filter:
+    drop-shadow(-3px 3px 3px rgba(60, 40, 25, 0.14)) drop-shadow(-0.5px 0.5px 0.5px rgba(60, 40, 25, 0.12));
+  width: calc(var(--shelf-h) * 0.68);
+  height: calc(var(--shelf-h) * 0.782);
+}
+
+.book--flat {
+  flex: none;
+  width: calc(var(--shelf-h) * var(--fw));
+  height: calc(var(--shelf-h) * 0.12);
+  border-radius: 2px;
+}
+
+.book--flat::after {
+  top: auto;
+  left: 0;
+  width: auto;
+  height: 30%;
+  border-radius: 0;
+}
+
+/* The empty slot on the lower shelf, kept for the visitor's project. Its
+   title runs top to bottom, the way English spines read. Hovering the plate
+   on the shelf's edge drops a book into it. */
+.book--yours {
+  background: transparent;
+  border: 1.5px dashed var(--color-ash);
+  border-bottom: 0;
+  transition:
+    background-color var(--duration-base) ease,
+    border-color var(--duration-base) ease;
+}
+
+.book--yours::after {
+  content: none;
+}
+
+.book__yours {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.04em;
   color: var(--color-stone);
-  margin-top: 6px;
+  transition: color var(--duration-base) ease;
+}
+
+.shelf:has(.shelf__plate:hover, .shelf__plate:focus-visible) .book--yours {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+.shelf:has(.shelf__plate:hover, .shelf__plate:focus-visible) .book__yours {
+  color: var(--color-bone);
+}
+
+/* ── Project books: the six links ── */
+
+.book--project {
+  cursor: pointer;
+  transition: transform var(--duration-base) var(--ease-out-soft);
+}
+
+/* Pulled half out of the shelf on hover — the chip rides up with it. */
+.book--project:hover,
+.book--project:focus-visible {
+  transform: translateY(-10px);
+}
+
+.book--project:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* The floating label above each project book. Lives inside the link, so
+   the chip is part of the click target and the link's accessible name. */
+.book__chip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 7px 12px;
+  border-radius: var(--radius-md);
+  background: var(--color-bone);
+  color: var(--color-ink-soft);
+  font-size: 14px;
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  box-shadow: 0 1px 2px rgba(34, 26, 18, 0.08), 0 6px 16px -8px rgba(34, 26, 18, 0.3);
+  /* Not quite opaque, so it casts no long shadow — see #shelf-shadow. */
+  opacity: 0.98;
+  transition:
+    background-color var(--duration-base) ease,
+    color var(--duration-base) ease;
+}
+
+.book--project:hover .book__chip,
+.book--project:focus-visible .book__chip {
+  background: var(--color-ink);
+  color: var(--color-bone);
+}
+
+/* Library plate on the lower shelf's front edge — the call to action, down
+   to Contact. Larger than a library plate would be, and hanging below the
+   board, so it reads as the page's one button. Turns ink on hover, like the
+   chips. */
+.shelf__plate {
+  position: absolute;
+  top: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 9px 20px 10px;
+  border-radius: 4px;
+  background: var(--color-brass-light);
+  color: var(--color-walnut-deep);
+  font-size: 16px;
+  font-weight: var(--weight-semibold);
+  line-height: 1.2;
+  box-shadow: 0 6px 14px -6px var(--shelf-shadow);
+  /* Casts no long shadow, like the chips. */
+  opacity: 0.98;
+  transition:
+    background-color var(--duration-base) ease,
+    color var(--duration-base) ease;
+}
+
+.shelf__plate:hover,
+.shelf__plate:focus-visible {
+  background: var(--color-ink);
+  color: var(--color-bone);
+}
+
+.shelf__plate:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Inline-block, or the hover nudge below has nothing to move: the arrow
+   sits in running text here, not in a flex row as it does in .btn. */
+.shelf__plate .btn__arrow {
+  display: inline-block;
+}
+
+.shelf__plate:hover .btn__arrow,
+.shelf__plate:focus-visible .btn__arrow {
+  transform: translateX(3px);
 }
 
 /* ── About ─────────────────────────────────────────────────── */
@@ -1225,9 +1464,7 @@ html.has-smooth-scroll #smooth-wrapper {
   /* Horizontal: hold the content on the shared shell measure even though the
      surface is full-bleed. Vertical: clear the header so the top line of copy
      is never tucked under it. */
-  padding: calc(var(--header-offset) + clamp(20px, 3vw, 44px))
-    max(var(--gutter), calc(50vw - var(--shell) / 2))
-    clamp(28px, 4vw, 64px);
+  padding: calc(var(--header-offset) + clamp(20px, 3vw, 44px)) max(var(--gutter), calc(50vw - var(--shell) / 2)) clamp(28px, 4vw, 64px);
   /* No border, radius or shadow. These are full-bleed surfaces now, not cards
      on a band: the effect is one colour replacing another edge to edge, and a
      rounded corner or drop shadow announces "panel sliding over panel"
@@ -1783,7 +2020,6 @@ html.has-smooth-scroll #smooth-wrapper {
      unbreakable word (the "realestateverifiedleads.ai" title) widened the
      column past the card and pushed the image and text out the right side. */
   .stack-mobile,
-  .hero__inner,
   .split,
   .project {
     grid-template-columns: minmax(0, 1fr);
@@ -1955,19 +2191,42 @@ html.has-smooth-scroll #smooth-wrapper {
     max-width: none;
   }
 
-  /* The blob is square, so at full column width it eats far more vertical
-     space on a phone than the old 4:5 frame did — enough to push the CTAs
-     under the fold. Cap it and pull the badge in with it. */
-  .portrait-blob {
-    max-width: 300px;
+  /* Phone shelf: half the scenery books go, so the ones left still read as
+     books rather than slivers, and the project spines stay thumb-wide. */
+  .shelf {
+    --shelf-h: 92px;
+    filter: url(#shelf-shadow-sm);
   }
 
-  .portrait-badge {
-    padding: 11px 14px;
+  .book--wide {
+    display: none;
   }
 
-  .portrait-badge__value {
-    font-size: 25px;
+  .shelf__tier {
+    /* Extra headroom for the lifted chip below. */
+    padding-top: 92px;
+  }
+
+  .book__chip {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  /* Three chips don't fit side by side at this width, so the middle one on
+     each tier rises to a second row, tied to its book by a short stem. */
+  .book--lift .book__chip {
+    bottom: calc(100% + 50px);
+  }
+
+  .book--lift .book__chip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 2px;
+    height: 46px;
+    margin-left: -1px;
+    background: var(--color-ash);
   }
 }
 

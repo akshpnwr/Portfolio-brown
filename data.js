@@ -18,7 +18,10 @@
   'use strict';
 
   /* ── Availability ────────────────────────────────────────────────────────
-     Shown next to the hero CTAs. Change MONTH when the slot moves; set
+     NOT ON THE PAGE right now: the hero call to action is the action
+     alone ("Tell me about yours"), and no other element carries
+     [data-availability]. Kept so the line can come back without rewriting
+     the three states. Change MONTH when the slot moves; set
      `taking` to false to swap the line to the unavailable variant. */
   var availability = {
     taking: true,
@@ -37,9 +40,10 @@
   };
 
   /* ── Shipped-work count ──────────────────────────────────────────────────
-     ONE number, rendered in two places: the badge over the hero portrait and
-     the first cell of the About stat row. They used to be set separately and
-     drifted apart, which reads as inflation to anyone who notices.
+     The first cell of the About stat row. It used to be shown on the hero
+     bookshelf's plate too, set separately, and the two drifted apart, which
+     reads as inflation to anyone who notices — so keep it one constant if it
+     goes back anywhere else.
 
      "7+" because seven is what the site SHOWS, not what exists: the five
      case studies plus two cut from the grid for positioning reasons (Baluni
@@ -55,21 +59,12 @@
      of shipped things. */
   var shippedCount = '7+';
 
-  var heroStat = {
-    value: shippedCount,
-    // Kept short: the badge is narrow, so anything longer than ~3 words
-    // wraps to three lines.
-    label: 'shipped to production'
-  };
-
   /* ── About stat row ──────────────────────────────────────────────────────
      The three figures that ARE the About section — they carry it, with one
      sentence of framing above rather than the other way round.
 
-     The first shares its value with the hero portrait badge, by
-     construction. That badge is now the hero's only figure: a proof strip
-     repeating all three under the CTAs said the same thing twice on one
-     screen, so it was removed. */
+     The hero carries no figures: a proof strip repeating all three under
+     the CTAs said the same thing twice on one screen, so it was removed. */
   var aboutStats = [
     { value: shippedCount, label: 'products shipped' },
     { value: '3', label: 'SaaS platforms live' },
@@ -241,7 +236,6 @@
 
   global.PortfolioData = {
     availability: availability,
-    heroStat: heroStat,
     aboutStats: aboutStats,
     services: services,
     metrics: metrics,

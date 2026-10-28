@@ -112,7 +112,16 @@
     <header class="site-header" id="siteHeader">
       <div class="site-header__inner">
         <a href="#top" data-target="top" class="brand">
-          <span class="brand__mark"></span>
+          <!-- Decorative: the name sits right beside it. -->
+          <span class="brand__mark">
+            <img
+              src="uploads/akash-avatar.webp"
+              alt=""
+              width="1792"
+              height="2390"
+              decoding="async"
+            />
+          </span>
           Akash Panwar
         </a>
         <nav class="nav-links">
@@ -174,110 +183,192 @@
           <!-- HERO -->
           <section class="hero" id="top">
             <div class="hero__grain" id="heroGrain"></div>
-            <div class="hero__wash"></div>
 
-            <div class="hero__inner stack-mobile">
-              <div>
-                <!-- The line breaks are hand-placed, not left to wrapping. At
-                     --text-hero a line much longer than ~16 characters
-                     overflows the hero's left column — check any replacement
-                     at 1440px before keeping it. -->
+            <!-- The shelf's long shadow, as in a low sun: the shelf's silhouette
+                 swept down-left by doubling offsets (2+4+8+16+32+… px) so a
+                 handful of primitives cover the whole run, softened a touch,
+                 tinted, and laid under the shelf. Colours live in styles.css.
+                 Only fully opaque pixels cast it: the chips and the plate sit
+                 at opacity .98, so the first step drops them (and the faint
+                 shadows of their own) from the silhouette. -->
+            <svg class="shelf-shadow-defs" width="0" height="0" aria-hidden="true" focusable="false">
+              <filter id="shelf-shadow" x="-20%" y="-10%" width="140%" height="135%" color-interpolation-filters="sRGB">
+                <feComponentTransfer in="SourceAlpha" result="solid"><feFuncA type="linear" slope="100" intercept="-98.5" /></feComponentTransfer>
+                <feOffset in="solid" dx="-2" dy="2" result="o1" />
+                <feMerge result="s1"><feMergeNode in="solid" /><feMergeNode in="o1" /></feMerge>
+                <feOffset in="s1" dx="-4" dy="4" result="o2" />
+                <feMerge result="s2"><feMergeNode in="s1" /><feMergeNode in="o2" /></feMerge>
+                <feOffset in="s2" dx="-8" dy="8" result="o3" />
+                <feMerge result="s3"><feMergeNode in="s2" /><feMergeNode in="o3" /></feMerge>
+                <feOffset in="s3" dx="-16" dy="16" result="o4" />
+                <feMerge result="s4"><feMergeNode in="s3" /><feMergeNode in="o4" /></feMerge>
+                <feOffset in="s4" dx="-32" dy="32" result="o5" />
+                <feMerge result="s5"><feMergeNode in="s4" /><feMergeNode in="o5" /></feMerge>
+                <feOffset in="s5" dx="-12" dy="12" result="o6" />
+                <feMerge result="long"><feMergeNode in="s5" /><feMergeNode in="o6" /></feMerge>
+                <feGaussianBlur in="long" stdDeviation="2.5" result="longSoft" />
+                <feFlood class="shelf-shadow__long" />
+                <feComposite operator="in" in2="longSoft" result="longTint" />
+                <feMerge><feMergeNode in="longTint" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+              <!-- Phone: same sweep, cut short (2+4+8+16+12 = 42px). -->
+              <filter id="shelf-shadow-sm" x="-20%" y="-10%" width="140%" height="130%" color-interpolation-filters="sRGB">
+                <feComponentTransfer in="SourceAlpha" result="solid"><feFuncA type="linear" slope="100" intercept="-98.5" /></feComponentTransfer>
+                <feOffset in="solid" dx="-2" dy="2" result="o1" />
+                <feMerge result="s1"><feMergeNode in="solid" /><feMergeNode in="o1" /></feMerge>
+                <feOffset in="s1" dx="-4" dy="4" result="o2" />
+                <feMerge result="s2"><feMergeNode in="s1" /><feMergeNode in="o2" /></feMerge>
+                <feOffset in="s2" dx="-8" dy="8" result="o3" />
+                <feMerge result="s3"><feMergeNode in="s2" /><feMergeNode in="o3" /></feMerge>
+                <feOffset in="s3" dx="-16" dy="16" result="o4" />
+                <feMerge result="s4"><feMergeNode in="s3" /><feMergeNode in="o4" /></feMerge>
+                <feOffset in="s4" dx="-12" dy="12" result="o5" />
+                <feMerge result="long"><feMergeNode in="s4" /><feMergeNode in="o5" /></feMerge>
+                <feGaussianBlur in="long" stdDeviation="2" result="longSoft" />
+                <feFlood class="shelf-shadow__long" />
+                <feComposite operator="in" in2="longSoft" result="longTint" />
+                <feMerge><feMergeNode in="longTint" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+            </svg>
+
+            <div class="hero__inner">
+              <!-- A one-line title over the shelf on desktop. Narrower
+                   screens break it after "Your idea," (the nowrap span), and
+                   --text-hero's floor is sized so the second phrase still
+                   fits one 320px phone line; check any replacement there.
+                   The sentence under it is one line on desktop too — the
+                   headline already says "build it and ship it", so it only
+                   says who. -->
+              <div class="hero__head">
                 <h1 class="display display--hero" data-reveal>
-                  Your idea,<br />live in<br />production.
+                  Your idea, <span class="hero__nowrap">live in production.</span>
                 </h1>
                 <p class="hero__body" data-reveal>
-                  I'm Akash Panwar, a full-stack developer. Founders and small
-                  teams hire me to build their product and get it live.
-                </p>
-
-                <div class="cta-row" data-reveal>
-                  <a
-                    href="#contact"
-                    data-target="contact"
-                    class="btn btn--primary"
-                    data-track="hero-cta"
-                  >
-                    Tell me about your project
-                    <span class="btn__arrow">→</span>
-                  </a>
-                  <a href="#work" data-target="work" class="btn btn--ghost">
-                    See what I've shipped →
-                  </a>
-                </div>
-
-                <!-- Availability copy comes from data.js → availability.
-                   The inline text is the fallback if that file fails to load. -->
-                <p class="hero__availability" data-reveal data-availability>
-                  Taking on a new project this month.
+                  I'm Akash Panwar, a full-stack developer for founders and
+                  small teams.
                 </p>
               </div>
 
-              <div class="hero__portrait-wrap" data-reveal>
-                <!-- The blob is an SVG clip path, not a CSS shape: setupPortrait()
-                   in site.js rewrites the path's `d` every frame so the outline
-                   undulates and ripples away from the cursor. Without JS (or
-                   under reduced motion) the committed `d` below stands on its
-                   own as a static organic silhouette — it is a real shape, not
-                   a placeholder circle, so nothing looks broken. -->
-                <div class="portrait-blob" id="heroPortrait">
-                  <!-- The portrait is content, not decoration, so the SVG is
-                     labelled rather than aria-hidden — it replaces an <img>
-                     that carried the same name. role="img" collapses the
-                     shapes inside into that one label. -->
-                  <svg
-                    class="portrait-blob__svg"
-                    viewBox="0 0 100 100"
-                    preserveAspectRatio="xMidYMid meet"
-                    role="img"
-                    aria-label="Akash Panwar"
-                  >
-                    <defs>
-                      <!-- userSpaceOnUse against the 0–100 viewBox, so the path
-                         data is shared verbatim with the outline stroke. -->
-                      <clipPath
-                        id="portraitClip"
-                        clipPathUnits="userSpaceOnUse"
-                      >
-                        <path
-                          data-blob-path
-                          d="M50.00 4.00C57.67 3.24,67.67 4.07,74.31 7.90C80.94 11.74,86.67 19.99,89.83 27.00C92.98 34.02,93.20 42.31,93.24 50.00C93.28 57.69,93.37 66.38,90.06 73.13C86.75 79.88,80.06 86.83,73.38 90.50C66.71 94.17,57.71 95.30,50.00 95.15C42.29 95.00,33.88 93.24,27.13 89.61C20.38 85.99,13.68 79.99,9.49 73.39C5.30 66.79,1.88 57.72,2.01 50.00C2.14 42.28,5.87 33.31,10.26 27.05C14.64 20.79,21.69 16.28,28.31 12.44C34.94 8.60,42.33 4.76,50.00 4.00Z"
-                        />
-                      </clipPath>
-                    </defs>
-                    <!-- Inset past the viewBox on purpose. A ripple can swing
-                       the clip path out to ~52 units from centre, beyond the
-                       viewBox's 50; a photo bounded at 0/100 would clip flat
-                       against its own rect exactly where the blob bulges
-                       furthest. This rect spans -6 to 106, and the blob's
-                       worst case is -2.1 to 99 — margin on every side.
-                       Keep it ahead of RIPPLE_MAX in site.js. -->
-                    <image
-                      class="portrait-blob__image"
-                      href="uploads/akash-avatar.webp"
-                      x="-6"
-                      y="-6"
-                      width="112"
-                      height="112"
-                      preserveAspectRatio="xMidYMin slice"
-                      clip-path="url(#portraitClip)"
-                    />
-                    <!-- Brass rim, riding the same path so it wobbles with it. -->
-                    <path
-                      class="portrait-blob__rim"
-                      data-blob-path
-                      d="M50.00 4.00C57.67 3.24,67.67 4.07,74.31 7.90C80.94 11.74,86.67 19.99,89.83 27.00C92.98 34.02,93.20 42.31,93.24 50.00C93.28 57.69,93.37 66.38,90.06 73.13C86.75 79.88,80.06 86.83,73.38 90.50C66.71 94.17,57.71 95.30,50.00 95.15C42.29 95.00,33.88 93.24,27.13 89.61C20.38 85.99,13.68 79.99,9.49 73.39C5.30 66.79,1.88 57.72,2.01 50.00C2.14 42.28,5.87 33.31,10.26 27.05C14.64 20.79,21.69 16.28,28.31 12.44C34.94 8.60,42.33 4.76,50.00 4.00Z"
-                    />
-                  </svg>
+              <!-- The shelf: every case study in Work is a book on it, and
+                   clicking one scrolls to that project. The SaaS platforms
+                   sit on the top shelf, the storefronts underneath, in the
+                   same order as the Work section.
+
+                   Books are drawn in HTML, not an image, so the six project
+                   spines can be real links. The unlabelled books are scenery:
+                   empty spans, nothing for a screen reader to announce.
+
+                   Per book: --w is its share of the shelf width (a flex
+                   weight, so the row always fills exactly), --h its height
+                   as a fraction of --shelf-h, --c the spine and --b the band
+                   colour. `book--wide` books are dropped on phones so the
+                   rest stay wide enough to read as books. animations.js
+                   (shelf()) claims this block and drops the books in. -->
+              <nav class="shelf" aria-label="Shipped work" data-shelf data-reveal>
+                <div class="shelf__tier">
+                  <div class="shelf__books">
+                    <span class="book" style="--w:24;--h:.78;--c:var(--spine-terracotta)"></span>
+                    <span class="book book--band" style="--w:30;--h:.9;--c:var(--spine-ochre);--b:var(--spine-slate)"></span>
+                    <span class="book book--wide" style="--w:22;--h:.84;--c:var(--spine-sand)"></span>
+                    <span class="book book--wide" style="--w:26;--h:.72;--c:var(--spine-slate)"></span>
+                    <span class="book" style="--w:24;--h:.88;--c:var(--spine-sand)"></span>
+                    <a class="book book--project book--bands" href="#project-talentgpt" data-target="project-talentgpt" data-track="hero-shelf" data-track-label="TalentGPT" style="--w:40;--h:1;--c:var(--spine-teal);--b:var(--spine-sand)"><span class="book__chip">TalentGPT</span></a>
+                    <span class="book" style="--w:22;--h:.82;--c:var(--spine-terracotta)"></span>
+                    <span class="book book--wide book--bands" style="--w:28;--h:.94;--c:var(--spine-ochre);--b:var(--spine-terracotta)"></span>
+                    <span class="book book--wide" style="--w:20;--h:.76;--c:var(--spine-walnut)"></span>
+                    <span class="book book--band" style="--w:26;--h:.86;--c:var(--spine-slate);--b:var(--spine-ochre)"></span>
+                    <span class="book" style="--w:24;--h:.8;--c:var(--spine-sand)"></span>
+                    <span class="book book--wide book--lean" style="--w:30;--h:.9;--c:var(--spine-terracotta)"></span>
+                    <span class="book book--wide" style="--w:22;--h:.7;--c:var(--spine-teal)"></span>
+                    <span class="book" style="--w:26;--h:.88;--c:var(--spine-ochre)"></span>
+                    <a class="book book--project book--band book--lift" href="#project-realestateverifiedleads" data-target="project-realestateverifiedleads" data-track="hero-shelf" data-track-label="realestateverifiedleads.ai" style="--w:40;--h:.97;--c:var(--spine-terracotta);--b:var(--spine-sand)"><span class="book__chip">realestateverifiedleads.ai</span></a>
+                    <span class="book" style="--w:24;--h:.84;--c:var(--spine-slate)"></span>
+                    <span class="book book--wide book--band" style="--w:22;--h:.9;--c:var(--spine-sand);--b:var(--spine-teal)"></span>
+                    <span class="book" style="--w:28;--h:.78;--c:var(--spine-teal)"></span>
+                    <span class="book book--wide" style="--w:20;--h:.86;--c:var(--spine-ochre)"></span>
+                    <span class="book" style="--w:26;--h:.74;--c:var(--spine-walnut)"></span>
+                    <span class="book book--wide book--bands" style="--w:24;--h:.92;--c:var(--spine-terracotta);--b:var(--spine-sand)"></span>
+                    <span class="book" style="--w:22;--h:.82;--c:var(--spine-sand)"></span>
+                    <a class="book book--project book--bands" href="#project-ireportify" data-target="project-ireportify" data-track="hero-shelf" data-track-label="iReportify" style="--w:40;--h:.99;--c:var(--spine-slate);--b:var(--spine-ochre)"><span class="book__chip">iReportify</span></a>
+                    <span class="book" style="--w:26;--h:.86;--c:var(--spine-ochre)"></span>
+                    <span class="book book--wide" style="--w:22;--h:.78;--c:var(--spine-terracotta)"></span>
+                    <span class="book book--band" style="--w:28;--h:.9;--c:var(--spine-teal);--b:var(--spine-sand)"></span>
+                    <span class="book book--wide" style="--w:24;--h:.8;--c:var(--spine-sand)"></span>
+                    <span class="book book--wide" style="--w:24;--h:.84;--c:var(--spine-walnut)"></span>
+                  </div>
+                  <div class="shelf__board"></div>
                 </div>
-                <!-- Values come from data.js → heroStat. Never years of
-                   experience here — see the note in that file. -->
-                <div class="portrait-badge">
-                  <div class="portrait-badge__value" data-stat-value>7</div>
-                  <div class="portrait-badge__label" data-stat-label>
-                    shipped to production
+
+                <div class="shelf__tier">
+                  <div class="shelf__books">
+                    <span class="book" style="--w:26;--h:.8;--c:var(--spine-ochre)"></span>
+                    <span class="book book--band" style="--w:22;--h:.88;--c:var(--spine-teal);--b:var(--spine-sand)"></span>
+                    <span class="book book--wide" style="--w:28;--h:.74;--c:var(--spine-terracotta)"></span>
+                    <a class="book book--project book--band" href="#project-jamesaston" data-target="project-jamesaston" data-track="hero-shelf" data-track-label="James Aston" style="--w:40;--h:.98;--c:var(--spine-walnut);--b:var(--spine-sand)"><span class="book__chip">James Aston</span></a>
+                    <span class="book" style="--w:24;--h:.84;--c:var(--spine-sand)"></span>
+                    <span class="book book--wide" style="--w:22;--h:.9;--c:var(--spine-slate)"></span>
+                    <span class="book-stack book--wide">
+                      <!-- A small potted plant on the stack. Scenery. -->
+                      <svg class="shelf__plant" viewBox="0 0 40 46" aria-hidden="true">
+                        <g transform="translate(0 4)">
+                          <!-- Leaf greens are brighter than the spine palette
+                               so the plant reads as living against the books;
+                               each leaf has a pale midrib. -->
+                          <path d="M20 29C12 26 7 17 8 8c8 3 13 11 12 21Z" fill="#6fa04a" />
+                          <path d="M20 29c8-3 13-12 12-21-8 3-13 11-12 21Z" fill="#4e8c3a" />
+                          <path d="M20 29c-4-7-4-17 0-25 4 8 4 18 0 25Z" fill="#3b7a34" />
+                          <g fill="none" stroke="#c9e0a8" stroke-width=".7" stroke-linecap="round" opacity=".7">
+                            <path d="M19 27C14 22 10 15 9 10" />
+                            <path d="M21 27c5-5 9-12 10-17" />
+                            <path d="M20 26V7" />
+                          </g>
+                        </g>
+                        <!-- white bowl: a rounded body under a slightly wider rim -->
+                        <path d="M6 34h28c0 7-6 12-14 12S6 41 6 34Z" fill="#fbfaf7" />
+                        <path d="M23 34h11c0 7-6 12-13 12 2-3 2-7 2-12Z" fill="var(--color-clay)" />
+                        <rect x="5" y="32" width="30" height="3" rx="1.5" fill="#efebe4" />
+                      </svg>
+                      <span class="book book--flat" style="--fw:.74;--c:var(--spine-ochre)"></span>
+                      <span class="book book--flat" style="--fw:.7;--c:var(--spine-terracotta)"></span>
+                    </span>
+                    <span class="book" style="--w:26;--h:.82;--c:var(--spine-terracotta)"></span>
+                    <span class="book book--wide" style="--w:24;--h:.76;--c:var(--spine-ochre)"></span>
+                    <!-- The empty slot: room on the shelf for the visitor's
+                         project. Scenery for screen readers — the plate on
+                         the board is the link — and hovering that plate
+                         fills it in. -->
+                    <span class="book book--yours" style="--w:34;--h:.9" aria-hidden="true"><span class="book__yours">Your project</span></span>
+                    <span class="book" style="--w:22;--h:.86;--c:var(--spine-teal)"></span>
+                    <span class="book book--wide book--bands" style="--w:28;--h:.92;--c:var(--spine-sand);--b:var(--spine-terracotta)"></span>
+                    <a class="book book--project book--bands book--lift" href="#project-freshndew" data-target="project-freshndew" data-track="hero-shelf" data-track-label="FreshńDew" style="--w:40;--h:.96;--c:var(--spine-sage);--b:var(--spine-sand)"><span class="book__chip">FreshńDew</span></a>
+                    <span class="book" style="--w:24;--h:.8;--c:var(--spine-terracotta)"></span>
+                    <span class="book book--wide" style="--w:26;--h:.88;--c:var(--spine-slate)"></span>
+                    <span class="book" style="--w:22;--h:.74;--c:var(--spine-ochre)"></span>
+                    <span class="book book--wide book--band" style="--w:28;--h:.9;--c:var(--spine-walnut);--b:var(--spine-sand)"></span>
+                    <span class="book" style="--w:24;--h:.84;--c:var(--spine-sand)"></span>
+                    <a class="book book--project book--band" href="#project-furnicheer" data-target="project-furnicheer" data-track="hero-shelf" data-track-label="Furnicheer" style="--w:40;--h:.97;--c:var(--spine-ochre);--b:var(--spine-walnut)"><span class="book__chip">Furnicheer</span></a>
+                    <span class="book" style="--w:26;--h:.82;--c:var(--spine-teal)"></span>
+                    <span class="book book--wide" style="--w:22;--h:.88;--c:var(--spine-terracotta)"></span>
+                    <span class="book" style="--w:24;--h:.78;--c:var(--spine-slate)"></span>
+                  </div>
+                  <!-- The call to action, as the brass plate on the lower
+                     shelf's front edge. "Your project" answers the
+                     headline's "Your idea", and hovering it fills the empty
+                     "Your project" slot. animations.js (shelf()) pops it in after the
+                     books. -->
+                  <div class="shelf__board">
+                    <a
+                      class="shelf__plate"
+                      href="#contact"
+                      data-target="contact"
+                      data-track="hero-cta"
+                      data-hero-cta
+                    >
+                      Tell me about your project <span class="btn__arrow">→</span>
+                    </a>
                   </div>
                 </div>
-              </div>
+              </nav>
             </div>
           </section>
 
@@ -305,7 +396,7 @@
                   person accountable for the whole build.
                 </p>
                 <!-- Values come from data.js → aboutStats. The first figure
-                   shares its source with the hero portrait badge, so the two
+                   shares its source with the plate on the hero shelf, so the two
                    cannot disagree. Inline text is the fallback. -->
                 <div class="stat-row stat-row--lead" data-about-stats>
                   <div>
@@ -361,6 +452,7 @@
                 <article
                   class="project"
                   data-project
+                  id="project-talentgpt"
                   data-project-id="talentgpt"
                   data-reveal
                 >
@@ -454,6 +546,7 @@
                 <article
                   class="project project--reversed"
                   data-project
+                  id="project-realestateverifiedleads"
                   data-project-id="realestateverifiedleads"
                   data-reveal
                 >
@@ -543,6 +636,7 @@
                 <article
                   class="project"
                   data-project
+                  id="project-ireportify"
                   data-project-id="ireportify"
                   data-reveal
                 >
@@ -634,6 +728,7 @@
                 <article
                   class="project project--reversed"
                   data-project
+                  id="project-jamesaston"
                   data-project-id="jamesaston"
                   data-reveal
                 >
@@ -722,6 +817,7 @@
                 <article
                   class="project"
                   data-project
+                  id="project-freshndew"
                   data-project-id="freshndew"
                   data-reveal
                 >
@@ -811,6 +907,7 @@
                 <article
                   class="project project--reversed"
                   data-project
+                  id="project-furnicheer"
                   data-project-id="furnicheer"
                   data-reveal
                 >
